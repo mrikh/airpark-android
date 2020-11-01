@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Airpark</string>
+    <string name="airpark_title">Airpark</string>
+    <string name="login_heading">Login</string>
+    <string name="login_button">LOGIN</string>
+    <string name="dont_have_account">Dont have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or">or</string>
+    <string name="explore">Explore</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+</resources>
