@@ -1,9 +1,12 @@
-package com.example.airpark;
+package com.example.airpark.activities.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.airpark.R;
+import com.example.airpark.activities.Prelogin.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 

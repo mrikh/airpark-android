@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Airpark</string>
     <string name="airpark_title">Airpark</string>
+
+    <!--  Errors  -->
+    <string name="invalid_email">The email address is incorrect</string>
+    <string name="password_short">Your password needs to be at least 8 characters</string>
+
+    <!--  Login  -->
     <string name="login_heading">Login</string>
     <string name="login_button">LOGIN</string>
     <string name="dont_have_account">Dont have an account?</string>
@@ -9,4 +15,7 @@
     <string name="explore">Explore</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+
+    <!--  Sign Up  -->
+
 </resources>
