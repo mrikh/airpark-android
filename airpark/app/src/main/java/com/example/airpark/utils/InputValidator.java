@@ -1,5 +1,7 @@
 package com.example.airpark.utils;
 
+import android.content.res.Resources;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,18 +29,15 @@ public class InputValidator {
         return true;
     }
 
-    /*
-    public String isValidName(String s){
+    public boolean isValidName(String s){
 
         String stripped = s.trim();
 
         if (stripped.isEmpty()){
-            return ""
+            return false;
         }
 
-        //return null means no error message
-        return null;
+        return true;
     }
-    */
 }
 

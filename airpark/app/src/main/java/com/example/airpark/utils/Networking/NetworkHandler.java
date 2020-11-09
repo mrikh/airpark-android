@@ -23,6 +23,20 @@ public class NetworkHandler {
         return shared;
     }
 
+    public void signUp(String email, String password, String name, NetworkingClosure completion){
+
+        try {
+            JSONObject dataJson = new JSONObject();
+            dataJson.put("email", email);
+            dataJson.put("password", password);
+            dataJson.put("name", name);
+            performPostRequest(EndPoints.signUp, dataJson, completion);
+        }catch (Exception e){
+            completion.completion(null, e.getMessage());
+            return;
+        }
+    }
+
     public void loginUser(String email, String password, NetworkingClosure completion){
 
         try {

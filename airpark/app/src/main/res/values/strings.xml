@@ -6,17 +6,21 @@
     <string name="invalid_email">The email address is incorrect</string>
     <string name="password_short">Your password needs to be at least 8 characters</string>
     <string name="something_wrong">Something went wrong</string>
+    <string name="name_error">Your name seems incorrect</string>
 
     <!--  Login  -->
     <string name="login_heading">Login</string>
     <string name="login_button">LOGIN</string>
     <string name="dont_have_account">Dont have an account?</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="sign_up"><u>Sign Up</u></string>
     <string name="or">or</string>
-    <string name="explore">Explore</string>
+    <string name="explore"><u>Explore</u></string>
     <string name="email">Email</string>
     <string name="password">Password</string>
 
     <!--  Sign Up  -->
-
+    <string name="sign_up_button">Sign Up</string>
+    <string name="name">Name</string>
+    <string name="note">Note:</string>
+    <string name="agree_terms">By signing up you agree to our Terms &amp; Conditions</string>
 </resources>

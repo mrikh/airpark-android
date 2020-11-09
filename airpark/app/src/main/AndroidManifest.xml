@@ -11,6 +11,8 @@
         android:theme="@style/Theme.Airpark">
         <activity android:name=".activities.Prelogin.LoginActivity"
             android:label="Login"></activity>
+        <activity android:name=".activities.Prelogin.SignUpActivity"
+            android:label="Sign Up" android:parentActivityName=".activities.Prelogin.LoginActivity"></activity>
         <activity android:name=".activities.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/signUpBackground"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="312dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/sign_up_button"
+        android:textStyle="bold"
+        app:backgroundTint="@color/primary_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextNameLayout"
+        android:layout_width="371dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:autofillHints="@string/name"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="@string/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-8dp"
+            android:layout_marginLeft="-8dp"
+            android:background="@color/white"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextEmailLayout"
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:autofillHints="email"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="@string/email"
+        app:layout_constraintEnd_toEndOf="@+id/editTextNameLayout"
+        app:layout_constraintStart_toStartOf="@+id/editTextNameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNameLayout">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextPasswordLayout"
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:autofillHints="@string/password"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="@string/password"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEmailLayout"
+        app:layout_constraintStart_toStartOf="@+id/editTextEmailLayout"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/noteSignUpTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"
+        android:onClick="onClick"
+        android:clickable="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:textColor="@color/black"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
