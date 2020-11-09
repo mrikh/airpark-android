@@ -1,4 +1,4 @@
-package com.example.airparkapp;
+package com.example.airpark.models;
 
 public class Airport {
     private String airportName;

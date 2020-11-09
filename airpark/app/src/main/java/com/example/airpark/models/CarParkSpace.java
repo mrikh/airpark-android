@@ -1,3 +1,5 @@
+package com.example.airpark.models;
+
 public interface CarParkSpace {
     public int getSpaceID();
     public int getNoOfSpaces();

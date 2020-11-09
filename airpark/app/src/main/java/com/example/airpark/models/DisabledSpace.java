@@ -1,3 +1,5 @@
+package com.example.airpark.models;
+
 public class DisabledSpace implements CarParkSpace {
 
     private int spaceID, availableSpaces;

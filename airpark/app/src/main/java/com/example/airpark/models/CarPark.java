@@ -1,3 +1,5 @@
+package com.example.airpark.models;
+
 public class CarPark {
 
     private int carparkID;
