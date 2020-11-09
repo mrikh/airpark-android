@@ -2,6 +2,8 @@ package com.example.airpark.activities.Prelogin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.airpark.R;
+import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.ErrorRemoveInterface;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import com.example.airpark.utils.InputValidator;
@@ -69,9 +72,14 @@ public class LoginActivity extends AppCompatActivity{
                     public void completion(JSONObject object, String message) {
                         if (object == null){
                             //this will only happen if api fails
-                            Toast.makeText(getApplicationContext(), (message == null) ? getText(R.string.something_wrong): message, Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, (message == null) ? getText(R.string.something_wrong): message, Toast.LENGTH_LONG).show();
                         }else{
-                            System.out.println(object);
+                            try {
+                                UserModel current = new UserModel(object.getInt("id"), object.getString("name"), object.getString("email"));
+                                UserModel.currentUser = current;
+                            }catch (Exception e){
+                                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+                            }
                         }
                     }
                 });

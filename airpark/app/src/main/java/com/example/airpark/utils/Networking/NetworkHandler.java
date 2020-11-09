@@ -44,7 +44,7 @@ public class NetworkHandler {
                 try {
                     String code = response.get("code").toString();
                     if (code.equalsIgnoreCase("200")){
-                        completion.completion(response, null);
+                        completion.completion(response.getJSONObject("data"), null);
                     }else{
                         completion.completion(null, response.get("message").toString());
                     }
