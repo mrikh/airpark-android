@@ -4,14 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.airpark.R;
-import com.example.airpark.utils.ErrorRemoveInterface;
+import com.example.airpark.utils.HelperInterfaces.ErrorRemoveInterface;
+import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import com.example.airpark.utils.InputValidator;
+import com.example.airpark.utils.Networking.NetworkHandler;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.json.JSONObject;
+
+import java.net.URLEncoder;
 
 //Instead of closure, if we need to, could change it to interface
 public class LoginActivity extends AppCompatActivity{
@@ -44,17 +50,31 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                Editable email = emailField.getText();
-                if (!validator.isValidEmail(email.toString())){
+                String email = emailField.getText().toString().trim();
+                if (!validator.isValidEmail(email)){
                     //error
                     emailField.setError(getString(R.string.invalid_email));
+                    return;
                 }
 
-                Editable password = passwordField.getText();
-                if (!validator.isValidPassword(password.toString())){
+                String password = passwordField.getText().toString().trim();
+                if (!validator.isValidPassword(password)){
                     //error
                     passwordField.setError(getString(R.string.password_short));
+                    return;
                 }
+
+                NetworkHandler.getInstance().loginUser(email, password, getApplicationContext(), new NetworkingClosure() {
+                    @Override
+                    public void completion(JSONObject object, String message) {
+                        if (object == null){
+                            //this will only happen if api fails
+                            Toast.makeText(LoginActivity.this, (message == null) ? getText(R.string.something_wrong):message, Toast.LENGTH_LONG).show();
+                        }else{
+                            System.out.println(object);
+                        }
+                    }
+                });
             }
         });
     }

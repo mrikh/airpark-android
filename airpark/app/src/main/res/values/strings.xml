@@ -5,6 +5,7 @@
     <!--  Errors  -->
     <string name="invalid_email">The email address is incorrect</string>
     <string name="password_short">Your password needs to be at least 8 characters</string>
+    <string name="something_wrong">Something went wrong</string>
 
     <!--  Login  -->
     <string name="login_heading">Login</string>
