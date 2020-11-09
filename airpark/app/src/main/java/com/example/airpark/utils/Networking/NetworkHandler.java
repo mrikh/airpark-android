@@ -2,20 +2,17 @@ package com.example.airpark.utils.Networking;
 
 import android.content.Context;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class NetworkHandler {
 
     private static NetworkHandler shared = null;
     private static String httpUrl = "https://airpark-django.herokuapp.com/api/";
-    private AsyncHttpClient client;
 
     public static NetworkHandler getInstance(){
 
@@ -26,36 +23,27 @@ public class NetworkHandler {
         return shared;
     }
 
-    private NetworkHandler(){
-        client = new AsyncHttpClient();
-        client.addHeader("Content-type", "application/json;charset=utf-8");
-    }
-
-    public void loginUser(String email, String password, Context context, NetworkingClosure completion){
+    public void loginUser(String email, String password, NetworkingClosure completion){
 
         try {
             JSONObject dataJson = new JSONObject();
             dataJson.put("email", email);
             dataJson.put("password", password);
-            performPostRequest(EndPoints.login, dataJson, context, completion);
+            performPostRequest(EndPoints.login, dataJson, completion);
         }catch (Exception e){
             completion.completion(null, e.getMessage());
             return;
         }
     }
 
-    private void performPostRequest(String endpoint, JSONObject params, Context context, NetworkingClosure completion){
+    private void performPostRequest(String endpoint, JSONObject params, NetworkingClosure completion){
 
-        StringEntity se = new StringEntity(params.toString(), "UTF-8");
-
-        client.post(context, httpUrl + endpoint, se, "application/json", new JsonHttpResponseHandler() {
+        AndroidNetworking.post(httpUrl + endpoint).addJSONObjectBody(params).build().getAsJSONObject(new JSONObjectRequestListener() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-
+            public void onResponse(JSONObject response) {
                 try {
                     String code = response.get("code").toString();
-                    if (code == "200"){
+                    if (code.equalsIgnoreCase("200")){
                         completion.completion(response, null);
                     }else{
                         completion.completion(null, response.get("message").toString());
@@ -63,22 +51,16 @@ public class NetworkHandler {
                 }catch (Exception e){
                     completion.completion(null, e.getMessage());
                 }
-
-                completion.completion(response, null);
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-
-                if (errorResponse != null){
+            public void onError(ANError anError) {
+                if (anError != null){
                     try {
-                        completion.completion(null, errorResponse.get("detail").toString());
+                        completion.completion(null, anError.getErrorDetail());
                     }catch (Exception e){
                         completion.completion(null, null);
                     }
-                }else if (throwable != null){
-                    completion.completion(null, throwable.getMessage());
                 }else{
                     completion.completion(null, null);
                 }

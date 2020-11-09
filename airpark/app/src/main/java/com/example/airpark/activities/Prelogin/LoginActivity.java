@@ -64,12 +64,12 @@ public class LoginActivity extends AppCompatActivity{
                     return;
                 }
 
-                NetworkHandler.getInstance().loginUser(email, password, getApplicationContext(), new NetworkingClosure() {
+                NetworkHandler.getInstance().loginUser(email, password, new NetworkingClosure() {
                     @Override
                     public void completion(JSONObject object, String message) {
                         if (object == null){
                             //this will only happen if api fails
-                            Toast.makeText(LoginActivity.this, (message == null) ? getText(R.string.something_wrong):message, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), (message == null) ? getText(R.string.something_wrong): message, Toast.LENGTH_LONG).show();
                         }else{
                             System.out.println(object);
                         }
