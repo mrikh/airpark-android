@@ -52,6 +52,18 @@ public class NetworkHandler {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+
+                try {
+                    String code = response.get("code").toString();
+                    if (code == "200"){
+                        completion.completion(response, null);
+                    }else{
+                        completion.completion(null, response.get("message").toString());
+                    }
+                }catch (Exception e){
+                    completion.completion(null, e.getMessage());
+                }
+
                 completion.completion(response, null);
             }
 
