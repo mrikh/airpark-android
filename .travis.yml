@@ -23,7 +23,5 @@ android:
     - sys-img-x86-android-26
     - sys-img-armeabi-v7a-android-17
     
-addons:
-  apt:
-    packages:
-      ant
+before_script: 
+  - cd airpark
