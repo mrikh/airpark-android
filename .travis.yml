@@ -23,5 +23,8 @@ android:
     - sys-img-x86-android-30
     - sys-img-armeabi-v7a-android-17
     
+before_install:
+  - yes | sdkmanager "platforms;android-28"
+    
 before_script: 
   - cd airpark
