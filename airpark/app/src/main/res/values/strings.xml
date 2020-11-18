@@ -6,11 +6,16 @@
     <string name="invalid_email">The email address is incorrect</string>
     <string name="password_short">Your password needs to be at least 8 characters</string>
     <string name="something_wrong">Something went wrong</string>
+    <string name="invalid_airport">Invalid Airport</string>
+    <string name="invalid_date">Invalid Date</string>
+    <string name="invalid_entry_date">Entry date after Exit date</string>
+    <string name="invalid_exit_date">Exit date before Entry date</string>
+    <string name="invalid_time">Invalid Time</string>
 
     <!--  Login  -->
     <string name="login_heading">Login</string>
     <string name="login_button">LOGIN</string>
-    <string name="dont_have_account">Dont have an account?</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="or">or</string>
     <string name="explore">Explore</string>
@@ -18,5 +23,12 @@
     <string name="password">Password</string>
 
     <!--  Sign Up  -->
+
+    <!-- Search/Landing -->
+    <string name="airports">Select Airport</string>
+    <string name="entry_date">Entry Date</string>
+    <string name="exit_date">Exit Date</string>
+    <string name="entry_time">Entry Time</string>
+    <string name="exit_time">Exit Time</string>
 
 </resources>
