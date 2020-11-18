@@ -122,4 +122,8 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void onClick(View v){
+
+    }
 }
