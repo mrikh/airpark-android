@@ -30,6 +30,7 @@ android {
     testOptions {
         unitTests.includeAndroidResources = true
         unitTests.all {
+            useJUnitPlatform()
             reports {
                 junitXml.enabled = true
                 html.enabled = false
@@ -37,13 +38,6 @@ android {
         }
     }
 }
-
-//test {
-//    testLogging {
-//        events "passed", "skipped", "failed"
-//        exceptionFormat "full"
-//    }
-//}
 
 dependencies {
 
