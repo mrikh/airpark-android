@@ -1,0 +1,6 @@
+<string-array android:name="navigation_drawer_items_array"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>Connect</item>
+    <item>Fixtures</item>
+    <item>Table</item>
+</string-array>
