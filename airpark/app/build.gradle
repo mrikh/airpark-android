@@ -26,15 +26,24 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-}
 
-test {
-    testLogging {
-        events "passed", "skipped", "failed"
-        exceptionFormat "full"
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.all {
+            reports {
+                junitXml.enabled = true
+                html.enabled = false
+            }
+        }
     }
 }
 
+//test {
+//    testLogging {
+//        events "passed", "skipped", "failed"
+//        exceptionFormat "full"
+//    }
+//}
 
 dependencies {
 
