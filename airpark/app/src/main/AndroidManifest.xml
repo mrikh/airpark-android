@@ -18,7 +18,7 @@
             android:label="AirPark">
         </activity>
         <activity
-            android:name=".activities.SelectCarParkActivity"
+            android:name=".activities.SelectCarparkActivity"
             android:label="Select Car Park">
         </activity>
         <activity android:name=".activities.Main.MainActivity">
