@@ -23,11 +23,7 @@ import com.example.airpark.utils.Networking.NetworkHandler;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.net.URLEncoder;
-
-//Instead of closure, if we need to, could change it to interface
 public class LoginActivity extends AppCompatActivity{
 
     private InputValidator validator;
@@ -115,6 +111,10 @@ public class LoginActivity extends AppCompatActivity{
                 });
             }
         });
+    }
+
+    public void onClick(View v){
+
     }
 
     private void navigateToLanding(){
