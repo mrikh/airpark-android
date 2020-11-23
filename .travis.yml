@@ -24,7 +24,8 @@ android:
 #     - sys-img-x86-android-25
 #     - sys-img-armeabi-v7a-google_apis-25
     
-    
+notifications:
+  email: false
     
 before_install:
   - yes | sdkmanager "platforms;android-30"
