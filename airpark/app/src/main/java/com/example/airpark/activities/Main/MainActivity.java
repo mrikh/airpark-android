@@ -24,16 +24,16 @@ public class MainActivity extends AppCompatActivity {
         AndroidNetworking.initialize(getApplicationContext());
         Intent myIntent;
 
-        try{
-            JSONObject object = Utilities.getInstance().fetchJsonObject(getApplicationContext(), "user");
-            UserModel current = new UserModel(object.getInt("id"), object.getString("name"), object.getString("email"));
-            UserModel.currentUser = current;
-            myIntent = new Intent(MainActivity.this, SearchActivity.class);
-        }catch (Exception e){
+//        try{
+//            JSONObject object = Utilities.getInstance().fetchJsonObject(getApplicationContext(), "user");
+//            UserModel current = new UserModel(object.getInt("id"), object.getString("name"), object.getString("email"));
+//            UserModel.currentUser = current;
+//            myIntent = new Intent(MainActivity.this, SearchActivity.class);
+//        }catch (Exception e){
 
             //no user model soo go to login
             myIntent = new Intent(MainActivity.this, LoginActivity.class);
-        }
+//        }
 
         myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(myIntent);

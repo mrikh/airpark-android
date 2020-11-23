@@ -9,6 +9,9 @@ import com.example.airpark.utils.HelperInterfaces.ErrorRemoveInterface;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import com.example.airpark.utils.InputValidator;
 import com.example.airpark.utils.Networking.NetworkHandler;
+import com.example.airpark.utils.Utilities;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -23,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,6 +88,11 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress);
+        Sprite doubleBounce = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
+        progressBar.setVisibility(View.INVISIBLE);
+
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -110,9 +119,11 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
+                progressBar.setVisibility(View.VISIBLE);
                 NetworkHandler.getInstance().signUp(email, password, name, new NetworkingClosure() {
                     @Override
                     public void completion(JSONObject object, String message) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         if (object == null){
                             //this will only happen if api fails
                             Toast.makeText(SignUpActivity.this, (message == null) ? getText(R.string.something_wrong): message, Toast.LENGTH_LONG).show();
@@ -120,6 +131,7 @@ public class SignUpActivity extends AppCompatActivity {
                             try {
                                 UserModel current = new UserModel(object.getInt("id"), object.getString("name"), object.getString("email"));
                                 UserModel.currentUser = current;
+                                Utilities.getInstance().saveJsonObject(object, getApplicationContext());
                                 //go to landing
                                 Intent myIntent = new Intent(SignUpActivity.this, SearchActivity.class);
                                 myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
