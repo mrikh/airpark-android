@@ -7,6 +7,11 @@
     <string name="password_short">Your password needs to be at least 8 characters</string>
     <string name="something_wrong">Something went wrong</string>
     <string name="name_error">Your name seems incorrect</string>
+    <string name="invalid_airport">Invalid Airport</string>
+    <string name="invalid_date">Invalid Date</string>
+    <string name="invalid_entry_date">Entry date after Exit date</string>
+    <string name="invalid_exit_date">Exit date before Entry date</string>
+    <string name="invalid_time">Invalid Time</string>
 
     <!--  Login  -->
     <string name="login_heading">Login</string>
@@ -23,4 +28,13 @@
     <string name="name">Name</string>
     <string name="note">Note:</string>
     <string name="agree_terms">By signing up you agree to our Terms &amp; Conditions</string>
+
+    <!-- Search/Landing -->
+    <string name="airports">Select Airport</string>
+    <string name="entry_date">Entry Date</string>
+    <string name="exit_date">Exit Date</string>
+    <string name="entry_time">Entry Time</string>
+    <string name="exit_time">Exit Time</string>
+
+>>>>>>> sinead_branch
 </resources>

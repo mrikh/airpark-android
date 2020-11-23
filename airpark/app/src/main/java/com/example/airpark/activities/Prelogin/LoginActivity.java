@@ -2,11 +2,10 @@ package com.example.airpark.activities.Prelogin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
+import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.Main.MainActivity;
+import com.example.airpark.activities.SearchActivity;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.ErrorRemoveInterface;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
@@ -24,6 +23,7 @@ import com.example.airpark.utils.Networking.NetworkHandler;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.net.URLEncoder;
 
@@ -60,11 +60,19 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+        TextView exploreTextView = findViewById(R.id.exploreTextView);
+        exploreTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToLanding();
+            }
+        });
+
         findViewById(R.id.loginBackground).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 return true;
             }
         });
@@ -98,6 +106,7 @@ public class LoginActivity extends AppCompatActivity{
                             try {
                                 UserModel current = new UserModel(object.getInt("id"), object.getString("name"), object.getString("email"));
                                 UserModel.currentUser = current;
+                                navigateToLanding();
                             }catch (Exception e){
                                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG);
                             }
@@ -106,5 +115,11 @@ public class LoginActivity extends AppCompatActivity{
                 });
             }
         });
+    }
+
+    private void navigateToLanding(){
+        Intent myIntent = new Intent(LoginActivity.this, SearchActivity.class);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(myIntent);
     }
 }

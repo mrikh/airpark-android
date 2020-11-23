@@ -3,6 +3,7 @@ package com.example.airpark.activities.Prelogin;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.airpark.activities.SearchActivity;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.ErrorRemoveInterface;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
@@ -63,7 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 return true;
             }
         });
@@ -75,6 +76,13 @@ public class SignUpActivity extends AppCompatActivity {
         SpannableStringBuilder str = new SpannableStringBuilder(finalString);
         str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, noteString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         note.setText(str);
+
+        note.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new View.OnClickListener(){
@@ -113,6 +121,9 @@ public class SignUpActivity extends AppCompatActivity {
                                 UserModel current = new UserModel(object.getInt("id"), object.getString("name"), object.getString("email"));
                                 UserModel.currentUser = current;
                                 //go to landing
+                                Intent myIntent = new Intent(SignUpActivity.this, SearchActivity.class);
+                                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(myIntent);
                             }catch (Exception e){
                                 Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG);
                             }
@@ -121,9 +132,5 @@ public class SignUpActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    public void onClick(View v){
-
     }
 }
