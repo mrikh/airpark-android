@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/carpark_cardView"
+    android:layout_width="360dp"
+    android:layout_height="240dp"
+    android:layout_margin="23dp"
+    cardView:cardCornerRadius="8dp"
+    cardView:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/card_carparkImage"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            cardView:layout_constraintBottom_toBottomOf="parent"
+            cardView:layout_constraintTop_toTopOf="parent"
+            cardView:layout_constraintVertical_bias="0.0"
+            tools:background="@tools:sample/backgrounds/scenic"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <!--Blue Background-->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/primary_blue"
+            cardView:layout_constraintBottom_toBottomOf="parent"
+            cardView:layout_constraintTop_toBottomOf="@+id/card_carparkImage"
+            cardView:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/card_carparkName"
+            android:layout_width="280dp"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            cardView:layout_constraintBottom_toTopOf="@+id/card_carparkType"
+            cardView:layout_constraintTop_toBottomOf="@+id/card_carparkImage"
+            cardView:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp"
+            tools:text="@tools:sample/lorem"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/card_carparkType"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            cardView:layout_constraintBottom_toBottomOf="parent"
+            cardView:layout_constraintEnd_toEndOf="@+id/textView"
+            cardView:layout_constraintHorizontal_bias="0.0"
+            cardView:layout_constraintStart_toStartOf="@+id/textView"
+            cardView:layout_constraintTop_toBottomOf="@+id/card_carparkName"
+            cardView:layout_constraintVertical_bias="0.0"
+            tools:ignore="MissingConstraints"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/card_carparkPrice"
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            cardView:layout_constraintBottom_toBottomOf="parent"
+            cardView:layout_constraintEnd_toEndOf="@+id/textView"
+            cardView:layout_constraintHorizontal_bias="0.0"
+            cardView:layout_constraintStart_toEndOf="@+id/card_carparkType"
+            cardView:layout_constraintTop_toBottomOf="@+id/card_carparkName"
+            cardView:layout_constraintVertical_bias="0.0"
+            tools:text="@tools:sample/lorem" />
+
+        <ImageView
+            android:id="@+id/card_nextButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="44dp"
+            android:src="@drawable/button_next"
+            cardView:layout_constraintBottom_toBottomOf="parent"
+            cardView:layout_constraintEnd_toEndOf="parent"
+            cardView:layout_constraintHorizontal_bias="0.948"
+            cardView:layout_constraintStart_toStartOf="@+id/textView"
+            cardView:layout_constraintTop_toTopOf="@+id/card_carparkImage"
+            cardView:layout_constraintVertical_bias="0.952" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
