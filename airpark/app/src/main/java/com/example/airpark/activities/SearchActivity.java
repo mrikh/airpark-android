@@ -84,11 +84,6 @@ public class SearchActivity extends AppCompatActivity {
         validator = new InputValidator();
         bindUiItems();
 
-        String entryD = entryDate.getText().toString();
-        String exitD = exitDate.getText().toString();
-        String entryT = entryTime.getText().toString();
-        String exitT = exitTime.getText().toString();
-
         //Get Current Date/Time
         int day = calender.get(Calendar.DAY_OF_MONTH);
         int month = calender.get(Calendar.MONTH);
@@ -129,9 +124,15 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
+
         //Select Search Button & Validate Info
         search.setOnClickListener(v -> {
             if(isValidSearch(airports)) {
+                String entryD = entryDate.getText().toString();
+                String exitD = exitDate.getText().toString();
+                String entryT = entryTime.getText().toString();
+                String exitT = exitTime.getText().toString();
+
                 //Update booking ticket
                 ticket = new BookingTicket(autoText.getText().toString(), entryD, exitD, entryT, exitT, disabilityCheck.isChecked(), motorbikeCheck.isChecked());
                 //Move to Next Screen
