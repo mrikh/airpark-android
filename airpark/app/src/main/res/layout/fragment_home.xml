@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="45sp"
-        android:text="@string/edited_connect"
+        android:text="@string/edited_home"
         android:textStyle="bold"/>
 
     <TextView
@@ -24,7 +25,7 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="31dp"
         android:gravity="center_horizontal"
-        android:text="@string/edited_fragment_connect_xml"
+        android:text="@string/edited_home_connect_xml"
         android:textSize="12sp" />
 
 </RelativeLayout>

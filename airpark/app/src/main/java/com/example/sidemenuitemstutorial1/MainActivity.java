@@ -2,8 +2,6 @@ package com.example.sidemenuitemstutorial1;
 // package com.journaldev.navigationdrawer;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +10,12 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.journaldev.navigationdrawer.BookingsFragment;
+import com.journaldev.navigationdrawer.HomeFragment;
+import com.journaldev.navigationdrawer.LogoutFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     Toolbar toolbar;
-    private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     public android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
 
@@ -27,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTitle = mDrawerTitle = getTitle();
+        CharSequence mDrawerTitle = null;
+        mTitle = mDrawerTitle.set(getTitle()).get();
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -36,16 +40,16 @@ public class MainActivity extends AppCompatActivity {
 
         DataModel[] drawerItem = new DataModel[3];
 
-        drawerItem[0] = new DataModel(R.drawable.connect, "Connect"); // Change to 'Home'
-        drawerItem[1] = new DataModel(R.drawable.fixtures, "Fixtures"); // Change to 'Bookings'
-        drawerItem[2] = new DataModel(R.drawable.table, "Table"); // Change to 'Log Out'
+        drawerItem[0] = new DataModel(R.drawable.fragment_home, "Connect");
+        drawerItem[1] = new DataModel(R.drawable.fragment_bookings, "Bookings");
+        drawerItem[2] = new DataModel(R.drawable.fragment_logout, "Logout");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.list_view_item_row, drawerItem);
         mDrawerList.setAdapter(adapter);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         setupDrawerToggle();
 
@@ -66,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
 
         switch (position) {
             case 0:
-                fragment = new ConnectFragment();
+                fragment = new HomeFragment();
                 break;
             case 1:
-                fragment = new FixturesFragment();
+                fragment = new BookingsFragment();
                 break;
             case 2:
-                fragment = new TableFragment();
+                fragment = new LogoutFragment();
                 break;
 
             default:
@@ -116,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void setupToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) this.<View>findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
