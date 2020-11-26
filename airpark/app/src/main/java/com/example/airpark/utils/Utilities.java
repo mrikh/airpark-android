@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.airpark.utils.Networking.NetworkHandler;
-
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 public class Utilities {
@@ -20,7 +19,7 @@ public class Utilities {
         return shared;
     }
 
-    public void saveJsonObject(JSONObject json, Context c){
+    public void saveJsonObject(@NotNull JSONObject json, Context c){
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(c);
         SharedPreferences.Editor editor = pref.edit();
 

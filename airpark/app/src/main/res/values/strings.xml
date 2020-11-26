@@ -36,4 +36,8 @@
     <string name="entry_time">Entry Time</string>
     <string name="exit_time">Exit Time</string>
 
+    <!--    Side Menu  -->
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
 </resources>

@@ -1,12 +1,19 @@
 package com.example.airpark.activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -14,14 +21,20 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.airpark.R;
+import com.example.airpark.activities.Bookings.BookingActivity;
 import com.example.airpark.models.BookingTicket;
+import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.InputValidator;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -49,6 +62,8 @@ public class SearchActivity extends AppCompatActivity {
     private Button search;
     private AutoCompleteTextView autoText;
     private CheckBox disabilityCheck, motorbikeCheck;
+
+    private ActionBarDrawerToggle drawerToggle;
 
     //Constructor
     public SearchActivity(){
@@ -125,6 +140,76 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+
+        setupDrawer();
+    }
+
+    private void setupDrawer(){
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.navigationView);
+
+        //dont show menu button if not logged in
+        if (UserModel.currentUser == null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }else{
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            View headerView = navigationView.getHeaderView(0);
+
+            TextView nameTextView = headerView.findViewById(R.id.nameTextView);
+            nameTextView.setText(UserModel.currentUser.getName());
+
+            TextView emailTextView = headerView.findViewById(R.id.emailTextView);
+            emailTextView.setText(UserModel.currentUser.getEmail());
+        }
+
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+
+                if (item.getItemId() == R.id.home){
+                    drawerLayout.close();
+                }else if(item.getItemId() == R.id.bookings){
+                    Intent myIntent = new Intent(SearchActivity.this, BookingActivity.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(myIntent);
+                }else{
+                    drawerLayout.close();
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        if (drawerToggle != null) {
+            drawerToggle.syncState();
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (drawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
