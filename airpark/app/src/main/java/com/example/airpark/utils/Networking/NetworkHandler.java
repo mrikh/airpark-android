@@ -23,6 +23,19 @@ public class NetworkHandler {
         return shared;
     }
 
+    public void ephemeralKey(String email, String version, NetworkingClosure completion){
+
+        try {
+            JSONObject dataJson = new JSONObject();
+            dataJson.put("email", email);
+            dataJson.put("api_version", version);
+            performPostRequest(EndPoints.ephemeralKey, dataJson, completion);
+        }catch (Exception e){
+            completion.completion(null, e.getMessage());
+            return;
+        }
+    }
+
     public void signUp(String email, String password, String name, NetworkingClosure completion){
 
         try {
