@@ -9,35 +9,35 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.airpark.R;
 import com.example.airpark.models.CarPark;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.MyViewHolder> {
     private List<CarPark> carparkList;
 
-    public RecyclerViewAdapter(List<CarPark> carparkList){
+    public CarparkItemAdapter(List<CarPark> carparkList){
         this.carparkList = carparkList;
     }
 
+    @NonNull
     @Override
-    public RecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.carpark_recyclerview,parent,false);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_carpark_list_item,parent,false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final CarPark carpark = carparkList.get(position);
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkType());
     }
 
     @Override
-    public int getItemCount() {
-        return carparkList.size();
-    }
+    public int getItemCount() { return carparkList.size(); }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView carparkName, carparkType, carparkPrice;

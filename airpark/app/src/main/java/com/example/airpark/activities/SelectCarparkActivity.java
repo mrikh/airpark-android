@@ -5,9 +5,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.airpark.R;
-import com.example.airpark.adapters.RecyclerViewAdapter;
+import com.example.airpark.adapters.CarparkSectionAdapter;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CarPark;
+import com.example.airpark.models.CarparkListSection;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -15,13 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SelectCarparkActivity extends AppCompatActivity {
     private TextView airportView, entryDate, exitDate, entryTime, exitTime;
     private BookingTicket ticket;
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter recyclerViewAdapter;
+//    private RecyclerViewAdapter recyclerViewAdapter;
     private ArrayList<CarPark> carparkList;
 
     @Override
@@ -41,21 +41,25 @@ public class SelectCarparkActivity extends AppCompatActivity {
 
         carparkList = new ArrayList<>();
         prepareCarparkList();
-        recyclerViewAdapter = new RecyclerViewAdapter(carparkList);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+        ArrayList<CarparkListSection> sections = new ArrayList<>();
+        sections.add(new CarparkListSection("Recommended",carparkList));
+        sections.add(new CarparkListSection("Other Availabilities",carparkList));
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.setHasFixedSize(true);
 
 
+        final CarparkSectionAdapter adapter = new CarparkSectionAdapter(this, sections);
+        recyclerView.setAdapter(adapter);
     }
 
     /**
      * Bind Ui with id
      */
     private void bindUiItems(){
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView)findViewById(R.id.sectioned_recycler_view);
         airportView = (TextView) findViewById(R.id.selectedAirport);
         entryDate = (TextView) findViewById(R.id.selectedEntryDate);
         exitDate = (TextView) findViewById(R.id.selectedExitDate);
@@ -69,5 +73,11 @@ public class SelectCarparkActivity extends AppCompatActivity {
         carparkList.add(carPark);
         carPark = new CarPark(1, "Long Term", "Zone B", 10);
         carparkList.add(carPark);
+        carPark = new CarPark(2, "Long Term", "Zone C", 15);
+        carparkList.add(carPark);
     }
+
+//    private void getRecommended(){
+//
+//    }
 }

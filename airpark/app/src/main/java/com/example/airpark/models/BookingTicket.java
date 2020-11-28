@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class BookingTicket implements Serializable {
 
+//    private static BookingTicket btInstance = null;
     private String airport, arrivalDate, exitDate, arrivalTime, exitTime;
     private Boolean hasDisability, hasMotorbike;
 
@@ -16,6 +17,13 @@ public class BookingTicket implements Serializable {
         this.hasDisability = hasDisability;
         this.hasMotorbike = hasMotorbike;
     }
+
+//    public static BookingTicket getInstance(){
+//        if(btInstance == null){
+//            btInstance = new BookingTicket();
+//        }
+//        return  btInstance;
+//    }
 
     public String getAirport() { return airport; }
 
