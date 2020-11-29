@@ -4,10 +4,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Calculates the price of car park
+ */
 public class Price {
     private double carparkPrice;
-//    private int shortTermLength, longTermLength;
 
+    /**
+     * Constructs Price Object
+     * @param carparkPrice
+     */
     public Price (double carparkPrice){
         this.carparkPrice = carparkPrice;
     }
@@ -66,7 +77,7 @@ public class Price {
         Date entry = sdf.parse(entryDate + " " + entryTime);
         Date exit = sdf.parse(exitDate + " " + exitTime);
 
-        noOfHours = ((exit.getTime()-entry.getTime())/(1000*60*60))%24;
+        noOfHours = ((exit.getTime()-entry.getTime())/(1000*60*60));
 
         return (int)noOfHours;
     }
