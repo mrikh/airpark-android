@@ -18,11 +18,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Creates Select car park screen & shows available car parks
+ */
 public class SelectCarparkActivity extends AppCompatActivity {
     private TextView airportView, entryDate, exitDate, entryTime, exitTime;
     private BookingTicket ticket;
     private RecyclerView recyclerView;
-    private ArrayList<CarPark> carparkList;
+    private ArrayList<CarPark> carparkList, recommendedCarpark;
+    private ArrayList<CarparkListSection> sections;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +51,15 @@ public class SelectCarparkActivity extends AppCompatActivity {
         carparkList = new ArrayList<>();
         prepareCarparkList();
 
-        ArrayList<CarparkListSection> sections = new ArrayList<>();
-        ArrayList<CarPark> recommended = getRecommendedCarpark();
+        sections = new ArrayList<>();
+        recommendedCarpark = getRecommendedCarpark();
         //Remove recommended car park from car park list so it doesn't appear in 'other availabilities'
         for(int i=0; i<carparkList.size(); i++){
-            if(carparkList.get(i).equals(recommended.get(0))){
+            if(carparkList.get(i).equals(recommendedCarpark.get(0))){
                 carparkList.remove(i);
             }
         }
-        sections.add(new CarparkListSection("Recommended",recommended));
+        sections.add(new CarparkListSection("Recommended",recommendedCarpark));
         sections.add(new CarparkListSection("Other Availabilities",carparkList));
 
 
@@ -74,19 +83,24 @@ public class SelectCarparkActivity extends AppCompatActivity {
         exitTime = (TextView) findViewById(R.id.selectedExitTime);
     }
 
-    //Hard coded for now
+    /** Hard coded for now **/
     private void prepareCarparkList(){
-        CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 3);
+        CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 3, 10);
         carparkList.add(carPark);
-        carPark = new CarPark(1, "Long Term", "Zone B", 10, 20);
+        carPark = new CarPark(1, "Long Term", "Zone B", 10, 20, 55);
         carparkList.add(carPark);
-        carPark = new CarPark(2, "Long Term", "Zone C", 15, 18);
+        carPark = new CarPark(2, "Long Term", "Zone C", 15, 18, 0);
         carparkList.add(carPark);
     }
 
+    /**
+     * Method gets the recommended car park depending on price
+     *
+     * @return CarPark ArrayList with recommended option
+     */
     private ArrayList<CarPark> getRecommendedCarpark(){
         Price price = new Price(carparkList.get(0).getPrice());
-        ArrayList<CarPark> recommendedCarpark = new ArrayList<>();
+        ArrayList<CarPark> recommended = new ArrayList<>();
         recommendedCarpark.add(carparkList.get(0));
 
         //remove :00 from time
@@ -101,10 +115,10 @@ public class SelectCarparkActivity extends AppCompatActivity {
 
             if(max < min){
                 min = max;
-                recommendedCarpark.remove(0);
-                recommendedCarpark.add(carparkList.get(i));
+                recommended.remove(0);
+                recommended.add(carparkList.get(i));
             }
         }
-        return recommendedCarpark;
+        return recommended;
     }
 }

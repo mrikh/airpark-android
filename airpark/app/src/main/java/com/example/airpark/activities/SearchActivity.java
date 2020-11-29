@@ -41,7 +41,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 /**
- * Airpark Application
+ * Airpark Application - Group 14
  *
  * CS4125 -> System Analysis & Design
  * CS5721 -> Software Design
@@ -132,12 +132,17 @@ public class SearchActivity extends AppCompatActivity {
                 String exitD = exitDate.getText().toString();
                 String entryT = entryTime.getText().toString();
                 String exitT = exitTime.getText().toString();
+                String car_space = "General";
+
+                if(disabilityCheck.isChecked()){ car_space = "Disabled"; }
+                if(motorbikeCheck.isChecked()){ car_space = "Motorbike"; }
 
                 //Update booking ticket
-                ticket = new BookingTicket(autoText.getText().toString(), entryD, exitD, entryT, exitT, disabilityCheck.isChecked(), motorbikeCheck.isChecked());
+                ticket = new BookingTicket(autoText.getText().toString(), entryD, exitD, entryT, exitT);
                 //Move to Next Screen
                 Intent myIntent = new Intent(SearchActivity.this, SelectCarparkActivity.class);
                 myIntent.putExtra("ticket", ticket);
+                myIntent.putExtra("Carpark Space Type", car_space);
                 startActivity(myIntent);
             }
         });
@@ -146,7 +151,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setupDrawer(){
-
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(drawerToggle);

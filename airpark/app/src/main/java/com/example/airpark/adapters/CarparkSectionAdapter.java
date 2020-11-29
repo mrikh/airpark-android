@@ -17,12 +17,26 @@ import com.example.airpark.models.CarparkListSection;
 
 import java.util.List;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Creates sectioned car park screen and holds appropriate items within section
+ */
 public class CarparkSectionAdapter extends RecyclerView.Adapter<CarparkSectionAdapter.MyViewHolder> {
     private List<CarparkListSection> sectionList;
     private Context context;
     private CarparkItemAdapter itemAdapter;
     private BookingTicket ticket;
 
+    /**
+     * Constructs carpark sectioned object
+     * @param context
+     * @param sectionList
+     * @param ticket
+     */
     public CarparkSectionAdapter(Context context, List<CarparkListSection> sectionList, BookingTicket ticket){
         this.context = context;
         this.sectionList = sectionList;

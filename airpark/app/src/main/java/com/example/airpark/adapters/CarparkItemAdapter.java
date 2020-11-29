@@ -22,11 +22,24 @@ import com.example.airpark.models.Price;
 
 import java.util.List;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Creates each car park item that's displayed on SelectCarparkActivity.java
+ */
 public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.MyViewHolder> {
     private List<CarPark> carparkList;
     private Price price;
     private BookingTicket ticket;
 
+    /**
+     * Constructs car park item object
+     * @param carparkList
+     * @param ticket
+     */
     public CarparkItemAdapter(List<CarPark> carparkList, BookingTicket ticket){
         this.carparkList = carparkList;
         this.ticket = ticket;
