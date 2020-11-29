@@ -10,6 +10,8 @@ import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CarPark;
 import com.example.airpark.models.CarParkSpace;
 import com.example.airpark.models.CarparkListSection;
+import com.example.airpark.models.DisabledSpace;
+import com.example.airpark.models.MotorbikeSpace;
 import com.example.airpark.models.Price;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,10 +33,11 @@ import java.util.ArrayList;
 public class SelectCarparkActivity extends AppCompatActivity {
     private TextView airportView, entryDate, exitDate, entryTime, exitTime;
     private BookingTicket ticket;
-    private CarParkSpace carparkSpace;
+//    private CarParkSpace carparkSpace;
     private RecyclerView recyclerView;
     private ArrayList<CarPark> carparkList, recommendedCarpark;
     private ArrayList<CarparkListSection> sections;
+    private ArrayList<CarParkSpace> carparkSpaces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,6 @@ public class SelectCarparkActivity extends AppCompatActivity {
 
         Intent myIntent = getIntent();
         ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
-        String car_type = myIntent.getStringExtra("Carpark Space Type");
 
         airportView.setText(ticket.getAirport());
         entryDate.setText(ticket.getArrivalDate());
@@ -95,21 +97,27 @@ public class SelectCarparkActivity extends AppCompatActivity {
 
     /** Hard coded for now **/
     private void prepareCarparkList(){
-        CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 5, 10);
+        CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 5, 10, 3, 6);
         carparkList.add(carPark);
-        carPark = new CarPark(1, "Long Term", "Zone B", 10, 20, 55);
+        carPark = new CarPark(1, "Long Term", "Zone B", 10, 20, 55, 5, 10);
         carparkList.add(carPark);
-        carPark = new CarPark(2, "Long Term", "Zone C", 15, 18, 0);
-        carparkList.add(carPark);
-        carPark = new CarPark(3, "Short Term", "Zone D", 10, 3, 2);
-        carparkList.add(carPark);
-        carPark = new CarPark(4, "Long Term", "Zone E", 15, 25, 35);
+        carPark = new CarPark(2, "Long Term", "Zone C", 15, 18, 3, 0, 6);
         carparkList.add(carPark);
 
-        //Remove car park if full
+        //Remove car park if no available selected space type
         for(int i=0; i<carparkList.size(); i++){
-            if(carparkList.get(i).isFull()){
-                carparkList.remove(i);
+            if(ticket.hasMotorbike()){
+                if(carparkList.get(i).isMotorbikeSpacesFull()){
+                    carparkList.remove(i);
+                }
+            }else if(ticket.hasDisability()){
+                if(carparkList.get(i).isDisabledSpacesFull()){
+                    carparkList.remove(i);
+                }
+            }else{
+                if(carparkList.get(i).isGeneralSpacesFull()){
+                    carparkList.remove(i);
+                }
             }
         }
     }

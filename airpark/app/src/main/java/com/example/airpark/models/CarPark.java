@@ -10,7 +10,7 @@ package com.example.airpark.models;
  */
 public class CarPark {
 
-    private int carparkID, spacesAvailable;
+    private int carparkID, availableGeneral, availableDisabled, availableMotorbike;
     private String carparkName, carparkType;
     private double distanceFromAirport, price;
 
@@ -22,15 +22,17 @@ public class CarPark {
      * @param carparkName
      * @param distanceFromAirport
      * @param price
-     * @param spacesAvailable
+     * @param availableGeneral
      */
-    public CarPark(int carparkID, String carparkType, String carparkName, double distanceFromAirport, double price, int spacesAvailable){
+    public CarPark(int carparkID, String carparkType, String carparkName, double distanceFromAirport, double price, int availableGeneral, int availableDisabled, int availableMotorbike){
         this.carparkID = carparkID;
         this.carparkName = carparkName;
         this.carparkType = carparkType;
         this.distanceFromAirport = distanceFromAirport;
         this.price = price;
-        this.spacesAvailable = spacesAvailable;
+        this.availableGeneral = availableGeneral;
+        this.availableDisabled = availableDisabled;
+        this.availableMotorbike = availableMotorbike;
     }
 
     public int getCarparkID(){ return carparkID; }
@@ -43,8 +45,22 @@ public class CarPark {
 
     public double getPrice(){ return price; }
 
-    public boolean isFull(){
-        if(spacesAvailable > 0){
+    public boolean isGeneralSpacesFull(){
+        if(availableGeneral > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isDisabledSpacesFull(){
+        if(availableDisabled > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isMotorbikeSpacesFull(){
+        if(availableMotorbike > 0) {
             return false;
         }
         return true;
