@@ -23,6 +23,18 @@ public class NetworkHandler {
         return shared;
     }
 
+    public void paymentIntent(String customerId, NetworkingClosure completion){
+
+        try {
+            JSONObject dataJson = new JSONObject();
+            dataJson.put("customer_id", customerId);
+            performPostRequest(EndPoints.paymentIntent, dataJson, completion);
+        }catch (Exception e){
+            completion.completion(null, e.getMessage());
+            return;
+        }
+    }
+
     public void ephemeralKey(String email, String version, NetworkingClosure completion){
 
         try {

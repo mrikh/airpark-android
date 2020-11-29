@@ -1,11 +1,10 @@
 package com.example.airpark.activities.Payments;
 
-import android.content.Context;
-import android.content.Intent;
+import android.widget.Toast;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.activity.ComponentActivity;
 
-import com.example.airpark.utils.HelperInterfaces.Completion;
+import com.example.airpark.utils.HelperInterfaces.StripeCompletionAction;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import com.example.airpark.utils.Networking.NetworkHandler;
 import com.stripe.android.EphemeralKeyProvider;
@@ -17,10 +16,10 @@ import org.json.JSONObject;
 public class EphKeyProvider implements EphemeralKeyProvider {
 
     private String email;
-    private Context c;
-    private Completion completion;
+    private ComponentActivity c;
+    private StripeCompletionAction completion;
 
-    public EphKeyProvider(String email, Context c, Completion completion){
+    public EphKeyProvider(String email, ComponentActivity c, StripeCompletionAction completion){
         this.email = email;
         this.c = c;
         this.completion = completion;
@@ -39,6 +38,7 @@ public class EphKeyProvider implements EphemeralKeyProvider {
                         completion.onComplete(c);
                     }catch(Exception e){
                         //do nothing
+                        Toast.makeText(c, e.getLocalizedMessage(), Toast.LENGTH_LONG);
                     }
                 }
             }
