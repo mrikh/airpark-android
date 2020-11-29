@@ -95,7 +95,7 @@ public class SelectCarparkActivity extends AppCompatActivity {
         exitTime = (TextView) findViewById(R.id.selectedExitTime);
     }
 
-    /** Hard coded for now **/
+    /**         Hardcoded           **/
     private void prepareCarparkList(){
         CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 5, 10, 3, 6);
         carparkList.add(carPark);

@@ -2,6 +2,7 @@ package com.example.airpark.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,15 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        holder.nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.context, ChosenCarparkActivity.class);
+                intent.putExtra("ticket", ticket);
+                intent.putExtra("Car Park", carpark);
+                holder.context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -87,16 +97,16 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
             carparkImage = itemView.findViewById(R.id.card_carparkImage);
             nextButton = itemView.findViewById(R.id.card_nextButton);
             cardview = itemView.findViewById(R.id.carpark_cardView);
-            nextButton = itemView.findViewById(R.id.card_nextButton);
 
-            nextButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, ChosenCarparkActivity.class);
-                    intent.putExtra("ticket", ticket);
-                    context.startActivity(intent);
-                }
-            });
+//            nextButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(context, ChosenCarparkActivity.class);
+//                    intent.putExtra("ticket", ticket);
+//                    intent.putExtra("Car Park", carparkList.get());
+//                    context.startActivity(intent);
+//                }
+//            });
         }
     }
 

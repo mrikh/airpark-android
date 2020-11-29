@@ -1,5 +1,7 @@
 package com.example.airpark.models;
 
+import java.io.Serializable;
+
 /**
  * Airpark Application - Group 14
  *
@@ -8,7 +10,7 @@ package com.example.airpark.models;
  *
  * An airport car park
  */
-public class CarPark {
+public class CarPark implements Serializable {
 
     private int carparkID, availableGeneral, availableDisabled, availableMotorbike;
     private String carparkName, carparkType;

@@ -29,6 +29,10 @@
     <string name="note">Note:</string>
     <string name="agree_terms">By signing up you agree to our Terms &amp; Conditions</string>
 
+    <!--    Side Menu  -->
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
     <!-- Search/Landing -->
     <string name="airports">Select Airport</string>
     <string name="entry_date">Entry Date</string>
@@ -36,8 +40,7 @@
     <string name="entry_time">Entry Time</string>
     <string name="exit_time">Exit Time</string>
 
-    <!--    Side Menu  -->
-    <string name="open">Open</string>
-    <string name="close">Close</string>
+    <string name="carpark_long_term">Long Term Parking</string>
+    <string name="carpark_short_term">Short Term Parking</string>
 
 </resources>

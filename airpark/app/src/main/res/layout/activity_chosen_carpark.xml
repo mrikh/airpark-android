@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        tools:text="@tools:sample/lorem"
+        android:id="@+id/selectedAirport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        tools:text="@tools:sample/lorem"
+        android:id="@+id/carpark_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:paddingLeft="20dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/selectedAirport"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        tools:text="@tools:sample/lorem"
+        android:id="@+id/carpark_dates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:paddingLeft="20dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/carpark_name"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        tools:text="@tools:sample/lorem"
+        android:id="@+id/carpark_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:paddingRight="20dp"
+        android:paddingBottom="5dp"
+        android:gravity="right"
+        app:layout_constraintBottom_toTopOf="@+id/carpark_image"
+        app:layout_constraintTop_toBottomOf="@+id/carpark_dates"
+        app:layout_constraintVertical_bias="0.448"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ImageView
+        android:id="@+id/carpark_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carpark_price"
+        tools:background="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        tools:text="@tools:sample/lorem/random"
+        android:id="@+id/carpark_important_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:justificationMode="inter_word"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carpark_image"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

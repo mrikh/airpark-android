@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name=".activities.ChosenCarparkActivity"
-            android:label="Car Park">
+            android:label="@string/carpark_short_term">
         </activity>
         <activity
             android:name=".activities.Main.MainActivity">
