@@ -78,7 +78,7 @@ public class InputValidator {
         }else{
             //If only dates to validate
             if(entryTime.equals("00:00") && exitTime.equals("00:00")){
-                if(exitDate.compareTo(entryDate) >= 0){
+                if(exit.compareTo(entry) >= 0){
                     return true;
                 }
             }else if(exit.compareTo(entry) > 0){
