@@ -1,5 +1,7 @@
 package com.example.airpark.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +13,23 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airpark.R;
+import com.example.airpark.activities.ChosenCarparkActivity;
+import com.example.airpark.activities.SearchActivity;
+import com.example.airpark.activities.SelectCarparkActivity;
+import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CarPark;
+import com.example.airpark.models.Price;
 
 import java.util.List;
 
 public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.MyViewHolder> {
     private List<CarPark> carparkList;
+    private Price price;
+    private BookingTicket ticket;
 
-    public CarparkItemAdapter(List<CarPark> carparkList){
+    public CarparkItemAdapter(List<CarPark> carparkList, BookingTicket ticket){
         this.carparkList = carparkList;
+        this.ticket = ticket;
     }
 
     @NonNull
@@ -32,8 +42,10 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final CarPark carpark = carparkList.get(position);
+        price = new Price(carpark.getPrice());
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkType());
+        holder.carparkPrice.setText(getFullPrice(carpark));
     }
 
     @Override
@@ -43,16 +55,37 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         private TextView carparkName, carparkType, carparkPrice;
         private ImageView carparkImage, nextButton;
         private CardView cardview;
+        private final Context context;
 
         public MyViewHolder(View itemView){
             super(itemView);
             // Bind Ui with id
+            context = itemView.getContext();
             carparkName = itemView.findViewById(R.id.card_carparkName);
             carparkType = itemView.findViewById(R.id.card_carparkType);
             carparkPrice = itemView.findViewById(R.id.card_carparkPrice);
             carparkImage = itemView.findViewById(R.id.card_carparkImage);
             nextButton = itemView.findViewById(R.id.card_nextButton);
             cardview = itemView.findViewById(R.id.carpark_cardView);
+            nextButton = itemView.findViewById(R.id.card_nextButton);
+
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ChosenCarparkActivity.class);
+                    intent.putExtra("ticket", ticket);
+                    context.startActivity(intent);
+                }
+            });
         }
+    }
+
+    private String getFullPrice(CarPark carpark){
+        int entryTime = Integer.parseInt(ticket.getArrivalTime().substring(0, ticket.getArrivalTime().indexOf(":")));
+        int exitTime = Integer.parseInt(ticket.getExitTime().substring(0, ticket.getExitTime().indexOf(":")));
+
+        double fullPrice = price.calculatePrice(entryTime, exitTime, ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
+
+        return String.valueOf(fullPrice);
     }
 }

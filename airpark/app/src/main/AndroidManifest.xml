@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Airpark">
-        <activity android:name=".activities.Bookings.BookingActivity"></activity>
+        <activity
+            android:name=".activities.Bookings.BookingActivity">
+        </activity>
         <activity
             android:name=".activities.Prelogin.LoginActivity"
             android:label="Login" />
@@ -21,11 +23,18 @@
             android:parentActivityName=".activities.Prelogin.LoginActivity" />
         <activity
             android:name=".activities.SearchActivity"
-            android:label="AirPark"></activity>
+            android:label="AirPark">
+        </activity>
         <activity
             android:name=".activities.SelectCarparkActivity"
-            android:label="Select Car Park"></activity>
-        <activity android:name=".activities.Main.MainActivity">
+            android:label="Select Car Park">
+        </activity>
+        <activity
+            android:name=".activities.ChosenCarparkActivity"
+            android:label="Car Park">
+        </activity>
+        <activity
+            android:name=".activities.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

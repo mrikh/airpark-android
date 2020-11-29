@@ -9,6 +9,7 @@ import com.example.airpark.adapters.CarparkSectionAdapter;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CarPark;
 import com.example.airpark.models.CarparkListSection;
+import com.example.airpark.models.Price;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -21,7 +22,6 @@ public class SelectCarparkActivity extends AppCompatActivity {
     private TextView airportView, entryDate, exitDate, entryTime, exitTime;
     private BookingTicket ticket;
     private RecyclerView recyclerView;
-//    private RecyclerViewAdapter recyclerViewAdapter;
     private ArrayList<CarPark> carparkList;
 
     @Override
@@ -43,15 +43,22 @@ public class SelectCarparkActivity extends AppCompatActivity {
         prepareCarparkList();
 
         ArrayList<CarparkListSection> sections = new ArrayList<>();
-        sections.add(new CarparkListSection("Recommended",carparkList));
+        ArrayList<CarPark> recommended = getRecommendedCarpark();
+        //Remove recommended car park from car park list so it doesn't appear in 'other availabilities'
+        for(int i=0; i<carparkList.size(); i++){
+            if(carparkList.get(i).equals(recommended.get(0))){
+                carparkList.remove(i);
+            }
+        }
+        sections.add(new CarparkListSection("Recommended",recommended));
         sections.add(new CarparkListSection("Other Availabilities",carparkList));
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-
-        final CarparkSectionAdapter adapter = new CarparkSectionAdapter(this, sections);
+        final CarparkSectionAdapter adapter = new CarparkSectionAdapter(this, sections, ticket);
         recyclerView.setAdapter(adapter);
     }
 
@@ -69,15 +76,35 @@ public class SelectCarparkActivity extends AppCompatActivity {
 
     //Hard coded for now
     private void prepareCarparkList(){
-        CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5);
+        CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 3);
         carparkList.add(carPark);
-        carPark = new CarPark(1, "Long Term", "Zone B", 10);
+        carPark = new CarPark(1, "Long Term", "Zone B", 10, 20);
         carparkList.add(carPark);
-        carPark = new CarPark(2, "Long Term", "Zone C", 15);
+        carPark = new CarPark(2, "Long Term", "Zone C", 15, 18);
         carparkList.add(carPark);
     }
 
-//    private void getRecommended(){
-//
-//    }
+    private ArrayList<CarPark> getRecommendedCarpark(){
+        Price price = new Price(carparkList.get(0).getPrice());
+        ArrayList<CarPark> recommendedCarpark = new ArrayList<>();
+        recommendedCarpark.add(carparkList.get(0));
+
+        //remove :00 from time
+        int entryTime = Integer.parseInt(ticket.getArrivalTime().substring(0, ticket.getArrivalTime().indexOf(":")));
+        int exitTime = Integer.parseInt(ticket.getExitTime().substring(0, ticket.getExitTime().indexOf(":")));
+
+        double min = price.calculatePrice(entryTime, exitTime, ticket.getArrivalDate(), ticket.getExitDate(), carparkList.get(0).getCarparkType());
+
+        for(int i=1; i<carparkList.size(); i++){
+            price = new Price(carparkList.get(i).getPrice());
+            double max = price.calculatePrice(entryTime, exitTime, ticket.getArrivalDate(), ticket.getExitDate(), carparkList.get(i).getCarparkType());
+
+            if(max < min){
+                min = max;
+                recommendedCarpark.remove(0);
+                recommendedCarpark.add(carparkList.get(i));
+            }
+        }
+        return recommendedCarpark;
+    }
 }
