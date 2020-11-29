@@ -20,6 +20,8 @@ import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CarPark;
 import com.example.airpark.models.Price;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -34,6 +36,7 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
     private List<CarPark> carparkList;
     private Price price;
     private BookingTicket ticket;
+
 
     /**
      * Constructs car park item object
@@ -58,7 +61,11 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         price = new Price(carpark.getPrice());
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkType());
-        holder.carparkPrice.setText(getFullPrice(carpark));
+        try {
+            holder.carparkPrice.setText("€" + getFullPrice(carpark));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -93,12 +100,10 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         }
     }
 
-    private String getFullPrice(CarPark carpark){
-        int entryTime = Integer.parseInt(ticket.getArrivalTime().substring(0, ticket.getArrivalTime().indexOf(":")));
-        int exitTime = Integer.parseInt(ticket.getExitTime().substring(0, ticket.getExitTime().indexOf(":")));
-
+    private String getFullPrice(CarPark carpark) throws ParseException {
+        DecimalFormat dFormat = new DecimalFormat("#.00");
         double fullPrice = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
 
-        return String.valueOf(fullPrice);
+        return dFormat.format(fullPrice);
     }
 }

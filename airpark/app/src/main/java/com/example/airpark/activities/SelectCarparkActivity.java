@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -52,7 +53,11 @@ public class SelectCarparkActivity extends AppCompatActivity {
         prepareCarparkList();
 
         sections = new ArrayList<>();
-        recommendedCarpark = getRecommendedCarpark();
+        try {
+            recommendedCarpark = getRecommendedCarpark();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         //Remove recommended car park from car park list so it doesn't appear in 'other availabilities'
         for(int i=0; i<carparkList.size(); i++){
             if(carparkList.get(i).equals(recommendedCarpark.get(0))){
@@ -98,7 +103,7 @@ public class SelectCarparkActivity extends AppCompatActivity {
      *
      * @return CarPark ArrayList with recommended option
      */
-    private ArrayList<CarPark> getRecommendedCarpark(){
+    private ArrayList<CarPark> getRecommendedCarpark() throws ParseException {
         int entryTime, exitTime;
         Price price = new Price(carparkList.get(0).getPrice());
         ArrayList<CarPark> recommended = new ArrayList<>();

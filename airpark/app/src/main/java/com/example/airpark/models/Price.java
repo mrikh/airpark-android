@@ -1,5 +1,9 @@
 package com.example.airpark.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Price {
     private double carparkPrice;
 //    private int shortTermLength, longTermLength;
@@ -8,7 +12,18 @@ public class Price {
         this.carparkPrice = carparkPrice;
     }
 
-    public double calculatePrice(String entryTime, String exitTime, String entryDate, String exitDate, String type){
+    /**
+     * Method that calculates the car park prices depending on time stayed
+     *
+     * @param entryTime
+     * @param exitTime
+     * @param entryDate
+     * @param exitDate
+     * @param type
+     * @return double fullPrice
+     * @throws ParseException
+     */
+    public double calculatePrice(String entryTime, String exitTime, String entryDate, String exitDate, String type) throws ParseException {
         int lengthOfStay = getLengthOfStay(entryTime,exitTime,entryDate,exitDate);
         double fullPrice = 0;
 
@@ -26,8 +41,18 @@ public class Price {
         return fullPrice;
     }
 
-    private int getLengthOfStay(String entryTime, String exitTime, String entryDate, String exitDate){
-        int noOfHours=0, noOfDays=0, entryDay=0, exitDay=0, entryHour=0, exitHour=0;
+    /**
+     * Calculate the length of time required in hours
+     * @param entryTime
+     * @param exitTime
+     * @param entryDate
+     * @param exitDate
+     * @return int noOfHours
+     * @throws ParseException
+     */
+    private int getLengthOfStay(String entryTime, String exitTime, String entryDate, String exitDate) throws ParseException {
+        long noOfHours=0;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         if(entryTime.equals("23:59") || exitTime.equals("23:59")){
             if(entryTime.equals("23:59")){
@@ -37,24 +62,13 @@ public class Price {
                 exitTime = "24:00";
             }
         }
-        entryHour = Integer.parseInt(entryTime.substring(0, entryTime.indexOf(":")));
-        exitHour = Integer.parseInt(exitTime.substring(0, exitTime.indexOf(":")));
 
-        if(entryDate.equals(exitDate)){
-            noOfHours = exitHour - entryHour;
-        }else{
-            entryDay = Integer.parseInt(entryDate.substring(0, entryDate.indexOf("/")));
-            exitDay = Integer.parseInt(exitDate.substring(0, exitDate.indexOf("/")));
-            noOfDays = exitDay - entryDay;
+        Date entry = sdf.parse(entryDate + " " + entryTime);
+        Date exit = sdf.parse(exitDate + " " + exitTime);
 
-            noOfHours = 24 * noOfDays;
-            if(exitHour > 12){
-                //If exit time is past 12pm, charge is into next day
-                noOfHours += 24;
-            }
-        }
+        noOfHours = ((exit.getTime()-entry.getTime())/(1000*60*60))%24;
 
-        return noOfHours;
+        return (int)noOfHours;
     }
 
 }
