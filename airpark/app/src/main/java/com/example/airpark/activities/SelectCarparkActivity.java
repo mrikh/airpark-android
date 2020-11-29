@@ -1,5 +1,6 @@
 package com.example.airpark.activities;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -10,12 +11,9 @@ import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CarPark;
 import com.example.airpark.models.CarParkSpace;
 import com.example.airpark.models.CarparkListSection;
-import com.example.airpark.models.DisabledSpace;
-import com.example.airpark.models.MotorbikeSpace;
 import com.example.airpark.models.Price;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 

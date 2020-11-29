@@ -151,7 +151,7 @@ public class SearchActivity extends AppCompatActivity {
 
         NavigationView navigationView = findViewById(R.id.navigationView);
 
-        //dont show menu button if not logged in
+        //don't show menu button if not logged in
         if (UserModel.currentUser == null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }else{

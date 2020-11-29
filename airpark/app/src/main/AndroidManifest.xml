@@ -23,16 +23,14 @@
             android:parentActivityName=".activities.Prelogin.LoginActivity" />
         <activity
             android:name=".activities.SearchActivity"
-            android:label="AirPark">
-        </activity>
+            android:label="AirPark"/>
         <activity
             android:name=".activities.SelectCarparkActivity"
-            android:label="Select Car Park">
-        </activity>
+            android:label="Select Car Park"
+            android:parentActivityName=".activities.SearchActivity"/>
         <activity
             android:name=".activities.ChosenCarparkActivity"
-            android:label="@string/carpark_short_term">
-        </activity>
+            android:label="@string/carpark_short_term"/>
         <activity
             android:name=".activities.Main.MainActivity">
             <intent-filter>
