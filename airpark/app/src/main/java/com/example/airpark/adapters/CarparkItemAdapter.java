@@ -97,7 +97,7 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         int entryTime = Integer.parseInt(ticket.getArrivalTime().substring(0, ticket.getArrivalTime().indexOf(":")));
         int exitTime = Integer.parseInt(ticket.getExitTime().substring(0, ticket.getExitTime().indexOf(":")));
 
-        double fullPrice = price.calculatePrice(entryTime, exitTime, ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
+        double fullPrice = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
 
         return String.valueOf(fullPrice);
     }

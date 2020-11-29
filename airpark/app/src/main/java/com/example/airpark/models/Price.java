@@ -8,7 +8,7 @@ public class Price {
         this.carparkPrice = carparkPrice;
     }
 
-    public double calculatePrice(int entryTime, int exitTime, String entryDate, String exitDate, String type){
+    public double calculatePrice(String entryTime, String exitTime, String entryDate, String exitDate, String type){
         int lengthOfStay = getLengthOfStay(entryTime,exitTime,entryDate,exitDate);
         double fullPrice = 0;
 
@@ -26,18 +26,29 @@ public class Price {
         return fullPrice;
     }
 
-    private int getLengthOfStay(int entryTime, int exitTime, String entryDate, String exitDate){
-        int noOfHours = 0, noOfDays=0, entry=0, exit=0;
+    private int getLengthOfStay(String entryTime, String exitTime, String entryDate, String exitDate){
+        int noOfHours=0, noOfDays=0, entryDay=0, exitDay=0, entryHour=0, exitHour=0;
+
+        if(entryTime.equals("23:59") || exitTime.equals("23:59")){
+            if(entryTime.equals("23:59")){
+                entryTime = "24:00";
+            }
+            if(exitTime.equals("23:59")){
+                exitTime = "24:00";
+            }
+        }
+        entryHour = Integer.parseInt(entryTime.substring(0, entryTime.indexOf(":")));
+        exitHour = Integer.parseInt(exitTime.substring(0, exitTime.indexOf(":")));
 
         if(entryDate.equals(exitDate)){
-            noOfHours = exitTime - entryTime;
+            noOfHours = exitHour - entryHour;
         }else{
-            entry = Integer.parseInt(entryDate.substring(0, entryDate.indexOf("/")));
-            exit = Integer.parseInt(exitDate.substring(0, exitDate.indexOf("/")));
-            noOfDays = exit - entry; //2
+            entryDay = Integer.parseInt(entryDate.substring(0, entryDate.indexOf("/")));
+            exitDay = Integer.parseInt(exitDate.substring(0, exitDate.indexOf("/")));
+            noOfDays = exitDay - entryDay;
 
             noOfHours = 24 * noOfDays;
-            if(exitTime > 12){
+            if(exitHour > 12){
                 //If exit time is past 12pm, charge is into next day
                 noOfHours += 24;
             }

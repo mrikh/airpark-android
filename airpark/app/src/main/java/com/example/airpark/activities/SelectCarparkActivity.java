@@ -99,19 +99,16 @@ public class SelectCarparkActivity extends AppCompatActivity {
      * @return CarPark ArrayList with recommended option
      */
     private ArrayList<CarPark> getRecommendedCarpark(){
+        int entryTime, exitTime;
         Price price = new Price(carparkList.get(0).getPrice());
         ArrayList<CarPark> recommended = new ArrayList<>();
-        recommendedCarpark.add(carparkList.get(0));
+        recommended.add(carparkList.get(0));
 
-        //remove :00 from time
-        int entryTime = Integer.parseInt(ticket.getArrivalTime().substring(0, ticket.getArrivalTime().indexOf(":")));
-        int exitTime = Integer.parseInt(ticket.getExitTime().substring(0, ticket.getExitTime().indexOf(":")));
-
-        double min = price.calculatePrice(entryTime, exitTime, ticket.getArrivalDate(), ticket.getExitDate(), carparkList.get(0).getCarparkType());
+        double min = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carparkList.get(0).getCarparkType());
 
         for(int i=1; i<carparkList.size(); i++){
             price = new Price(carparkList.get(i).getPrice());
-            double max = price.calculatePrice(entryTime, exitTime, ticket.getArrivalDate(), ticket.getExitDate(), carparkList.get(i).getCarparkType());
+            double max = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carparkList.get(i).getCarparkType());
 
             if(max < min){
                 min = max;

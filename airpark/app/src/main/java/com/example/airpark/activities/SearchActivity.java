@@ -62,10 +62,8 @@ public class SearchActivity extends AppCompatActivity {
     private Button search;
     private AutoCompleteTextView autoText;
     private CheckBox disabilityCheck, motorbikeCheck;
-
     private ActionBarDrawerToggle drawerToggle;
 
-    //Constructor
     public SearchActivity(){
         dFormat = new DecimalFormat("00");
         calender = Calendar.getInstance();
@@ -132,8 +130,8 @@ public class SearchActivity extends AppCompatActivity {
                 String exitD = exitDate.getText().toString();
                 String entryT = entryTime.getText().toString();
                 String exitT = exitTime.getText().toString();
-                String car_space = "General";
 
+                String car_space = "General";
                 if(disabilityCheck.isChecked()){ car_space = "Disabled"; }
                 if(motorbikeCheck.isChecked()){ car_space = "Motorbike"; }
 
@@ -336,6 +334,9 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute12) {
                 entryTime.setText(dFormat.format(hourOfDay) + ":00");
+                if(hourOfDay == 00){
+                    entryTime.setText("23:59");
+                }
 
                 String entryD = entryDate.getText().toString();
                 String exitD = exitDate.getText().toString();
@@ -377,6 +378,9 @@ public class SearchActivity extends AppCompatActivity {
     private void setExitTime(int hour){
         timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute1) -> {
             exitTime.setText(dFormat.format(hourOfDay) + ":00");
+            if(hourOfDay == 00){
+                exitTime.setText("23:59");
+            }
 
             String entryD = entryDate.getText().toString();
             String exitD = exitDate.getText().toString();
