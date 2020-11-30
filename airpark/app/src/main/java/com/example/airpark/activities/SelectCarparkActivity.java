@@ -1,6 +1,5 @@
 package com.example.airpark.activities;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -26,7 +25,7 @@ import java.util.ArrayList;
  * CS4125 -> System Analysis & Design
  * CS5721 -> Software Design
  *
- * Creates Select car park screen & shows available car parks
+ * Car Park Options Screen (available car parks to choose from)
  */
 public class SelectCarparkActivity extends AppCompatActivity {
     private TextView airportView, entryDate, exitDate, entryTime, exitTime;
@@ -145,9 +144,5 @@ public class SelectCarparkActivity extends AppCompatActivity {
             }
         }
         return recommended;
-    }
-
-    private void checkCarparkSpace(){
-
     }
 }

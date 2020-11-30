@@ -105,21 +105,15 @@ public class SearchActivity extends AppCompatActivity {
         //Set Departure Time
         exitTime.setOnClickListener(v -> {setExitTime(hour); hideKeyboard(this);});
         //Set Disabled Parking
-        disabilityCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(disabilityCheck.isChecked()){
-                    motorbikeCheck.setChecked(false);
-                }
+        disabilityCheck.setOnClickListener(v -> {
+            if(disabilityCheck.isChecked()){
+                motorbikeCheck.setChecked(false);
             }
         });
         //Set Motorbike Parking
-        motorbikeCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(motorbikeCheck.isChecked()){
-                    disabilityCheck.setChecked(false);
-                }
+        motorbikeCheck.setOnClickListener(v -> {
+            if(motorbikeCheck.isChecked()){
+                disabilityCheck.setChecked(false);
             }
         });
 

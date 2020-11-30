@@ -32,6 +32,9 @@
             android:name=".activities.ChosenCarparkActivity"
             android:label="@string/carpark_short_term"/>
         <activity
+            android:name=".activities.EnterDetailsActivity"
+            android:label="Enter Details"/>
+        <activity
             android:name=".activities.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

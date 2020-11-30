@@ -73,6 +73,11 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
                 Intent intent = new Intent(holder.context, ChosenCarparkActivity.class);
                 intent.putExtra("ticket", ticket);
                 intent.putExtra("Car Park", carpark);
+                try {
+                    intent.putExtra("Full Price", getFullPrice(carpark));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 holder.context.startActivity(intent);
             }
         });
@@ -97,16 +102,6 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
             carparkImage = itemView.findViewById(R.id.card_carparkImage);
             nextButton = itemView.findViewById(R.id.card_nextButton);
             cardview = itemView.findViewById(R.id.carpark_cardView);
-
-//            nextButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(context, ChosenCarparkActivity.class);
-//                    intent.putExtra("ticket", ticket);
-//                    intent.putExtra("Car Park", carparkList.get());
-//                    context.startActivity(intent);
-//                }
-//            });
         }
     }
 

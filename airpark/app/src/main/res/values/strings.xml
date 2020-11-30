@@ -24,7 +24,7 @@
     <string name="password">Password</string>
 
     <!--  Sign Up  -->
-    <string name="sign_up_button">Sign Up</string>
+    <string name="sign_up_button">SIGN UP</string>
     <string name="name">Name</string>
     <string name="note">Note:</string>
     <string name="agree_terms">By signing up you agree to our Terms &amp; Conditions</string>
@@ -40,7 +40,17 @@
     <string name="entry_time">Entry Time</string>
     <string name="exit_time">Exit Time</string>
 
+    <!-- The Selected Car Park -->
     <string name="carpark_long_term">Long Term Parking</string>
     <string name="carpark_short_term">Short Term Parking</string>
+    <string name="carpark_entry">Entry:</string>
+    <string name="carpark_exit">Exit:</string>
+    <string name="important_info_title"><u>More Information:</u></string>
+    <string name="total_price">Total: €</string>
+    <string name="select_carpark">SELECT CAR PARK</string>
+
+    <!-- Enter Details -->
+    <string name="login_notice">Login for secure checkout and access to in-app discounts!</string>
+    <string name="guest">Continue as Guest</string>
 
 </resources>

@@ -45,6 +45,7 @@ public class CarPark implements Serializable {
 
     public double getDistanceFromAirport(){ return distanceFromAirport; }
 
+    //Price per hour (short term) or day (long term)
     public double getPrice(){ return price; }
 
     public boolean isGeneralSpacesFull(){
