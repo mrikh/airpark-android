@@ -25,7 +25,7 @@
 
     <!--  Sign Up  -->
     <string name="sign_up_button">SIGN UP</string>
-    <string name="name">Name</string>
+    <string name="name">Full Name</string>
     <string name="note">Note:</string>
     <string name="agree_terms">By signing up you agree to our Terms &amp; Conditions</string>
 
@@ -52,5 +52,11 @@
     <!-- Enter Details -->
     <string name="login_notice">Login for secure checkout and access to in-app discounts!</string>
     <string name="guest">Continue as Guest</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="car_reg">Car Registration</string>
+    <string name="elderly">Over 65</string>
+    <string name="car_wash">Car Wash</string>
+    <string name="user_detail_note"><b>Note: </b>Make sure all details are entered correctly. You may be required to show identification on arrival.</string>
+    <string name="payment">Payment</string>
 
 </resources>
