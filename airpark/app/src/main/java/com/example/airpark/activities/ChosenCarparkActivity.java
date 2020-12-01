@@ -4,18 +4,21 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airpark.R;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CarPark;
+import com.example.airpark.models.Discounts;
 import com.example.airpark.models.Price;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
+import java.util.ArrayList;
 
 /**
  * Airpark Application - Group 14
@@ -30,7 +33,7 @@ public class ChosenCarparkActivity extends AppCompatActivity {
     private Button selectBtn;
     private BookingTicket ticket;
     private CarPark carpark;
-    private String fullPrice;
+    private Price priceCalc;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -38,12 +41,13 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chosen_carpark);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        DecimalFormat dFormat = new DecimalFormat("#.##");
 
         Intent myIntent = getIntent();
         ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
-        carpark = (CarPark)myIntent.getSerializableExtra("Car Park");
-        fullPrice = myIntent.getStringExtra("Full Price");
+        carpark = (CarPark)myIntent.getSerializableExtra("car park");
 
+        //Change Screen Title if Long Term Car Park
         if(carpark.getCarparkType().equals("Long Term")){
             setTitle(R.string.carpark_long_term);
         }
@@ -52,10 +56,8 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         airportView.setText(ticket.getAirport());
         carparkType.setText(carpark.getCarparkName());
         entryDate.setText(getString(R.string.carpark_entry) + " " + ticket.getArrivalDate() + " - " + ticket.getArrivalTime());
-        exitDate.setText(getString(R.string.carpark_exit) + " " + ticket.getExitDate()  + " - " + ticket.getExitTime());
-        carparkPrice.setText(getString(R.string.total_price) + fullPrice);
-
-
+        exitDate.setText(getString(R.string.carpark_exit) + "     " + ticket.getExitDate()  + " - " + ticket.getExitTime());
+        carparkPrice.setText(getString(R.string.total_price) + dFormat.format(ticket.getTicketPrice()));
         /** Harcoded for now **/
         carparkInfo.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor lectus fermentum nunc malesuada, et tristique tellus lobortis. Vestibulum at finibus ipsum. Etiam laoreet erat sit " +
                 "amet mauris posuere placerat. Integer enim sem, faucibus ac erat sed, euismod viverra dolor. Curabitur sed arcu quis ex suscipit volutpat. In hac habitasse platea dictumst. Praesent dui ante, " +
@@ -65,8 +67,6 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         selectBtn.setOnClickListener(v -> {
             Intent myIntent2 = new Intent(this, EnterDetailsActivity.class);
             myIntent2.putExtra("ticket", ticket);
-            myIntent2.putExtra("car park", carpark);
-            myIntent2.putExtra("fullPrice", fullPrice);
             startActivity(myIntent2);
         });
     }
@@ -91,5 +91,12 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         carparkPrice = (TextView) findViewById(R.id.carpark_price);
         carparkInfo = (TextView) findViewById(R.id.carpark_important_info);
         selectBtn = (Button)findViewById(R.id.select_carpark_btn);
+    }
+
+
+    private void open(View view){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//        alertDialogBuilder.setMessage()
+//        alertDialogBuilder.setPositiveButton();
     }
 }

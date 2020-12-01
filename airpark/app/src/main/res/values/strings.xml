@@ -3,15 +3,17 @@
     <string name="airpark_title">Airpark</string>
 
     <!--  Errors  -->
-    <string name="invalid_email">The email address is incorrect</string>
+    <string name="invalid_email">Email address is incorrect</string>
     <string name="password_short">Your password needs to be at least 8 characters</string>
     <string name="something_wrong">Something went wrong</string>
-    <string name="name_error">Your name seems incorrect</string>
-    <string name="invalid_airport">Invalid Airport</string>
+    <string name="name_error">Your name seems incorrect! Eg. John Smith</string>
+    <string name="invalid_airport">Airport not recognised</string>
     <string name="invalid_date">Invalid Date</string>
     <string name="invalid_entry_date">Entry date after Exit date</string>
     <string name="invalid_exit_date">Exit date before Entry date</string>
     <string name="invalid_time">Invalid Time</string>
+    <string name="invalid_phone">Phone number is not recognised</string>
+    <string name="invalid_reg">Car registration is not recognised</string>
 
     <!--  Login  -->
     <string name="login_heading">Login</string>
@@ -57,6 +59,11 @@
     <string name="elderly">Over 65</string>
     <string name="car_wash">Car Wash</string>
     <string name="user_detail_note"><b>Note: </b>Make sure all details are entered correctly. You may be required to show identification on arrival.</string>
-    <string name="payment">Payment</string>
+    <string name="confirm">CONFIRM</string>
+
+    <!-- Pop up Window -->
+    <string name="popup_title"><b>Final Payment Amount</b></string>
+    <string name="make_payment">MAKE PAYMENT</string>
+
 
 </resources>

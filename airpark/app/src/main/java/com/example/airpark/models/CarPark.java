@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class CarPark implements Serializable {
 
-    private int carparkID, availableGeneral, availableDisabled, availableMotorbike;
+    private int carparkID, availableSpaces;
     private String carparkName, carparkType;
     private double distanceFromAirport, price;
 
@@ -24,17 +24,15 @@ public class CarPark implements Serializable {
      * @param carparkName
      * @param distanceFromAirport
      * @param price
-     * @param availableGeneral
      */
-    public CarPark(int carparkID, String carparkType, String carparkName, double distanceFromAirport, double price, int availableGeneral, int availableDisabled, int availableMotorbike){
+    public CarPark(int carparkID, String carparkType, String carparkName, double distanceFromAirport, double price, int availableSpaces){
         this.carparkID = carparkID;
         this.carparkName = carparkName;
         this.carparkType = carparkType;
         this.distanceFromAirport = distanceFromAirport;
         this.price = price;
-        this.availableGeneral = availableGeneral;
-        this.availableDisabled = availableDisabled;
-        this.availableMotorbike = availableMotorbike;
+        this.availableSpaces = availableSpaces;
+
     }
 
     public int getCarparkID(){ return carparkID; }
@@ -48,22 +46,8 @@ public class CarPark implements Serializable {
     //Price per hour (short term) or day (long term)
     public double getPrice(){ return price; }
 
-    public boolean isGeneralSpacesFull(){
-        if(availableGeneral > 0) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean isDisabledSpacesFull(){
-        if(availableDisabled > 0) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean isMotorbikeSpacesFull(){
-        if(availableMotorbike > 0) {
+    public boolean isFull(){
+        if(availableSpaces > 0){
             return false;
         }
         return true;

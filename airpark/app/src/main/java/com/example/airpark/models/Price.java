@@ -13,7 +13,7 @@ import java.util.Date;
  * Calculates the price of car park
  */
 public class Price {
-    private double carparkPrice;
+    private double carparkPrice, carWashPrice;
 
     /**
      * Constructs Price Object
@@ -82,4 +82,10 @@ public class Price {
         return (int)noOfHours;
     }
 
+    public double discountPrice(double currentPrice, double percentage){
+        double decimal = percentage/100;
+        double price = currentPrice - (decimal * currentPrice);
+
+        return price;
+    }
 }

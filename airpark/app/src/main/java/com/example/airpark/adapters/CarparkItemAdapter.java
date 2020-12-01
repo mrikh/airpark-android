@@ -37,8 +37,8 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
     private List<CarPark> carparkList;
     private Price price;
     private BookingTicket ticket;
-
-
+    private DecimalFormat dFormat;
+    
     /**
      * Constructs car park item object
      * @param carparkList
@@ -47,6 +47,7 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
     public CarparkItemAdapter(List<CarPark> carparkList, BookingTicket ticket){
         this.carparkList = carparkList;
         this.ticket = ticket;
+        this.dFormat = new DecimalFormat("#.##");
     }
 
     @NonNull
@@ -63,21 +64,23 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkType());
         try {
-            holder.carparkPrice.setText("€" + getFullPrice(carpark));
+            double fullPrice = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
+            holder.carparkPrice.setText("€" + dFormat.format(fullPrice));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         holder.nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(holder.context, ChosenCarparkActivity.class);
-                intent.putExtra("ticket", ticket);
-                intent.putExtra("Car Park", carpark);
                 try {
-                    intent.putExtra("Full Price", getFullPrice(carpark));
+                    double fullPrice = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
+                    ticket.setTicketPrice(fullPrice);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                Intent intent = new Intent(holder.context, ChosenCarparkActivity.class);
+                intent.putExtra("ticket", ticket);
+                intent.putExtra("car park", carpark);
                 holder.context.startActivity(intent);
             }
         });
@@ -103,12 +106,5 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
             nextButton = itemView.findViewById(R.id.card_nextButton);
             cardview = itemView.findViewById(R.id.carpark_cardView);
         }
-    }
-
-    private String getFullPrice(CarPark carpark) throws ParseException {
-        DecimalFormat dFormat = new DecimalFormat("#.00");
-        double fullPrice = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
-
-        return dFormat.format(fullPrice);
     }
 }

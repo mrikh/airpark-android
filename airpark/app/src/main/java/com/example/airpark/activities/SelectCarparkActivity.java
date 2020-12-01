@@ -30,11 +30,9 @@ import java.util.ArrayList;
 public class SelectCarparkActivity extends AppCompatActivity {
     private TextView airportView, entryDate, exitDate, entryTime, exitTime;
     private BookingTicket ticket;
-//    private CarParkSpace carparkSpace;
     private RecyclerView recyclerView;
     private ArrayList<CarPark> carparkList, recommendedCarpark;
     private ArrayList<CarparkListSection> sections;
-    private ArrayList<CarParkSpace> carparkSpaces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,27 +92,17 @@ public class SelectCarparkActivity extends AppCompatActivity {
 
     /**         Hardcoded           **/
     private void prepareCarparkList(){
-        CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 5, 10, 3, 6);
+        CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 5, 10);
         carparkList.add(carPark);
-        carPark = new CarPark(1, "Long Term", "Zone B", 10, 20, 55, 5, 10);
+        carPark = new CarPark(1, "Long Term", "Zone B", 10, 20, 0);
         carparkList.add(carPark);
-        carPark = new CarPark(2, "Long Term", "Zone C", 15, 18, 3, 0, 6);
+        carPark = new CarPark(2, "Long Term", "Zone C", 15, 18, 25);
         carparkList.add(carPark);
 
-        //Remove car park if no available selected space type
+        //Remove car park if no available spaces
         for(int i=0; i<carparkList.size(); i++){
-            if(ticket.hasMotorbike()){
-                if(carparkList.get(i).isMotorbikeSpacesFull()){
-                    carparkList.remove(i);
-                }
-            }else if(ticket.hasDisability()){
-                if(carparkList.get(i).isDisabledSpacesFull()){
-                    carparkList.remove(i);
-                }
-            }else{
-                if(carparkList.get(i).isGeneralSpacesFull()){
-                    carparkList.remove(i);
-                }
+            if(carparkList.get(i).isFull()) {
+                carparkList.remove(i);
             }
         }
     }

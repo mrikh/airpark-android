@@ -80,6 +80,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_info);
 
         validator = new InputValidator();
+        ticket = new BookingTicket();
         bindUiItems();
 
         //Get Current Date/Time
@@ -96,25 +97,17 @@ public class SearchActivity extends AppCompatActivity {
         autoText.setThreshold(1);
         autoText.setAdapter(adapter);
 
-        //Select Arrival Date
         entryDate.setOnClickListener(v -> {setEntryDate(year, month, day); hideKeyboard(this);});
-        //Select Departure Date
         exitDate.setOnClickListener(v -> {setExitDate(year,month,day); hideKeyboard(this);});
-        //Set Arrival Time
         entryTime.setOnClickListener(v -> {setEntryTime(hour); hideKeyboard(this);});
-        //Set Departure Time
         exitTime.setOnClickListener(v -> {setExitTime(hour); hideKeyboard(this);});
         //Set Disabled Parking
         disabilityCheck.setOnClickListener(v -> {
-            if(disabilityCheck.isChecked()){
-                motorbikeCheck.setChecked(false);
-            }
+            if(disabilityCheck.isChecked()){ motorbikeCheck.setChecked(false); }
         });
         //Set Motorbike Parking
         motorbikeCheck.setOnClickListener(v -> {
-            if(motorbikeCheck.isChecked()){
-                disabilityCheck.setChecked(false);
-            }
+            if(motorbikeCheck.isChecked()){ disabilityCheck.setChecked(false); }
         });
 
         //Select Search Button & Validate Info
@@ -126,7 +119,15 @@ public class SearchActivity extends AppCompatActivity {
                 String exitT = exitTime.getText().toString();
 
                 //Update booking ticket
-                ticket = new BookingTicket(autoText.getText().toString(), entryD, exitD, entryT, exitT, disabilityCheck.isChecked(), motorbikeCheck.isChecked());
+                ticket.setAirport(autoText.getText().toString());
+                ticket.setArrivalDate(entryD);
+                ticket.setExitDate(exitD);
+                ticket.setArrivalTime(entryT);
+                ticket.setExitTime(exitT);
+                if(disabilityCheck.isChecked()){ticket.setHasDisability(true);}
+                if(motorbikeCheck.isChecked()){ticket.setHasMotorbike(true);}
+
+//                BookingTicket.currentTicket = ticket;
                 //Move to Next Screen
                 Intent myIntent = new Intent(SearchActivity.this, SelectCarparkActivity.class);
                 myIntent.putExtra("ticket", ticket);
@@ -196,11 +197,9 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (drawerToggle.onOptionsItemSelected(item)){
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

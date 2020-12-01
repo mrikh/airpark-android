@@ -2,9 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/enterDetail_background">
 
     <LinearLayout
         android:id="@+id/enterDetails_login_container"
@@ -35,12 +38,25 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/login_notice"
-            android:textAlignment="center"
             android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+            android:text="@string/or"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:text="@string/guest"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -56,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterDetails_login_container"
-        app:layout_constraintVertical_bias="0.05">
+        app:layout_constraintVertical_bias="0.03">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enterDetails_name"
@@ -80,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterDetails_name_container"
-        app:layout_constraintVertical_bias="0.03">
+        app:layout_constraintVertical_bias="0.02">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enterDetails_email"
@@ -105,7 +121,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterDetails_email_container"
-        app:layout_constraintVertical_bias="0.03">
+        app:layout_constraintVertical_bias="0.02">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enterDetails_phoneNo"
@@ -114,6 +130,7 @@
             android:layout_marginLeft="-8dp"
             android:background="@color/white"
             android:singleLine="true"
+            android:inputType="phone"
             android:textSize="18dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,7 +138,6 @@
         android:id="@+id/enterDetails_carReg_container"
         android:layout_width="371dp"
         android:layout_height="wrap_content"
-        android:autofillHints="Car Registration"
         android:background="@color/white"
         android:ems="10"
         android:hint="@string/car_reg"
@@ -129,7 +145,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterDetails_phoneNo_container"
-        app:layout_constraintVertical_bias="0.03">
+        app:layout_constraintVertical_bias="0.02">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enterDetails_carReg"
@@ -151,7 +167,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterDetails_carReg_container"
-        app:layout_constraintVertical_bias="0.107" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <CheckBox
         android:id="@+id/carWash_check"
@@ -163,7 +179,7 @@
         app:layout_constraintHorizontal_bias="0.168"
         app:layout_constraintStart_toEndOf="@+id/elderly_check"
         app:layout_constraintTop_toBottomOf="@+id/enterDetails_carReg_container"
-        app:layout_constraintVertical_bias="0.107" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <TextView
         android:id="@+id/enterDetails_note"
@@ -179,10 +195,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/payment_Btn"
+        android:id="@+id/confirm_Btn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/payment"
+        android:text="@string/confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
