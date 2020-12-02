@@ -18,8 +18,8 @@ import com.example.airpark.activities.ChosenCarparkActivity;
 import com.example.airpark.activities.SearchActivity;
 import com.example.airpark.activities.SelectCarparkActivity;
 import com.example.airpark.models.BookingTicket;
+import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
-import com.example.airpark.models.Price;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.MyViewHolder> {
     private List<CarPark> carparkList;
-    private Price price;
+    private CalculatePrice price;
     private BookingTicket ticket;
     private DecimalFormat dFormat;
     
@@ -60,7 +60,7 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final CarPark carpark = carparkList.get(position);
-        price = new Price(carpark.getPrice());
+        price = new CalculatePrice(carpark.getPrice());
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkType());
         try {
