@@ -127,7 +127,6 @@ public class SearchActivity extends AppCompatActivity {
                 if(disabilityCheck.isChecked()){ticket.setHasDisability(true);}
                 if(motorbikeCheck.isChecked()){ticket.setHasMotorbike(true);}
 
-//                BookingTicket.currentTicket = ticket;
                 //Move to Next Screen
                 Intent myIntent = new Intent(SearchActivity.this, SelectCarparkActivity.class);
                 myIntent.putExtra("ticket", ticket);

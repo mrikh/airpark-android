@@ -7,10 +7,11 @@ import android.widget.TextView;
 import com.example.airpark.R;
 import com.example.airpark.adapters.CarparkSectionAdapter;
 import com.example.airpark.models.BookingTicket;
+import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
 import com.example.airpark.models.CarParkSpace;
 import com.example.airpark.models.CarparkListSection;
-import com.example.airpark.models.Price;
+import com.example.airpark.models.DisabledSpace;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -113,14 +114,14 @@ public class SelectCarparkActivity extends AppCompatActivity {
      * @return CarPark ArrayList with recommended option
      */
     private ArrayList<CarPark> getRecommendedCarpark() throws ParseException {
-        Price price = new Price(carparkList.get(0).getPrice());
+        CalculatePrice price = new CalculatePrice(carparkList.get(0).getPrice());
         ArrayList<CarPark> recommended = new ArrayList<>();
         recommended.add(carparkList.get(0));
 
         double min = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carparkList.get(0).getCarparkType());
 
         for(int i=1; i<carparkList.size(); i++){
-            price = new Price(carparkList.get(i).getPrice());
+            price = new CalculatePrice(carparkList.get(i).getPrice());
             double max = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carparkList.get(i).getCarparkType());
 
             if(max < min){

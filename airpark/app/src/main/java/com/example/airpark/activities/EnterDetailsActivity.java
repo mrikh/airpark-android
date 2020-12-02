@@ -1,6 +1,5 @@
 package com.example.airpark.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,15 +9,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airpark.R;
 import com.example.airpark.models.BookingTicket;
+import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.Discounts;
-import com.example.airpark.models.Price;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.InputValidator;
 import com.google.android.material.textfield.TextInputEditText;
@@ -33,7 +30,7 @@ public class EnterDetailsActivity extends AppCompatActivity {
     private CheckBox elderlyCheck, carWashCheck;
     private InputValidator validator;
     private BookingTicket ticket;
-    private Price price;
+    private CalculatePrice price;
     private Discounts discounts;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +47,7 @@ public class EnterDetailsActivity extends AppCompatActivity {
 
         /** Hardcoded  **/
         discounts = new Discounts(20);
-        price = new Price(0);
+        price = new CalculatePrice(0);
 
         Intent myIntent = getIntent();
         ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
@@ -91,7 +88,6 @@ public class EnterDetailsActivity extends AppCompatActivity {
                 PopUpConfirmPayment popUpWindow = new PopUpConfirmPayment(carparkPrice, discountText, carWashText, dFormat.format(finalPrice));
                 popUpWindow.showPopUp(v);
 
-//                openDialogue(carparkPrice, discount, carWash, dFormat.format(finalPrice));
             }
         });
 
@@ -148,24 +144,5 @@ public class EnterDetailsActivity extends AppCompatActivity {
         }
         return false;
     }
-
-//    private void openDialogue(String carparkPrice, String discount, String carWash, String finalPrice){
-//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-//
-//        DecimalFormat dFormat = new DecimalFormat("#.00");
-//        String finalPayment = carparkPrice + discount + carWash + "\n\nTotal: €" + finalPrice;
-//
-//        alertDialogBuilder.setMessage(getString(R.string.dialogueTitle)+ "\n" + finalPayment);
-//                alertDialogBuilder.setPositiveButton("Make Payment",
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface arg0, int arg1) {
-//                                Toast.makeText(EnterDetailsActivity.this,"You clicked yes button",Toast.LENGTH_LONG).show();
-//                            }
-//                        });
-//
-//        AlertDialog alertDialog = alertDialogBuilder.create();
-//        alertDialog.show();
-//    }
 
 }

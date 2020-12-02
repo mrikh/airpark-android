@@ -12,14 +12,14 @@ import java.util.Date;
  *
  * Calculates the price of car park
  */
-public class Price {
+public class CalculatePrice {
     private double carparkPrice, carWashPrice;
 
     /**
      * Constructs Price Object
      * @param carparkPrice
      */
-    public Price (double carparkPrice){
+    public CalculatePrice (double carparkPrice){
         this.carparkPrice = carparkPrice;
     }
 

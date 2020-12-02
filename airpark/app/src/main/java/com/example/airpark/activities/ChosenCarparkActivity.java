@@ -4,21 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airpark.R;
 import com.example.airpark.models.BookingTicket;
+import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
-import com.example.airpark.models.Discounts;
-import com.example.airpark.models.Price;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 /**
  * Airpark Application - Group 14
@@ -33,7 +29,7 @@ public class ChosenCarparkActivity extends AppCompatActivity {
     private Button selectBtn;
     private BookingTicket ticket;
     private CarPark carpark;
-    private Price priceCalc;
+    private CalculatePrice priceCalc;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -91,12 +87,5 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         carparkPrice = (TextView) findViewById(R.id.carpark_price);
         carparkInfo = (TextView) findViewById(R.id.carpark_important_info);
         selectBtn = (Button)findViewById(R.id.select_carpark_btn);
-    }
-
-
-    private void open(View view){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-//        alertDialogBuilder.setMessage()
-//        alertDialogBuilder.setPositiveButton();
     }
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.airpark.R;
+import com.example.airpark.models.BookingTicket;
 
 import java.text.DecimalFormat;
 
@@ -58,7 +59,6 @@ public class PopUpConfirmPayment {
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Toast.makeText(view.getContext(), "Open Card Paymment View", Toast.LENGTH_SHORT).show();
 
             }
