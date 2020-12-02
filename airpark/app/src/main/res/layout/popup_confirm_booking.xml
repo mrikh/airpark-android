@@ -54,6 +54,7 @@
                 tools:layout_editor_absoluteX="10dp"
                 tools:layout_editor_absoluteY="50dp"
                 android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
