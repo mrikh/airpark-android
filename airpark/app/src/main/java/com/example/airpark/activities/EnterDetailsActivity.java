@@ -71,7 +71,7 @@ public class EnterDetailsActivity extends AppCompatActivity {
                 VehicleFactory vFactory = new VehicleFactory();
                 Vehicle vehicle = vFactory.getVehicle(BookingTicket.currentTicket.getSpaceRequired());
                 vehicle.setVehicleReg(carReg.toString());
-                vehicle.setTicketID(BookingTicket.currentTicket.getTicketID());
+                vehicle.setTicketID(BookingTicket.currentTicket.getTicketID()); //This will be empty though because the alpha-numeric code isn't created until the last screen so not sure what to do here
 
 
                 DecimalFormat dFormat = new DecimalFormat("#.00");
