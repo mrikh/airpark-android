@@ -73,7 +73,6 @@ public class EnterDetailsActivity extends AppCompatActivity {
                 vehicle.setVehicleReg(carReg.toString());
                 vehicle.setTicketID(BookingTicket.currentTicket.getTicketID()); //This will be empty though because the alpha-numeric code isn't created until the last screen so not sure what to do here
 
-
                 DecimalFormat dFormat = new DecimalFormat("#.00");
 
                 double finalPrice = BookingTicket.currentTicket.getTicketPrice();
