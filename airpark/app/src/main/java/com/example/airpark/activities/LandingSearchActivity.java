@@ -58,11 +58,11 @@ public class LandingSearchActivity extends AppCompatActivity {
     private InputValidator validator;
     //UI Datatypes
     private TextInputEditText entryDate, exitDate, entryTime, exitTime;
-    private TextInputLayout airportContainer, entryDateContainer, exitDateContainer, entryTimeContainer, exitTimeContainer;
+    private TextInputLayout  airportContainer, entryDateContainer, exitDateContainer, entryTimeContainer, exitTimeContainer;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
     private Button search;
-    private AutoCompleteTextView autoText;
+    private AutoCompleteTextView airportAutoText;
     private CheckBox disabilityCheck, motorbikeCheck;
     private ActionBarDrawerToggle drawerToggle;
 
@@ -96,9 +96,10 @@ public class LandingSearchActivity extends AppCompatActivity {
         //Select Airport
         String[] airports = {"Dublin Airport", "Shannon Airport", "Cork Airport"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, airports);
-        autoText.setThreshold(1);
-        autoText.setAdapter(adapter);
+        airportAutoText.setThreshold(1);
+        airportAutoText.setAdapter(adapter);
 
+        airportAutoText.setOnClickListener(v -> {airportAutoText.setError(null); airportContainer.setError(null);});
         entryDate.setOnClickListener(v -> {setEntryDate(year, month, day); hideKeyboard(this);});
         exitDate.setOnClickListener(v -> {setExitDate(year,month,day); hideKeyboard(this);});
         entryTime.setOnClickListener(v -> {setEntryTime(hour); hideKeyboard(this);});
@@ -121,13 +122,13 @@ public class LandingSearchActivity extends AppCompatActivity {
                 String exitT = exitTime.getText().toString();
 
                 //Update booking ticket
-                BookingTicket.currentTicket.setAirport(autoText.getText().toString());
+                BookingTicket.currentTicket.setAirport(airportAutoText.getText().toString());
                 BookingTicket.currentTicket.setArrivalDate(entryD);
                 BookingTicket.currentTicket.setExitDate(exitD);
                 BookingTicket.currentTicket.setArrivalTime(entryT);
                 BookingTicket.currentTicket.setExitTime(exitT);
-                if(disabilityCheck.isChecked()){BookingTicket.currentTicket.setHasDisability(true);}
-                if(motorbikeCheck.isChecked()){BookingTicket.currentTicket.setHasMotorbike(true);}
+                if(disabilityCheck.isChecked()){BookingTicket.currentTicket.setSpaceRequired("DISABILITY");}
+                if(motorbikeCheck.isChecked()){BookingTicket.currentTicket.setSpaceRequired("MOTORBIKE");}
 
                 //Move to Next Screen
                 Intent myIntent = new Intent(this, SelectCarparkActivity.class);
@@ -226,7 +227,7 @@ public class LandingSearchActivity extends AppCompatActivity {
      * Bind Ui with id
      */
     private void bindUiItems(){
-        autoText = (AutoCompleteTextView) findViewById(R.id.airport_auto);
+        airportAutoText = (AutoCompleteTextView) findViewById(R.id.airport_auto);
         airportContainer = (TextInputLayout) findViewById(R.id.airportContainer);
         entryDate = (TextInputEditText) findViewById(R.id.entryDate);
         entryDateContainer = (TextInputLayout) findViewById(R.id.entryDateContainer);
@@ -424,7 +425,7 @@ public class LandingSearchActivity extends AppCompatActivity {
      * @param airports Array of airports
      * @return true if all info is valid, else false
      */
-    private Boolean isValidSearch(String[] airports){
+    private Boolean isValidSearch(String[] airports) {
         String entryD = entryDate.getText().toString();
         String exitD = exitDate.getText().toString();
         String entryT = entryTime.getText().toString();
@@ -432,20 +433,18 @@ public class LandingSearchActivity extends AppCompatActivity {
         Boolean validAirport = false;
 
         for (String airport : airports) {
-            if (autoText.getText().toString().equals(airport)) {
+            if (airportAutoText.getText().toString().equals(airport)) {
                 validAirport = true;
                 airportContainer.setError(null);
 
                 if (!entryD.equals("") && !exitD.equals("") && !entryT.equals("") && !exitT.equals("")) {
-                    try {
-                        if (validator.isValidTimeToDate(entryD, exitD, entryT, exitT)) {
-                            System.out.println("Search OK");
-
-                            return true;
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                   try {
+                       if (validator.isValidTimeToDate(entryD, exitD, entryT, exitT)) {
+                           return true;
+                       }
+                   } catch (ParseException e) {
+                       e.printStackTrace();
+                   }
                 } else {
                     if (entryD.equals("")) { entryDateContainer.setError(getString(R.string.invalid_date)); }
                     if (exitD.equals("")) { exitDateContainer.setError(getString(R.string.invalid_date)); }
@@ -454,6 +453,7 @@ public class LandingSearchActivity extends AppCompatActivity {
                 }
             }
         }
+
         if (!validAirport) {
             airportContainer.setError(getString(R.string.invalid_airport));
             Toast.makeText(this, getText(R.string.invalid_airport), Toast.LENGTH_LONG).show();

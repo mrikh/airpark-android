@@ -1,6 +1,6 @@
 package com.example.airpark.models;
 
-abstract class CarParkSpace {
+public abstract class CarParkSpace {
     private int spaceID, availableSpaces;
     private String vehicleReg;
 

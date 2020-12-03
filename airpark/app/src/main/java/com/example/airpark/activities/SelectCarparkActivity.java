@@ -10,6 +10,7 @@ import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
 import com.example.airpark.models.CarParkSpace;
+import com.example.airpark.models.CarParkSpaceFactory;
 import com.example.airpark.models.CarparkListSection;
 import com.example.airpark.models.DisabledSpace;
 
@@ -89,19 +90,19 @@ public class SelectCarparkActivity extends AppCompatActivity {
 
     /**         Hardcoded           **/
     private void prepareCarparkList(){
-        CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 5, 10);
+        //Factory Pattern
+        CarParkSpaceFactory spaceFactory = new CarParkSpaceFactory();
+        CarParkSpace space = spaceFactory.getSpace(BookingTicket.currentTicket.getSpaceRequired());
+
+        System.out.println(space.getNoOfSpaces());
+
+        CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 5, space.getNoOfSpaces());
         carparkList.add(carPark);
-        carPark = new CarPark(1, "Long Term", "Zone B", 10, 20, 0);
+        carPark = new CarPark(1, "Long Term", "Zone B", 10, 20, space.getNoOfSpaces());
         carparkList.add(carPark);
-        carPark = new CarPark(2, "Long Term", "Zone C", 15, 18, 25);
+        carPark = new CarPark(2, "Long Term", "Zone C", 15, 18, space.getNoOfSpaces());
         carparkList.add(carPark);
 
-        //Remove car park if no available spaces
-        for(int i=0; i<carparkList.size(); i++){
-            if(carparkList.get(i).isFull()) {
-                carparkList.remove(i);
-            }
-        }
     }
 
     /**
