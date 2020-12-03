@@ -20,6 +20,10 @@ import android.widget.TextView;
 public class BookingActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle drawerToggle;
+    private String airport, arrivalDate, arrivalTime, exitDate, exitTime;
+    private int carparkID;
+    private double ticketPrice;
+    private ArrayList<BookingTicket> bookingsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,9 +125,9 @@ public class BookingActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         ...
 
-        // Register to receive messages.
+        // Register to receive messages?
         // We are registering an observer (mMessageReceiver) to receive Intents
-        // with actions named "custom-event-name".
+        // with actions named "delete_booking".
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("delete_booking"));
     }
@@ -140,9 +144,11 @@ public class BookingActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy(ArrayList<BookingTicket> bookingsList) {
         // Unregister since the activity is about to be closed.
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        int indexOfDeleted = bookingsList.indexOf(bookingsList);
+        bookingsList.remove(indexOfDeleted);
         super.onDestroy();
     }
 
@@ -152,7 +158,8 @@ public class BookingActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         ...
 
-        // Every time a button is clicked, we want to broadcast a notification.
+
+        // Every time the delete button is clicked, we want to broadcast a notification.
         findViewById(@+id/card_deleteBooking).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
