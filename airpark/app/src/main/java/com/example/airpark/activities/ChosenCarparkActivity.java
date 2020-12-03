@@ -59,7 +59,7 @@ public class ChosenCarparkActivity extends AppCompatActivity {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor lectus fermentum nunc malesuada, et tristique tellus lobortis. Vestibulum at finibus ipsum. Etiam laoreet erat sit ");
 
         selectBtn.setOnClickListener(v -> {
-            Intent myIntent2 = new Intent(this, PaymentConfirmedActivity.class);
+            Intent myIntent2 = new Intent(this, EnterDetailsActivity.class);
             startActivity(myIntent2);
         });
     }
