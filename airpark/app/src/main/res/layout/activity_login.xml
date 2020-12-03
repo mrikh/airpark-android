@@ -10,6 +10,17 @@
     android:focusableInTouchMode="true"
     tools:context=".activities.Prelogin.LoginActivity">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="143dp"
+        android:layout_height="187dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/airpark_logo"
+        android:contentDescription="@string/airpark_logo" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextTextEmailAddress2"
         android:layout_width="371dp"
@@ -21,18 +32,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.29000002">
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintVertical_bias="0.1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextTextEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="-8dp"
-            android:inputType="textEmailAddress"
             android:background="@color/white"
+            android:inputType="textEmailAddress"
             android:singleLine="true"
-            android:textSize="18dp" />
+            android:textSize="18sp"
+            android:layout_marginStart="-8dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -55,9 +67,10 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:background="@color/white"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:inputType="textPassword"
-            android:layout_marginLeft="-8dp" />
+            android:layout_marginLeft="-8dp"
+            android:layout_marginStart="-8dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -103,6 +116,7 @@
     <TextView
         android:onClick="onClick"
         android:clickable="true"
+        android:focusable="true"
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -129,6 +143,7 @@
     <TextView
         android:onClick="onClick"
         android:clickable="true"
+        android:focusable="true"
         android:id="@+id/exploreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
