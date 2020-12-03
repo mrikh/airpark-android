@@ -41,7 +41,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 /**
- * Airpark Application
+ * Airpark Application - Group 14
  *
  * CS4125 -> System Analysis & Design
  * CS5721 -> Software Design
@@ -62,10 +62,8 @@ public class SearchActivity extends AppCompatActivity {
     private Button search;
     private AutoCompleteTextView autoText;
     private CheckBox disabilityCheck, motorbikeCheck;
-
     private ActionBarDrawerToggle drawerToggle;
 
-    //Constructor
     public SearchActivity(){
         dFormat = new DecimalFormat("00");
         calender = Calendar.getInstance();
@@ -82,6 +80,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_info);
 
         validator = new InputValidator();
+        ticket = new BookingTicket();
         bindUiItems();
 
         //Get Current Date/Time
@@ -98,31 +97,17 @@ public class SearchActivity extends AppCompatActivity {
         autoText.setThreshold(1);
         autoText.setAdapter(adapter);
 
-        //Select Arrival Date
         entryDate.setOnClickListener(v -> {setEntryDate(year, month, day); hideKeyboard(this);});
-        //Select Departure Date
         exitDate.setOnClickListener(v -> {setExitDate(year,month,day); hideKeyboard(this);});
-        //Set Arrival Time
         entryTime.setOnClickListener(v -> {setEntryTime(hour); hideKeyboard(this);});
-        //Set Departure Time
         exitTime.setOnClickListener(v -> {setExitTime(hour); hideKeyboard(this);});
         //Set Disabled Parking
-        disabilityCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(disabilityCheck.isChecked()){
-                    motorbikeCheck.setChecked(false);
-                }
-            }
+        disabilityCheck.setOnClickListener(v -> {
+            if(disabilityCheck.isChecked()){ motorbikeCheck.setChecked(false); }
         });
         //Set Motorbike Parking
-        motorbikeCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(motorbikeCheck.isChecked()){
-                    disabilityCheck.setChecked(false);
-                }
-            }
+        motorbikeCheck.setOnClickListener(v -> {
+            if(motorbikeCheck.isChecked()){ disabilityCheck.setChecked(false); }
         });
 
         //Select Search Button & Validate Info
@@ -134,7 +119,14 @@ public class SearchActivity extends AppCompatActivity {
                 String exitT = exitTime.getText().toString();
 
                 //Update booking ticket
-                ticket = new BookingTicket(autoText.getText().toString(), entryD, exitD, entryT, exitT, disabilityCheck.isChecked(), motorbikeCheck.isChecked());
+                ticket.setAirport(autoText.getText().toString());
+                ticket.setArrivalDate(entryD);
+                ticket.setExitDate(exitD);
+                ticket.setArrivalTime(entryT);
+                ticket.setExitTime(exitT);
+                if(disabilityCheck.isChecked()){ticket.setHasDisability(true);}
+                if(motorbikeCheck.isChecked()){ticket.setHasMotorbike(true);}
+
                 //Move to Next Screen
                 Intent myIntent = new Intent(SearchActivity.this, SelectCarparkActivity.class);
                 myIntent.putExtra("ticket", ticket);
@@ -146,7 +138,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setupDrawer(){
-
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(drawerToggle);
@@ -154,7 +145,7 @@ public class SearchActivity extends AppCompatActivity {
 
         NavigationView navigationView = findViewById(R.id.navigationView);
 
-        //dont show menu button if not logged in
+        //don't show menu button if not logged in
         if (UserModel.currentUser == null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }else{
@@ -205,11 +196,9 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (drawerToggle.onOptionsItemSelected(item)){
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -332,6 +321,9 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute12) {
                 entryTime.setText(dFormat.format(hourOfDay) + ":00");
+                if(hourOfDay == 00){
+                    entryTime.setText("23:59");
+                }
 
                 String entryD = entryDate.getText().toString();
                 String exitD = exitDate.getText().toString();
@@ -373,6 +365,9 @@ public class SearchActivity extends AppCompatActivity {
     private void setExitTime(int hour){
         timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute1) -> {
             exitTime.setText(dFormat.format(hourOfDay) + ":00");
+            if(hourOfDay == 00){
+                exitTime.setText("23:59");
+            }
 
             String entryD = entryDate.getText().toString();
             String exitD = exitDate.getText().toString();

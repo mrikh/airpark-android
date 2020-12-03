@@ -1,16 +1,38 @@
 package com.example.airpark.models;
 
-public class CarPark {
+import java.io.Serializable;
 
-    private int carparkID;
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * An airport car park
+ */
+public class CarPark implements Serializable {
+
+    private int carparkID, availableSpaces;
     private String carparkName, carparkType;
-    private double distanceFromAirport;
+    private double distanceFromAirport, price;
 
-    public CarPark(int carparkID, String carparkType, String carparkName, double distanceFromAirport){
+    /**
+     * Constructs Car Park Object
+     *
+     * @param carparkID
+     * @param carparkType
+     * @param carparkName
+     * @param distanceFromAirport
+     * @param price
+     */
+    public CarPark(int carparkID, String carparkType, String carparkName, double distanceFromAirport, double price, int availableSpaces){
         this.carparkID = carparkID;
         this.carparkName = carparkName;
         this.carparkType = carparkType;
         this.distanceFromAirport = distanceFromAirport;
+        this.price = price;
+        this.availableSpaces = availableSpaces;
+
     }
 
     public int getCarparkID(){ return carparkID; }
@@ -21,7 +43,10 @@ public class CarPark {
 
     public double getDistanceFromAirport(){ return distanceFromAirport; }
 
-    public boolean isFull(int availableSpaces){
+    //Price per hour (short term) or day (long term)
+    public double getPrice(){ return price; }
+
+    public boolean isFull(){
         if(availableSpaces > 0){
             return false;
         }
@@ -29,5 +54,5 @@ public class CarPark {
     }
 
     public String toString(){
-        return carparkName + "\n" + carparkType + "\n\n" + distanceFromAirport + "m from Airport";}
+        return carparkType + " - " + distanceFromAirport + "m from Airport";}
 }

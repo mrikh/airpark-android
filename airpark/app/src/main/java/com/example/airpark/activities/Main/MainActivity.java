@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             myIntent = new Intent(MainActivity.this, StripeActivity.class);
         }catch (Exception e){
 
-            //no user model soo go to login
+            //no user model so go to login
             myIntent = new Intent(MainActivity.this, LoginActivity.class);
         }
 

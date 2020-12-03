@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/enterDetail_background">
+
+    <LinearLayout
+        android:id="@+id/enterDetails_login_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/login_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/login_notice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/login_notice"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:text="@string/or"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:text="@string/guest"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/enterDetails_name_container"
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="Full Name"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="@string/name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterDetails_login_container"
+        app:layout_constraintVertical_bias="0.03">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enterDetails_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-8dp"
+            android:background="@color/white"
+            android:singleLine="true"
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/enterDetails_email_container"
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="Email"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="@string/email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterDetails_name_container"
+        app:layout_constraintVertical_bias="0.02">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enterDetails_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-8dp"
+            android:background="@color/white"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/enterDetails_phoneNo_container"
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="Phone Number"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="@string/phone_number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterDetails_email_container"
+        app:layout_constraintVertical_bias="0.02">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enterDetails_phoneNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-8dp"
+            android:background="@color/white"
+            android:singleLine="true"
+            android:inputType="phone"
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/enterDetails_carReg_container"
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="@string/car_reg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterDetails_phoneNo_container"
+        app:layout_constraintVertical_bias="0.02">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enterDetails_carReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-8dp"
+            android:background="@color/white"
+            android:singleLine="true"
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/elderly_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/elderly"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterDetails_carReg_container"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <CheckBox
+        android:id="@+id/carWash_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/car_wash"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.168"
+        app:layout_constraintStart_toEndOf="@+id/elderly_check"
+        app:layout_constraintTop_toBottomOf="@+id/enterDetails_carReg_container"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <TextView
+        android:id="@+id/enterDetails_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="@string/user_detail_note"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carWash_check"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/confirm_Btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterDetails_note"
+        app:layout_constraintVertical_bias="0.342" />
+</androidx.constraintlayout.widget.ConstraintLayout>

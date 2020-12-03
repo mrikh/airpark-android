@@ -95,7 +95,7 @@
 
     <!--Thumbnail View-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/sectioned_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="160dp"
@@ -104,6 +104,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/carpark_recyclerview" />
+        tools:listitem="@layout/search_carpark_list_section" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

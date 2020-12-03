@@ -6,23 +6,24 @@
     android:id="@+id/carpark_cardView"
     android:layout_width="360dp"
     android:layout_height="240dp"
-    android:layout_margin="23dp"
+    android:layout_margin="23.5dp"
     cardView:cardCornerRadius="8dp"
     cardView:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/card_carparkImage"
             android:layout_width="match_parent"
             android:layout_height="175dp"
             cardView:layout_constraintBottom_toBottomOf="parent"
+            cardView:layout_constraintEnd_toEndOf="parent"
+            cardView:layout_constraintStart_toStartOf="parent"
             cardView:layout_constraintTop_toTopOf="parent"
             cardView:layout_constraintVertical_bias="0.0"
-            tools:background="@tools:sample/backgrounds/scenic"
-            tools:layout_editor_absoluteX="0dp" />
+            tools:background="@tools:sample/backgrounds/scenic" />
 
         <!--Blue Background-->
         <TextView
@@ -31,9 +32,10 @@
             android:layout_height="70dp"
             android:background="@color/primary_blue"
             cardView:layout_constraintBottom_toBottomOf="parent"
+            cardView:layout_constraintEnd_toEndOf="parent"
+            cardView:layout_constraintStart_toStartOf="parent"
             cardView:layout_constraintTop_toBottomOf="@+id/card_carparkImage"
-            cardView:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="0dp" />
+            cardView:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/card_carparkName"
@@ -57,8 +59,9 @@
             android:layout_height="30dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
             android:textColor="@color/white"
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             cardView:layout_constraintBottom_toBottomOf="parent"
             cardView:layout_constraintEnd_toEndOf="@+id/textView"
@@ -75,8 +78,9 @@
             android:layout_height="30dp"
             android:gravity="center_vertical"
             android:textColor="@color/white"
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            android:paddingBottom="5dp"
             cardView:layout_constraintBottom_toBottomOf="parent"
             cardView:layout_constraintEnd_toEndOf="@+id/textView"
             cardView:layout_constraintHorizontal_bias="0.0"
