@@ -9,7 +9,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.example.airpark.R;
 import com.example.airpark.activities.Payments.StripeActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
-import com.example.airpark.activities.SearchActivity;
+import com.example.airpark.activities.LandingSearchActivity;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.Utilities;
 import com.stripe.android.PaymentConfiguration;
@@ -27,14 +27,12 @@ public class MainActivity extends AppCompatActivity {
 
         AndroidNetworking.initialize(getApplicationContext());
         Intent myIntent;
-
         try{
             JSONObject object = Utilities.getInstance().fetchJsonObject(getApplicationContext(), "user");
             UserModel current = new UserModel(object.getInt("id"), object.getString("name"), object.getString("email"));
             UserModel.currentUser = current;
-            myIntent = new Intent(MainActivity.this, StripeActivity.class);
+            myIntent = new Intent(MainActivity.this, LandingSearchActivity.class);
         }catch (Exception e){
-
             //no user model so go to login
             myIntent = new Intent(MainActivity.this, LoginActivity.class);
         }

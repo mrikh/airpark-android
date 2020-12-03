@@ -1,6 +1,5 @@
 package com.example.airpark.models;
 
-import java.io.Serializable;
 /**
  * Airpark Application - Group 14
  *
@@ -10,32 +9,36 @@ import java.io.Serializable;
  * A car park booking ticket
  */
 
-public class BookingTicket implements Serializable {
+public class BookingTicket {
 
-//    public static BookingTicket currentTicket;
+    public static BookingTicket currentTicket = null;
 
-    private String airport, arrivalDate, exitDate, arrivalTime, exitTime;
+    private String ticketID, airport, arrivalDate, exitDate, arrivalTime, exitTime, spaceRequired;
     private int carparkID;
     private double ticketPrice;
-    private Boolean hasDisability, hasMotorbike, isElderly, hasCarWash;
+    private Boolean isElderly, hasCarWash;
 
     /**
      * Constructs Booking Ticket object
      *
      */
     public  BookingTicket(){
+        this.ticketID = null;
         this.airport = null;
         this.arrivalDate = null;
         this.exitDate = null;
         this.arrivalTime = null;
         this.exitTime = null;
-        this.hasDisability = false;
-        this.hasMotorbike = false;
         this.carparkID = -1;
         this.ticketPrice = -1;
         this.hasCarWash = false;
         this.isElderly = false;
+        this.spaceRequired = "GENERAL";
     }
+
+    public String getTicketID(){ return ticketID; }
+
+    public void setTicketID(String ticketID){ this.ticketID = ticketID; }
 
     public String getAirport() { return airport; }
 
@@ -59,13 +62,9 @@ public class BookingTicket implements Serializable {
 
     public void setExitTime(String exitTime) {  this.exitTime = exitTime; }
 
-    public Boolean hasDisability() { return hasDisability; }
+    public String getSpaceRequired() { return spaceRequired; }
 
-    public void setHasDisability(boolean hasDisability) { this.hasDisability = hasDisability; }
-
-    public Boolean hasMotorbike() { return hasMotorbike; }
-
-    public void setHasMotorbike(boolean hasMotorbike) { this.hasMotorbike = hasMotorbike; }
+    public void setSpaceRequired(String space) {this.spaceRequired = space;}
 
 //    public int getCarparkID() { return carparkID; }
 //
