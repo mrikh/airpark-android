@@ -17,7 +17,8 @@
         </activity>
         <activity
             android:name=".activities.Prelogin.LoginActivity"
-            android:label="Login" />
+            android:label="Login"
+            android:parentActivityName=".activities.EnterDetailsActivity"/>
         <activity
             android:name=".activities.Prelogin.SignUpActivity"
             android:label="Sign Up"
@@ -31,11 +32,16 @@
             android:parentActivityName=".activities.LandingSearchActivity"/>
         <activity
             android:name=".activities.ChosenCarparkActivity"
-            android:label="@string/carpark_short_term"/>
+            android:label="@string/carpark_short_term"
+            android:parentActivityName=".activities.SelectCarparkActivity"/>
         <activity
             android:name=".activities.EnterDetailsActivity"
-            android:label="Enter Details"/>
-        <activity android:name=".activities.PaymentConfirmedActivity" />
+            android:label="Enter Details"
+            android:parentActivityName=".activities.ChosenCarparkActivity"/>
+
+        <activity
+            android:name=".activities.PaymentConfirmedActivity"
+            android:label=""/>
 
         <activity android:name=".activities.Main.MainActivity">
             <intent-filter>

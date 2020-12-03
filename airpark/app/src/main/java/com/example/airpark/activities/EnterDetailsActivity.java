@@ -20,6 +20,8 @@ import com.example.airpark.models.CarPark;
 import com.example.airpark.models.Discounts;
 import com.example.airpark.activities.PopUpConfirmPayment;
 import com.example.airpark.models.UserModel;
+import com.example.airpark.models.Vehicle;
+import com.example.airpark.models.VehicleFactory;
 import com.example.airpark.utils.InputValidator;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -64,6 +66,14 @@ public class EnterDetailsActivity extends AppCompatActivity {
 
         confirmBtn.setOnClickListener(v -> {
             if(validateUserDetails()){
+
+                //Factory Pattern
+                VehicleFactory vFactory = new VehicleFactory();
+                Vehicle vehicle = vFactory.getVehicle(BookingTicket.currentTicket.getSpaceRequired());
+                vehicle.setVehicleReg(carReg.toString());
+                vehicle.setTicketID(BookingTicket.currentTicket.getTicketID());
+
+
                 DecimalFormat dFormat = new DecimalFormat("#.00");
 
                 double finalPrice = BookingTicket.currentTicket.getTicketPrice();

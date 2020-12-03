@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airpark.R;
 import com.example.airpark.models.BookingTicket;
+import com.example.airpark.models.CarParkSpace;
+import com.example.airpark.models.Vehicle;
+import com.example.airpark.models.VehicleFactory;
 import com.google.zxing.WriterException;
 
 import androidmads.library.qrgenearator.QRGContents;

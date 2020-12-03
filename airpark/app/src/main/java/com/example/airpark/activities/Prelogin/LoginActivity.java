@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         validator = new InputValidator();
 
@@ -71,6 +73,7 @@ public class LoginActivity extends AppCompatActivity{
         });
 
         if(BookingTicket.currentTicket != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             TextView orText = findViewById(R.id.textView4);
             orText.setVisibility(View.GONE);
             exploreTextView.setVisibility(View.GONE);
@@ -151,4 +154,14 @@ public class LoginActivity extends AppCompatActivity{
         Intent myIntent = new Intent(LoginActivity.this, EnterDetailsActivity.class);
         startActivity(myIntent);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

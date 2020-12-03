@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Airpark</string>
     <string name="airpark_title">Airpark</string>
+    <string name="airpark_logo">Airpark Logo</string>
 
     <!--  Errors  -->
     <string name="invalid_email">Email address is incorrect</string>
