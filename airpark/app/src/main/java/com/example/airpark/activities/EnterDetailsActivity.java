@@ -13,9 +13,12 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airpark.R;
+import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CalculatePrice;
+import com.example.airpark.models.CarPark;
 import com.example.airpark.models.Discounts;
+import com.example.airpark.activities.PopUpConfirmPayment;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.InputValidator;
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,14 +32,17 @@ public class EnterDetailsActivity extends AppCompatActivity {
     private Button loginBtn, confirmBtn;
     private CheckBox elderlyCheck, carWashCheck;
     private InputValidator validator;
-    private BookingTicket ticket;
     private CalculatePrice price;
     private Discounts discounts;
+    private CarPark carpark;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_user_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        Intent myIntent = getIntent();
+//        carpark = (CarPark)myIntent.getSerializableExtra("car park");
+
         bindUiItems();
 
         if (UserModel.currentUser != null) {
@@ -48,13 +54,9 @@ public class EnterDetailsActivity extends AppCompatActivity {
         /** Hardcoded  **/
         discounts = new Discounts(20);
         price = new CalculatePrice(0);
-
-        Intent myIntent = getIntent();
-        ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
-//        carpark = (CarPark)myIntent.getSerializableExtra("car park");
-
         validator = new InputValidator();
 
+        loginBtn.setOnClickListener(v -> navigateToLogin());
         name.setOnClickListener(v -> name.setError(null));
         email.setOnClickListener(v -> email.setError(null));
         phoneNumber.setOnClickListener(v -> phoneNumber.setError(null));
@@ -62,28 +64,28 @@ public class EnterDetailsActivity extends AppCompatActivity {
 
         confirmBtn.setOnClickListener(v -> {
             if(validateUserDetails()){
-                DecimalFormat dFormat = new DecimalFormat("#.##");
+                DecimalFormat dFormat = new DecimalFormat("#.00");
 
-                double finalPrice = ticket.getTicketPrice();
+                double finalPrice = BookingTicket.currentTicket.getTicketPrice();
                 String discountText = null, carWashText = null;
 
                 if(elderlyCheck.isChecked() || carWashCheck.isChecked()){
                     if(elderlyCheck.isChecked()){
-                        ticket.setIsElderly(true);
+                        BookingTicket.currentTicket.setIsElderly(true);
 
-                        double discountPrice = price.discountPrice(ticket.getTicketPrice(), discounts.getElderlyDiscount());
+                        double discountPrice = price.discountPrice(BookingTicket.currentTicket.getTicketPrice(), discounts.getElderlyDiscount());
                         discountText = "\nDiscount: " + dFormat.format(discounts.getElderlyDiscount()) + "%";
                         finalPrice = discountPrice;
                     }
                     if(carWashCheck.isChecked()){
-                        ticket.sethasCarWash(true);
+                        BookingTicket.currentTicket.sethasCarWash(true);
                         /** Hardcoded **/
                         double carWashPrice = 10;
                         carWashText = "\nCar Wash: €" + dFormat.format(carWashPrice);
                         finalPrice += carWashPrice;
                     }
                 }
-                String carparkPrice = "\nCar Park: €" + dFormat.format(ticket.getTicketPrice());
+                String carparkPrice = "\nCar Park: €" + dFormat.format(BookingTicket.currentTicket.getTicketPrice());
 
                 PopUpConfirmPayment popUpWindow = new PopUpConfirmPayment(carparkPrice, discountText, carWashText, dFormat.format(finalPrice));
                 popUpWindow.showPopUp(v);
@@ -143,6 +145,11 @@ public class EnterDetailsActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    private void navigateToLogin(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
 }

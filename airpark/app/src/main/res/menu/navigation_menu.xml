@@ -7,4 +7,6 @@
         android:title="Bookings"/>
     <item android:id="@+id/logout"
         android:title="Logout"/>
+    <item android:id="@+id/login"
+        android:title="Login"/>
 </menu>

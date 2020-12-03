@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.airpark">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -22,23 +23,23 @@
             android:label="Sign Up"
             android:parentActivityName=".activities.Prelogin.LoginActivity" />
         <activity
-            android:name=".activities.SearchActivity"
+            android:name=".activities.LandingSearchActivity"
             android:label="AirPark"/>
         <activity
             android:name=".activities.SelectCarparkActivity"
             android:label="Select Car Park"
-            android:parentActivityName=".activities.SearchActivity"/>
+            android:parentActivityName=".activities.LandingSearchActivity"/>
         <activity
             android:name=".activities.ChosenCarparkActivity"
             android:label="@string/carpark_short_term"/>
         <activity
             android:name=".activities.EnterDetailsActivity"
             android:label="Enter Details"/>
-        <activity
-            android:name=".activities.Main.MainActivity">
+        <activity android:name=".activities.PaymentConfirmedActivity" />
+
+        <activity android:name=".activities.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

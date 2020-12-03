@@ -13,7 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.SearchActivity;
+import com.example.airpark.activities.EnterDetailsActivity;
+import com.example.airpark.activities.LandingSearchActivity;
+import com.example.airpark.activities.PaymentConfirmedActivity;
+import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.ErrorRemoveInterface;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
@@ -67,6 +70,12 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+        if(BookingTicket.currentTicket != null){
+            TextView orText = findViewById(R.id.textView4);
+            orText.setVisibility(View.GONE);
+            exploreTextView.setVisibility(View.GONE);
+        }
+
         findViewById(R.id.loginBackground).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -113,7 +122,13 @@ public class LoginActivity extends AppCompatActivity{
                                 UserModel current = new UserModel(object.getInt("id"), object.getString("name"), object.getString("email"));
                                 UserModel.currentUser = current;
                                 Utilities.getInstance().saveJsonObject(object, getApplicationContext());
-                                navigateToLanding();
+
+                                if(BookingTicket.currentTicket != null){
+                                    navigateToEnterDetailsScreen();
+                                }else{
+                                    navigateToLanding();
+                                }
+
                             }catch (Exception e){
                                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG);
                             }
@@ -127,8 +142,13 @@ public class LoginActivity extends AppCompatActivity{
     public void onClick(View v){ }
 
     private void navigateToLanding(){
-        Intent myIntent = new Intent(LoginActivity.this, SearchActivity.class);
+        Intent myIntent = new Intent(LoginActivity.this, LandingSearchActivity.class);
         myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(myIntent);
+    }
+
+    private void navigateToEnterDetailsScreen(){
+        Intent myIntent = new Intent(LoginActivity.this, EnterDetailsActivity.class);
         startActivity(myIntent);
     }
 }

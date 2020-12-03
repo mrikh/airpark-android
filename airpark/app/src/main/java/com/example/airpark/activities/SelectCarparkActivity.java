@@ -30,7 +30,6 @@ import java.util.ArrayList;
  */
 public class SelectCarparkActivity extends AppCompatActivity {
     private TextView airportView, entryDate, exitDate, entryTime, exitTime;
-    private BookingTicket ticket;
     private RecyclerView recyclerView;
     private ArrayList<CarPark> carparkList, recommendedCarpark;
     private ArrayList<CarparkListSection> sections;
@@ -41,14 +40,11 @@ public class SelectCarparkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_carpark);
         bindUiItems();
 
-        Intent myIntent = getIntent();
-        ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
-
-        airportView.setText(ticket.getAirport());
-        entryDate.setText(ticket.getArrivalDate());
-        entryTime.setText(ticket.getArrivalTime());
-        exitDate.setText(ticket.getExitDate());
-        exitTime.setText(ticket.getExitTime());
+        airportView.setText(BookingTicket.currentTicket.getAirport());
+        entryDate.setText(BookingTicket.currentTicket.getArrivalDate());
+        entryTime.setText(BookingTicket.currentTicket.getArrivalTime());
+        exitDate.setText(BookingTicket.currentTicket.getExitDate());
+        exitTime.setText(BookingTicket.currentTicket.getExitTime());
 
         carparkList = new ArrayList<>();
         prepareCarparkList();
@@ -75,7 +71,7 @@ public class SelectCarparkActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        final CarparkSectionAdapter adapter = new CarparkSectionAdapter(this, sections, ticket);
+        final CarparkSectionAdapter adapter = new CarparkSectionAdapter(this, sections);
         recyclerView.setAdapter(adapter);
     }
 
@@ -118,11 +114,11 @@ public class SelectCarparkActivity extends AppCompatActivity {
         ArrayList<CarPark> recommended = new ArrayList<>();
         recommended.add(carparkList.get(0));
 
-        double min = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carparkList.get(0).getCarparkType());
+        double min = price.calculatePrice(BookingTicket.currentTicket.getArrivalTime(), BookingTicket.currentTicket.getExitTime(), BookingTicket.currentTicket.getArrivalDate(), BookingTicket.currentTicket.getExitDate(), carparkList.get(0).getCarparkType());
 
         for(int i=1; i<carparkList.size(); i++){
             price = new CalculatePrice(carparkList.get(i).getPrice());
-            double max = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carparkList.get(i).getCarparkType());
+            double max = price.calculatePrice(BookingTicket.currentTicket.getArrivalTime(), BookingTicket.currentTicket.getExitTime(), BookingTicket.currentTicket.getArrivalDate(), BookingTicket.currentTicket.getExitDate(), carparkList.get(i).getCarparkType());
 
             if(max < min){
                 min = max;

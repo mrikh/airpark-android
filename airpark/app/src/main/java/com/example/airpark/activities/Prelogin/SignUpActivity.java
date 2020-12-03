@@ -3,7 +3,7 @@ package com.example.airpark.activities.Prelogin;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.airpark.activities.SearchActivity;
+import com.example.airpark.activities.LandingSearchActivity;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.ErrorRemoveInterface;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
@@ -133,7 +133,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 UserModel.currentUser = current;
                                 Utilities.getInstance().saveJsonObject(object, getApplicationContext());
                                 //go to landing
-                                Intent myIntent = new Intent(SignUpActivity.this, SearchActivity.class);
+                                Intent myIntent = new Intent(SignUpActivity.this, LandingSearchActivity.class);
                                 myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(myIntent);
                             }catch (Exception e){

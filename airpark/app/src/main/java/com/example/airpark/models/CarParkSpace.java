@@ -1,18 +1,16 @@
 package com.example.airpark.models;
 
-public class CarParkSpace {
+abstract class CarParkSpace {
     private int spaceID, availableSpaces;
     private String vehicleReg;
 
-    public CarParkSpace(int spaceID, int availableSpaces, String vehicleReg){
+    CarParkSpace(int spaceID, int availableSpaces, String vehicleReg){
         this.spaceID = spaceID;
         this.availableSpaces = availableSpaces;
         this.vehicleReg = vehicleReg;
     }
 
-    public int getSpaceID() {
-        return spaceID;
-    }
+    public int getSpaceID() { return spaceID; }
 
     public int getNoOfSpaces() {
         return availableSpaces;

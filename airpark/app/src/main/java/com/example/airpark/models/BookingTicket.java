@@ -1,6 +1,5 @@
 package com.example.airpark.models;
 
-import java.io.Serializable;
 /**
  * Airpark Application - Group 14
  *
@@ -10,11 +9,11 @@ import java.io.Serializable;
  * A car park booking ticket
  */
 
-public class BookingTicket implements Serializable {
+public class BookingTicket {
 
-//    public static BookingTicket currentTicket;
+    public static BookingTicket currentTicket = null;
 
-    private String airport, arrivalDate, exitDate, arrivalTime, exitTime;
+    private String ticketID, airport, arrivalDate, exitDate, arrivalTime, exitTime;
     private int carparkID;
     private double ticketPrice;
     private Boolean hasDisability, hasMotorbike, isElderly, hasCarWash;
@@ -24,6 +23,7 @@ public class BookingTicket implements Serializable {
      *
      */
     public  BookingTicket(){
+        this.ticketID = null;
         this.airport = null;
         this.arrivalDate = null;
         this.exitDate = null;
@@ -36,6 +36,10 @@ public class BookingTicket implements Serializable {
         this.hasCarWash = false;
         this.isElderly = false;
     }
+
+    public String getTicketID(){ return ticketID; }
+
+    public void setTicketID(String ticketID){ this.ticketID = ticketID; }
 
     public String getAirport() { return airport; }
 

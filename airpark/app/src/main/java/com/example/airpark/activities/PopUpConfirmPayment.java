@@ -1,6 +1,7 @@
 package com.example.airpark.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,11 +13,20 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.airpark.R;
-import com.example.airpark.models.BookingTicket;
+import com.example.airpark.activities.PaymentConfirmedActivity;
+import com.example.airpark.activities.SelectCarparkActivity;
 
-import java.text.DecimalFormat;
-
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Final payment amount with extra costs or discounts as a pop-up window
+ */
 public class PopUpConfirmPayment {
 
     private String carparkPrice, discountAmount, carWashPrice, finalPrice, finalPayment;
@@ -39,14 +49,13 @@ public class PopUpConfirmPayment {
         //Make Inactive Items Outside Of PopupWindow
         boolean focusable = true;
 
+        //Center pop-up window
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         dimBackground(popupWindow);
 
         TextView title = popupView.findViewById(R.id.popUp_title);
         title.setText(R.string.popup_title);
-
-        DecimalFormat dFormat = new DecimalFormat("#.00");
 
         TextView extraChargesText = popupView.findViewById(R.id.popUp_extraCharges);
         extraCharges();
@@ -59,8 +68,7 @@ public class PopUpConfirmPayment {
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(view.getContext(), "Open Card Paymment View", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(view.getContext(), "Open Card Payment View", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -75,6 +83,10 @@ public class PopUpConfirmPayment {
         });
     }
 
+    /**
+     * Dim background behind pop-up
+     * @param popupWindow
+     */
     private void dimBackground(PopupWindow popupWindow){
         View container = (View) popupWindow.getContentView().getParent();
         Context context = popupWindow.getContentView().getContext();
@@ -85,6 +97,9 @@ public class PopUpConfirmPayment {
         wm.updateViewLayout(container, p);
     }
 
+    /**
+     * Add extra services/discounts text
+     */
     private void extraCharges(){
         if(discountAmount == null || carWashPrice == null){
             if(discountAmount == null && carWashPrice == null){
