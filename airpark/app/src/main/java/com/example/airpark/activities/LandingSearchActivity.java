@@ -13,6 +13,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.airpark.R;
 import com.example.airpark.activities.Bookings.BookingActivity;
+import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.InputValidator;
@@ -48,23 +51,22 @@ import java.util.Calendar;
  *
  * Creates Search/Landing Screen & sets user input booking info
  */
-public class SearchActivity extends AppCompatActivity {
+public class LandingSearchActivity extends AppCompatActivity {
 
     private DecimalFormat dFormat;
     private Calendar calender;
-    private BookingTicket ticket;
     private InputValidator validator;
     //UI Datatypes
     private TextInputEditText entryDate, exitDate, entryTime, exitTime;
-    private TextInputLayout airportContainer, entryDateContainer, exitDateContainer, entryTimeContainer, exitTimeContainer;
+    private TextInputLayout  airportContainer, entryDateContainer, exitDateContainer, entryTimeContainer, exitTimeContainer;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
     private Button search;
-    private AutoCompleteTextView autoText;
+    private AutoCompleteTextView airportAutoText;
     private CheckBox disabilityCheck, motorbikeCheck;
     private ActionBarDrawerToggle drawerToggle;
 
-    public SearchActivity(){
+    public LandingSearchActivity(){
         dFormat = new DecimalFormat("00");
         calender = Calendar.getInstance();
     }
@@ -79,8 +81,8 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_info);
 
+        BookingTicket.currentTicket = new BookingTicket();
         validator = new InputValidator();
-        ticket = new BookingTicket();
         bindUiItems();
 
         //Get Current Date/Time
@@ -93,10 +95,11 @@ public class SearchActivity extends AppCompatActivity {
         /**      ******   UPDATE WHEN DATABASE ADDED  ******      **/
         //Select Airport
         String[] airports = {"Dublin Airport", "Shannon Airport", "Cork Airport"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_dropdown_item_1line, airports);
-        autoText.setThreshold(1);
-        autoText.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, airports);
+        airportAutoText.setThreshold(1);
+        airportAutoText.setAdapter(adapter);
 
+        airportAutoText.setOnClickListener(v -> {airportAutoText.setError(null); airportContainer.setError(null);});
         entryDate.setOnClickListener(v -> {setEntryDate(year, month, day); hideKeyboard(this);});
         exitDate.setOnClickListener(v -> {setExitDate(year,month,day); hideKeyboard(this);});
         entryTime.setOnClickListener(v -> {setEntryTime(hour); hideKeyboard(this);});
@@ -119,17 +122,16 @@ public class SearchActivity extends AppCompatActivity {
                 String exitT = exitTime.getText().toString();
 
                 //Update booking ticket
-                ticket.setAirport(autoText.getText().toString());
-                ticket.setArrivalDate(entryD);
-                ticket.setExitDate(exitD);
-                ticket.setArrivalTime(entryT);
-                ticket.setExitTime(exitT);
-                if(disabilityCheck.isChecked()){ticket.setHasDisability(true);}
-                if(motorbikeCheck.isChecked()){ticket.setHasMotorbike(true);}
+                BookingTicket.currentTicket.setAirport(airportAutoText.getText().toString());
+                BookingTicket.currentTicket.setArrivalDate(entryD);
+                BookingTicket.currentTicket.setExitDate(exitD);
+                BookingTicket.currentTicket.setArrivalTime(entryT);
+                BookingTicket.currentTicket.setExitTime(exitT);
+                if(disabilityCheck.isChecked()){BookingTicket.currentTicket.setSpaceRequired("DISABILITY");}
+                if(motorbikeCheck.isChecked()){BookingTicket.currentTicket.setSpaceRequired("MOTORBIKE");}
 
                 //Move to Next Screen
-                Intent myIntent = new Intent(SearchActivity.this, SelectCarparkActivity.class);
-                myIntent.putExtra("ticket", ticket);
+                Intent myIntent = new Intent(this, SelectCarparkActivity.class);
                 startActivity(myIntent);
             }
         });
@@ -137,38 +139,57 @@ public class SearchActivity extends AppCompatActivity {
         setupDrawer();
     }
 
-    private void setupDrawer(){
+    //Prevent back to login screen on android default back button at bottom of screen
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    void setupDrawer(){
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.navigationView);
+        View headerView = navigationView.getHeaderView(0);
+        TextView nameTextView = headerView.findViewById(R.id.nameTextView);
+        TextView emailTextView = headerView.findViewById(R.id.emailTextView);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Menu menu = navigationView.getMenu();
 
         //don't show menu button if not logged in
         if (UserModel.currentUser == null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            nameTextView.setVisibility(View.GONE);
+            emailTextView.setVisibility(View.GONE);
+            menu.findItem(R.id.home).setVisible(false);
+            menu.findItem(R.id.logout).setVisible(false);
+            menu.findItem(R.id.bookings).setVisible(false);
         }else{
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-            View headerView = navigationView.getHeaderView(0);
-
-            TextView nameTextView = headerView.findViewById(R.id.nameTextView);
             nameTextView.setText(UserModel.currentUser.getName());
-
-            TextView emailTextView = headerView.findViewById(R.id.emailTextView);
             emailTextView.setText(UserModel.currentUser.getEmail());
+            menu.findItem(R.id.login).setVisible(false);
         }
 
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-
                 if (item.getItemId() == R.id.home){
                     drawerLayout.close();
-                }else if(item.getItemId() == R.id.bookings){
-                    Intent myIntent = new Intent(SearchActivity.this, BookingActivity.class);
+                }else if(item.getItemId() == R.id.bookings) {
+                    Intent myIntent = new Intent(LandingSearchActivity.this, BookingActivity.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(myIntent);
+                }else if(item.getItemId() == R.id.login){
+                    //Empty booking ticket
+                    BookingTicket.currentTicket = null;
+                    Intent myIntent = new Intent(LandingSearchActivity.this, LoginActivity.class);
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(myIntent);
                 }else{
@@ -206,7 +227,7 @@ public class SearchActivity extends AppCompatActivity {
      * Bind Ui with id
      */
     private void bindUiItems(){
-        autoText = (AutoCompleteTextView) findViewById(R.id.airport_auto);
+        airportAutoText = (AutoCompleteTextView) findViewById(R.id.airport_auto);
         airportContainer = (TextInputLayout) findViewById(R.id.airportContainer);
         entryDate = (TextInputEditText) findViewById(R.id.entryDate);
         entryDateContainer = (TextInputLayout) findViewById(R.id.entryDateContainer);
@@ -231,7 +252,7 @@ public class SearchActivity extends AppCompatActivity {
      */
     private void setEntryDate(int year, int month, int day){
         //Calender Pop-up
-        datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year1, int month1, int dayOfMonth) {
                 entryDate.setText(dFormat.format(dayOfMonth) + "/" + dFormat.format(month1 + 1) + "/" + year1); //Set Date
@@ -277,7 +298,7 @@ public class SearchActivity extends AppCompatActivity {
      */
     private void setExitDate(int year, int month, int day) {
         //Calender Pop-up
-        datePickerDialog = new DatePickerDialog(SearchActivity.this, (view, year12, month12, dayOfMonth) -> {
+        datePickerDialog = new DatePickerDialog(this, (view, year12, month12, dayOfMonth) -> {
             exitDate.setText(dFormat.format(dayOfMonth) + "/" + dFormat.format(month12 + 1) + "/" + year12);
 
             String entryD = entryDate.getText().toString();
@@ -404,7 +425,7 @@ public class SearchActivity extends AppCompatActivity {
      * @param airports Array of airports
      * @return true if all info is valid, else false
      */
-    private Boolean isValidSearch(String[] airports){
+    private Boolean isValidSearch(String[] airports) {
         String entryD = entryDate.getText().toString();
         String exitD = exitDate.getText().toString();
         String entryT = entryTime.getText().toString();
@@ -412,20 +433,18 @@ public class SearchActivity extends AppCompatActivity {
         Boolean validAirport = false;
 
         for (String airport : airports) {
-            if (autoText.getText().toString().equals(airport)) {
+            if (airportAutoText.getText().toString().equals(airport)) {
                 validAirport = true;
                 airportContainer.setError(null);
 
                 if (!entryD.equals("") && !exitD.equals("") && !entryT.equals("") && !exitT.equals("")) {
-                    try {
-                        if (validator.isValidTimeToDate(entryD, exitD, entryT, exitT)) {
-                            System.out.println("Search OK");
-
-                            return true;
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                   try {
+                       if (validator.isValidTimeToDate(entryD, exitD, entryT, exitT)) {
+                           return true;
+                       }
+                   } catch (ParseException e) {
+                       e.printStackTrace();
+                   }
                 } else {
                     if (entryD.equals("")) { entryDateContainer.setError(getString(R.string.invalid_date)); }
                     if (exitD.equals("")) { exitDateContainer.setError(getString(R.string.invalid_date)); }
@@ -434,9 +453,10 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         }
+
         if (!validAirport) {
             airportContainer.setError(getString(R.string.invalid_airport));
-            Toast.makeText(SearchActivity.this, getText(R.string.invalid_airport), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getText(R.string.invalid_airport), Toast.LENGTH_LONG).show();
         }
         return false;
     }
@@ -453,5 +473,6 @@ public class SearchActivity extends AppCompatActivity {
         }
         airportContainer.clearFocus();
     }
+
 }
 

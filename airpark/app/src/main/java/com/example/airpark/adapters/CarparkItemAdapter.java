@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airpark.R;
 import com.example.airpark.activities.ChosenCarparkActivity;
-import com.example.airpark.activities.SearchActivity;
-import com.example.airpark.activities.SelectCarparkActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
@@ -36,17 +34,14 @@ import java.util.List;
 public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.MyViewHolder> {
     private List<CarPark> carparkList;
     private CalculatePrice price;
-    private BookingTicket ticket;
     private DecimalFormat dFormat;
     
     /**
      * Constructs car park item object
      * @param carparkList
-     * @param ticket
      */
-    public CarparkItemAdapter(List<CarPark> carparkList, BookingTicket ticket){
+    public CarparkItemAdapter(List<CarPark> carparkList){
         this.carparkList = carparkList;
-        this.ticket = ticket;
         this.dFormat = new DecimalFormat("#.##");
     }
 
@@ -64,7 +59,7 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkType());
         try {
-            double fullPrice = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
+            double fullPrice = price.calculatePrice(BookingTicket.currentTicket.getArrivalTime(), BookingTicket.currentTicket.getExitTime(), BookingTicket.currentTicket.getArrivalDate(), BookingTicket.currentTicket.getExitDate(), carpark.getCarparkType());
             holder.carparkPrice.setText("€" + dFormat.format(fullPrice));
         } catch (ParseException e) {
             e.printStackTrace();
@@ -73,13 +68,12 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
             @Override
             public void onClick(View v) {
                 try {
-                    double fullPrice = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
-                    ticket.setTicketPrice(fullPrice);
+                    double fullPrice = price.calculatePrice(BookingTicket.currentTicket.getArrivalTime(), BookingTicket.currentTicket.getExitTime(), BookingTicket.currentTicket.getArrivalDate(), BookingTicket.currentTicket.getExitDate(), carpark.getCarparkType());
+                    BookingTicket.currentTicket.setTicketPrice(fullPrice);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 Intent intent = new Intent(holder.context, ChosenCarparkActivity.class);
-                intent.putExtra("ticket", ticket);
                 intent.putExtra("car park", carpark);
                 holder.context.startActivity(intent);
             }

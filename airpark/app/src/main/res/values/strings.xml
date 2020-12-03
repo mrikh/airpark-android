@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Airpark</string>
     <string name="airpark_title">Airpark</string>
+    <string name="airpark_logo">Airpark Logo</string>
 
     <!--  Errors  -->
     <string name="invalid_email">Email address is incorrect</string>
@@ -31,18 +32,19 @@
     <string name="note">Note:</string>
     <string name="agree_terms">By signing up you agree to our Terms &amp; Conditions</string>
 
-    <!--    Side Menu  -->
+    <!--  Side Menu  -->
     <string name="open">Open</string>
     <string name="close">Close</string>
 
-    <!-- Search/Landing -->
+    <!--  Search/Landing  -->
     <string name="airports">Select Airport</string>
     <string name="entry_date">Entry Date</string>
     <string name="exit_date">Exit Date</string>
     <string name="entry_time">Entry Time</string>
     <string name="exit_time">Exit Time</string>
+    <string name="okay">Okay</string>
 
-    <!-- The Selected Car Park -->
+    <!--  The Selected Car Park  -->
     <string name="carpark_long_term">Long Term Parking</string>
     <string name="carpark_short_term">Short Term Parking</string>
     <string name="carpark_entry">Entry:</string>
@@ -51,7 +53,7 @@
     <string name="total_price">Total: €</string>
     <string name="select_carpark">SELECT CAR PARK</string>
 
-    <!-- Enter Details -->
+    <!--  Enter Details  -->
     <string name="login_notice">Login for secure checkout and access to in-app discounts!</string>
     <string name="guest">Continue as Guest</string>
     <string name="phone_number">Phone Number</string>
@@ -61,9 +63,15 @@
     <string name="user_detail_note"><b>Note: </b>Make sure all details are entered correctly. You may be required to show identification on arrival.</string>
     <string name="confirm">CONFIRM</string>
 
-    <!-- Pop up Window -->
+    <!--  Pop up Window  -->
     <string name="popup_title"><b>Final Payment Amount</b></string>
     <string name="make_payment">MAKE PAYMENT</string>
+
+    <!--  Payment Confirmed  -->
+    <string name="payment_confirmed">Payment Confirmed</string>
+    <string name="qr_info">Scan the QR code below once you arrive and exit your chosen car park!</string>
+    <string name="qr_error">QR code not working? Use the following unique code instead!</string>
+    <string name="home">HOME</string>
 
 
 </resources>

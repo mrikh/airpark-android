@@ -2,11 +2,11 @@ package com.example.airpark.models;
 
 public class Car implements Vehicle {
 
-    private String carReg;
-    private int ticketID;
+    private String carReg, ticketID;
 
     public Car(){
         carReg = null;
+        ticketID = null;
     }
 
     @Override
@@ -20,7 +20,9 @@ public class Car implements Vehicle {
     }
 
     @Override
-    public int getTicketID() {
-        return 0;
-    }
+    public String getTicketID() { return ticketID; }
+
+    @Override
+    public void setTicketID(String ticketID) { this.ticketID = ticketID; }
+
 }

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.SearchActivity;
+import com.example.airpark.activities.LandingSearchActivity;
 import com.example.airpark.models.UserModel;
 import com.google.android.material.navigation.NavigationView;
 
@@ -64,7 +64,7 @@ public class BookingActivity extends AppCompatActivity {
 
                 if (item.getItemId() == R.id.home){
 
-                    Intent myIntent = new Intent(BookingActivity.this, SearchActivity.class);
+                    Intent myIntent = new Intent(BookingActivity.this, LandingSearchActivity.class);
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(myIntent);
 

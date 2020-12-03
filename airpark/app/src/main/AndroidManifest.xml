@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.airpark">
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,34 +11,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Airpark">
+        <activity android:name=".activities.Payments.StripeActivity"></activity>
+        <activity android:name=".activities.Bookings.BookingActivity" />
         <activity
             android:name=".activities.Bookings.BookingActivity">
         </activity>
         <activity
             android:name=".activities.Prelogin.LoginActivity"
-            android:label="Login" />
+            android:label="Login"
+            android:parentActivityName=".activities.EnterDetailsActivity"/>
         <activity
             android:name=".activities.Prelogin.SignUpActivity"
             android:label="Sign Up"
             android:parentActivityName=".activities.Prelogin.LoginActivity" />
         <activity
-            android:name=".activities.SearchActivity"
+            android:name=".activities.LandingSearchActivity"
             android:label="AirPark"/>
         <activity
             android:name=".activities.SelectCarparkActivity"
             android:label="Select Car Park"
-            android:parentActivityName=".activities.SearchActivity"/>
+            android:parentActivityName=".activities.LandingSearchActivity"/>
         <activity
             android:name=".activities.ChosenCarparkActivity"
-            android:label="@string/carpark_short_term"/>
+            android:label="@string/carpark_short_term"
+            android:parentActivityName=".activities.SelectCarparkActivity"/>
         <activity
             android:name=".activities.EnterDetailsActivity"
-            android:label="Enter Details"/>
+            android:label="Enter Details"
+            android:parentActivityName=".activities.ChosenCarparkActivity"/>
+
         <activity
-            android:name=".activities.Main.MainActivity">
+            android:name=".activities.PaymentConfirmedActivity"
+            android:label=""/>
+
+        <activity android:name=".activities.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

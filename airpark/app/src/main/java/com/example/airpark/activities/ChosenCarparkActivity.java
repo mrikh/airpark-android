@@ -27,9 +27,7 @@ import java.text.DecimalFormat;
 public class ChosenCarparkActivity extends AppCompatActivity {
     private TextView airportView, carparkType, entryDate, exitDate, carparkPrice, carparkInfo;
     private Button selectBtn;
-    private BookingTicket ticket;
     private CarPark carpark;
-    private CalculatePrice priceCalc;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -40,7 +38,6 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         DecimalFormat dFormat = new DecimalFormat("#.##");
 
         Intent myIntent = getIntent();
-        ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
         carpark = (CarPark)myIntent.getSerializableExtra("car park");
 
         //Change Screen Title if Long Term Car Park
@@ -49,11 +46,12 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         }
 
         bindUiItems();
-        airportView.setText(ticket.getAirport());
+
+        airportView.setText(BookingTicket.currentTicket.getAirport());
         carparkType.setText(carpark.getCarparkName());
-        entryDate.setText(getString(R.string.carpark_entry) + " " + ticket.getArrivalDate() + " - " + ticket.getArrivalTime());
-        exitDate.setText(getString(R.string.carpark_exit) + "     " + ticket.getExitDate()  + " - " + ticket.getExitTime());
-        carparkPrice.setText(getString(R.string.total_price) + dFormat.format(ticket.getTicketPrice()));
+        entryDate.setText(getString(R.string.carpark_entry) + " " + BookingTicket.currentTicket.getArrivalDate() + " - " + BookingTicket.currentTicket.getArrivalTime());
+        exitDate.setText(getString(R.string.carpark_exit) + "     " + BookingTicket.currentTicket.getExitDate()  + " - " + BookingTicket.currentTicket.getExitTime());
+        carparkPrice.setText(getString(R.string.total_price) + dFormat.format(BookingTicket.currentTicket.getTicketPrice()));
         /** Harcoded for now **/
         carparkInfo.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor lectus fermentum nunc malesuada, et tristique tellus lobortis. Vestibulum at finibus ipsum. Etiam laoreet erat sit " +
                 "amet mauris posuere placerat. Integer enim sem, faucibus ac erat sed, euismod viverra dolor. Curabitur sed arcu quis ex suscipit volutpat. In hac habitasse platea dictumst. Praesent dui ante, " +
@@ -62,7 +60,6 @@ public class ChosenCarparkActivity extends AppCompatActivity {
 
         selectBtn.setOnClickListener(v -> {
             Intent myIntent2 = new Intent(this, EnterDetailsActivity.class);
-            myIntent2.putExtra("ticket", ticket);
             startActivity(myIntent2);
         });
     }
