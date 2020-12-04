@@ -17,9 +17,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airpark.R;
 import com.example.airpark.activities.PaymentConfirmedActivity;
+import com.example.airpark.activities.Payments.StripeActivity;
 import com.example.airpark.activities.SelectCarparkActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.Vehicle;
+
+import java.io.Serializable;
 
 /**
  * Airpark Application - Group 14
@@ -75,10 +78,10 @@ public class PopUpConfirmPayment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(view.getContext(), "Open Card Payment View", Toast.LENGTH_SHORT).show();
-//                Intent myIntent = new Intent(this, PaymentActivity.class);
-//                myIntent.putExtra("ticket", ticket);
-//                myIntent.putExtra("vehicle", vehicle);
-//                startActivity(myIntent);
+                Intent myIntent = new Intent(PopUpConfirmPayment.this, StripeActivity.class);
+                myIntent.putExtra("ticket", ticket);
+                myIntent.putExtra("vehicle", (Serializable) vehicle);
+                startActivity(myIntent);
             }
         });
 

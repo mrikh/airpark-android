@@ -14,9 +14,6 @@
         <activity android:name=".activities.Payments.StripeActivity"></activity>
         <activity android:name=".activities.Bookings.BookingActivity" />
         <activity
-            android:name=".activities.Bookings.BookingActivity">
-        </activity>
-        <activity
             android:name=".activities.Prelogin.LoginActivity"
             android:label="Login"
             android:parentActivityName=".activities.EnterDetailsActivity"/>

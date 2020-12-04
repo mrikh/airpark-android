@@ -13,6 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.airpark.R;
+import com.example.airpark.activities.PaymentConfirmedActivity;
+import com.example.airpark.models.BookingTicket;
+import com.example.airpark.models.Vehicle;
 import com.example.airpark.utils.HelperInterfaces.StripeCompletionAction;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
@@ -35,6 +38,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Objects;
 
@@ -44,11 +48,17 @@ public class StripeActivity extends AppCompatActivity {
     private PaymentSession paymentSession;
     private ProgressBar progressBar;
     private String currentCustomerId;
+    private BookingTicket ticket;
+    private Vehicle vehicle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stripe);
+
+        Intent myIntent = getIntent();
+        ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
+        vehicle = (Vehicle)myIntent.getSerializableExtra("vehicle");
 
         progressBar = findViewById(R.id.progress);
         Sprite doubleBounce = new DoubleBounce();
@@ -89,6 +99,11 @@ public class StripeActivity extends AppCompatActivity {
                                         try {
                                             String client_secret = object.getString("client_secret");
                                             paymentSucess(client_secret, paymentSessionData.getPaymentMethod().id);
+
+                                            Intent myIntent = new Intent(StripeActivity.this, PaymentConfirmedActivity.class);
+                                            myIntent.putExtra("ticket", ticket);
+                                            myIntent.putExtra("vehicle", (Serializable) vehicle);
+                                            startActivity(myIntent);
                                         }catch(Exception e){
                                             displayAlert("Oops", e.getLocalizedMessage());
                                         }
