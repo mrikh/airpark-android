@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.airpark.R;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CalculatePrice;
@@ -55,6 +57,10 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         entryDate.setText(getString(R.string.carpark_entry) + " " + ticket.getArrivalDate() + " - " + ticket.getArrivalTime());
         exitDate.setText(getString(R.string.carpark_exit) + "     " + ticket.getExitDate()  + " - " + ticket.getExitTime());
         carparkPrice.setText(getString(R.string.total_price) + dFormat.format(ticket.getTicketPrice()));
+
+        ImageView imageView = findViewById(R.id.carpark_image);
+        Glide.with(this).load(carpark.getCarparkImage()).into(imageView);
+
         /** Harcoded for now **/
         carparkInfo.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor lectus fermentum nunc malesuada, et tristique tellus lobortis. Vestibulum at finibus ipsum. Etiam laoreet erat sit " +
                 "amet mauris posuere placerat. Integer enim sem, faucibus ac erat sed, euismod viverra dolor. Curabitur sed arcu quis ex suscipit volutpat. In hac habitasse platea dictumst. Praesent dui ante, " +

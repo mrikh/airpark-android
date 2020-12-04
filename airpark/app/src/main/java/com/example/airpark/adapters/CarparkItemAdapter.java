@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.GlideException;
 import com.example.airpark.R;
 import com.example.airpark.activities.ChosenCarparkActivity;
 import com.example.airpark.models.BookingTicket;
@@ -70,7 +72,6 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
             e.printStackTrace();
         }
 
-        Picasso.get().load(carpark.getCarparkImage()).into(holder.carparkImage);
 
         holder.nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +88,8 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
                 holder.context.startActivity(intent);
             }
         });
+
+        Glide.with(holder.carparkImage.getContext()).load(carpark.getCarparkImage()).into(holder.carparkImage);
     }
 
     @Override

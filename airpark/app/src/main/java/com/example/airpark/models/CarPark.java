@@ -33,7 +33,7 @@ public class CarPark implements Serializable {
         this.price = price;
         this.availableSpaces = availableSpaces;
         //hardcoding for now, change later
-        this.carparkImageString = "https://c8.alamy.com/comp/BTWYY8/dublin-airport-car-park-BTWYY8.jpg";
+        this.carparkImageString = "https://images.unsplash.com/photo-1530268578403-df6e89da0d30?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80";
     }
 
     public String getCarparkImage(){ return carparkImageString; }

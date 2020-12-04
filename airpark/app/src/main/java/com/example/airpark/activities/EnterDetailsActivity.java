@@ -26,7 +26,6 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.DecimalFormat;
 
-
 public class EnterDetailsActivity extends AppCompatActivity {
     private LinearLayout loginContainer;
     private TextInputEditText email, name, carReg, phoneNumber;
