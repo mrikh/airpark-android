@@ -16,7 +16,7 @@ public class CarParkSpaceFactory {
         if(spaceType.equalsIgnoreCase("GENERAL")){
             return new GeneralSpace(2, 10, null);
 
-        } else if(spaceType.equalsIgnoreCase("DISABLED")){
+        } else if(spaceType.equalsIgnoreCase("DISABILITY")){
             return new DisabledSpace(1, 5, null);
 
         } else if(spaceType.equalsIgnoreCase("MOTORBIKE")){

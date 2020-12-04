@@ -60,6 +60,7 @@ public class SelectCarparkActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         //Remove recommended car park from car park list so it doesn't appear in 'other availabilities'
         for(int i=0; i<carparkList.size(); i++){
             for(int j=0; j<recommendedCarpark.size(); j++) {
@@ -68,8 +69,9 @@ public class SelectCarparkActivity extends AppCompatActivity {
                 }
             }
         }
-        sections.add(new CarparkListSection("Recommended",recommendedCarpark));
-        sections.add(new CarparkListSection("Other Availabilities",carparkList));
+
+        sections.add(new CarparkListSection("Recommended", recommendedCarpark));
+        sections.add(new CarparkListSection("Other Availabilities", carparkList));
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -97,8 +99,6 @@ public class SelectCarparkActivity extends AppCompatActivity {
         //Factory Pattern
         CarParkSpaceFactory spaceFactory = new CarParkSpaceFactory();
         CarParkSpace space = spaceFactory.getSpace(ticket.getSpaceRequired());
-
-        System.out.println(space.getNoOfSpaces());
 
         CarPark carPark = new CarPark(0, "Short Term", "Zone A", 2.5, 5, space.getNoOfSpaces());
         carparkList.add(carPark);
