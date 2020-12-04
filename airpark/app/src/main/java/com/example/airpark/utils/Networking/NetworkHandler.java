@@ -9,6 +9,9 @@ import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NetworkHandler {
 
     private static NetworkHandler shared = null;
@@ -78,6 +81,38 @@ public class NetworkHandler {
     private void performPostRequest(String endpoint, JSONObject params, NetworkingClosure completion){
 
         AndroidNetworking.post(httpUrl + endpoint).addJSONObjectBody(params).build().getAsJSONObject(new JSONObjectRequestListener() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String code = response.get("code").toString();
+                    if (code.equalsIgnoreCase("200")){
+                        completion.completion(response.getJSONObject("data"), null);
+                    }else{
+                        completion.completion(null, response.get("message").toString());
+                    }
+                }catch (Exception e){
+                    completion.completion(null, e.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(ANError anError) {
+                if (anError != null){
+                    try {
+                        completion.completion(null, anError.getErrorDetail());
+                    }catch (Exception e){
+                        completion.completion(null, null);
+                    }
+                }else{
+                    completion.completion(null, null);
+                }
+            }
+        });
+    }
+
+    private void performGetRequest(String endpoint, HashMap<String, String> params, NetworkingClosure completion){
+
+        AndroidNetworking.get(httpUrl + endpoint).addQueryParameter(params).build().getAsJSONObject(new JSONObjectRequestListener() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
