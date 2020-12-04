@@ -73,7 +73,6 @@ public class SelectCarparkActivity extends AppCompatActivity {
         sections.add(new CarparkListSection("Recommended", recommendedCarpark));
         sections.add(new CarparkListSection("Other Availabilities", carparkList));
 
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);

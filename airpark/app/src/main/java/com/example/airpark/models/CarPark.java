@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class CarPark implements Serializable {
 
     private int carparkID, availableSpaces;
-    private String carparkName, carparkType;
+    private String carparkName, carparkType, carparkImageString;
     private double distanceFromAirport, price;
 
     /**
@@ -32,8 +32,11 @@ public class CarPark implements Serializable {
         this.distanceFromAirport = distanceFromAirport;
         this.price = price;
         this.availableSpaces = availableSpaces;
-
+        //hardcoding for now, change later
+        this.carparkImageString = "https://c8.alamy.com/comp/BTWYY8/dublin-airport-car-park-BTWYY8.jpg";
     }
+
+    public String getCarparkImage(){ return carparkImageString; }
 
     public int getCarparkID(){ return carparkID; }
 

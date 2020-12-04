@@ -68,6 +68,7 @@ public class CarparkSectionAdapter extends RecyclerView.Adapter<CarparkSectionAd
             sectionName = itemView.findViewById(R.id.section_item_title);
             itemRecyclerView = itemView.findViewById(R.id.item_recycler_view);
         }
+
         public void bind(CarparkListSection section){
             sectionName.setText(section.getSectionTitle());
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);

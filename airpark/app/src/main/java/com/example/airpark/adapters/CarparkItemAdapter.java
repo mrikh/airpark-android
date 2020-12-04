@@ -18,6 +18,7 @@ import com.example.airpark.activities.ChosenCarparkActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -61,12 +62,16 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         price = new CalculatePrice(carpark.getPrice());
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkType());
+
         try {
             double fullPrice = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
             holder.carparkPrice.setText("€" + dFormat.format(fullPrice));
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        Picasso.get().load(carpark.getCarparkImage()).into(holder.carparkImage);
+
         holder.nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
