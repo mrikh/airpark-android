@@ -17,25 +17,26 @@
         android:id="@+id/navigationView"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchInfoBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/searchInfoBackground"
         android:clickable="true"
         tools:context=".activities.SearchActivity">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/airportContainer"
-            android:layout_width="340dp"
-            android:layout_height="60dp"
-            android:hint="@string/airports"
-            android:focusableInTouchMode="true"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
             android:focusable="true"
-            app:layout_constraintBottom_toTopOf="@+id/entryDateContainer"
+            android:focusableInTouchMode="true"
+            android:hint="@string/airports"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.95">
+            app:layout_constraintTop_toTopOf="parent">
 
             <AutoCompleteTextView
                 android:id="@+id/airport_auto"
@@ -54,16 +55,15 @@
         <!-- Arrival Date -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/entryDateContainer"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
             android:hint="@string/entry_date"
             app:errorEnabled="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.114"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3">
+            app:layout_constraintEnd_toStartOf="@+id/entryTimeContainer"
+            app:layout_constraintStart_toStartOf="@+id/airportContainer"
+            app:layout_constraintTop_toBottomOf="@+id/airportContainer">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/entryDate"
@@ -77,17 +77,38 @@
 
         <!-- Departure Date -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/entryTimeContainer"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:hint="@string/entry_time"
+            app:errorEnabled="true"
+            app:layout_constraintBottom_toBottomOf="@+id/entryDateContainer"
+            app:layout_constraintEnd_toEndOf="@+id/airportContainer"
+            app:layout_constraintStart_toEndOf="@+id/entryDateContainer"
+            app:layout_constraintTop_toTopOf="@+id/entryDateContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/entryTime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:focusableInTouchMode="false"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/exitDateContainer"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="15dp"
             android:hint="@string/exit_date"
             app:errorEnabled="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.114"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.43">
+            app:layout_constraintEnd_toStartOf="@+id/exitTimeContainer"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/entryDateContainer"
+            app:layout_constraintTop_toBottomOf="@+id/entryDateContainer">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/exitDate"
@@ -100,42 +121,20 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Arrival Time -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/entryTimeContainer"
-            android:layout_width="155dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/entry_time"
-            app:errorEnabled="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.890"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/entryTime"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:focusableInTouchMode="false"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Departure Time -->
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/exitTimeContainer"
-            android:layout_width="155dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
             android:hint="@string/exit_time"
             app:errorEnabled="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.890"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.43">
+            app:layout_constraintEnd_toEndOf="@+id/entryTimeContainer"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/exitDateContainer"
+            app:layout_constraintTop_toTopOf="@+id/exitDateContainer">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/exitTime"
@@ -147,40 +146,36 @@
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <Button
             android:id="@+id/searchButton"
-            android:layout_width="138dp"
-            android:layout_height="45dp"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:text="Search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.686" />
+            app:layout_constraintTop_toBottomOf="@+id/motorbikeImage"
+            app:layout_constraintVertical_bias="0.17000002" />
 
         <CheckBox
             android:id="@+id/disabilityParking"
             android:layout_width="35dp"
             android:layout_height="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.071"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.552" />
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="@+id/exitDateContainer"
+            app:layout_constraintTop_toBottomOf="@+id/exitDateContainer" />
 
         <ImageView
             android:id="@+id/disabilityImage"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.165"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.549"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/disabilityParking"
+            app:layout_constraintStart_toEndOf="@+id/disabilityParking"
+            app:layout_constraintTop_toTopOf="@+id/disabilityParking"
             app:srcCompat="@drawable/disability_parking"
             app:tint="@color/cardview_dark_background" />
 
@@ -188,24 +183,19 @@
             android:id="@+id/motorbikeParking"
             android:layout_width="35dp"
             android:layout_height="40dp"
+            android:layout_marginStart="35dp"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.385"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.552" />
+            app:layout_constraintStart_toEndOf="@+id/disabilityImage"
+            app:layout_constraintTop_toTopOf="@+id/disabilityParking" />
 
         <ImageView
             android:id="@+id/motorbikeImage"
-            android:layout_width="39dp"
-            android:layout_height="42dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.554"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/motorbikeParking"
+            app:layout_constraintStart_toEndOf="@+id/motorbikeParking"
+            app:layout_constraintTop_toTopOf="@+id/motorbikeParking"
             app:srcCompat="@drawable/motorbike"
             app:tint="@color/cardview_dark_background" />
 
@@ -213,6 +203,7 @@
             android:id="@+id/errorAirport"
             android:layout_width="111dp"
             android:layout_height="22dp"
+            android:layout_marginTop="25dp"
             android:background="@color/white"
             android:textColor="#FF0000"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -13,18 +13,20 @@
     <ImageView
         android:id="@+id/logo"
         android:layout_width="143dp"
-        android:layout_height="187dp"
-        android:layout_marginTop="52dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="25dp"
+        android:contentDescription="@string/airpark_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/airpark_logo"
-        android:contentDescription="@string/airpark_logo" />
+        app:srcCompat="@drawable/airpark_logo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextTextEmailAddress2"
-        android:layout_width="371dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
         android:autofillHints="email"
         android:background="@color/white"
         android:ems="10"
@@ -39,23 +41,23 @@
             android:id="@+id/editTextTextEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="-8dp"
             android:layout_marginLeft="-8dp"
             android:background="@color/white"
             android:inputType="textEmailAddress"
             android:singleLine="true"
-            android:textSize="18sp"
-            android:layout_marginStart="-8dp" />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextTextPassword2"
-        android:layout_width="371dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
         android:layout_marginTop="25dp"
         android:autofillHints="password"
+        android:background="@color/white"
         android:ems="10"
         android:hint="@string/password"
-        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress2"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress2"
@@ -65,12 +67,12 @@
             android:id="@+id/editTextTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:background="@color/white"
-            android:textSize="18sp"
-            android:inputType="textPassword"
+            android:layout_marginStart="-8dp"
             android:layout_marginLeft="-8dp"
-            android:layout_marginStart="-8dp" />
+            android:background="@color/white"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -78,10 +80,8 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginRight="50dp"
         android:text="@string/login_button"
         android:textStyle="bold"
         app:backgroundTint="@color/primary_blue"
