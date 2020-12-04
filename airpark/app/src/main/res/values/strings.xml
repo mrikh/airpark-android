@@ -42,6 +42,7 @@
     <string name="exit_date">Exit Date</string>
     <string name="entry_time">Entry Time</string>
     <string name="exit_time">Exit Time</string>
+    <string name="okay">Okay</string>
 
     <!--  The Selected Car Park  -->
     <string name="carpark_long_term">Long Term Parking</string>
