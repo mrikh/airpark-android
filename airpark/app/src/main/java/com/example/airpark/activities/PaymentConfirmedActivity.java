@@ -15,9 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airpark.R;
 import com.example.airpark.models.BookingTicket;
-import com.example.airpark.models.CarParkSpace;
 import com.example.airpark.models.Vehicle;
-import com.example.airpark.models.VehicleFactory;
 import com.google.zxing.WriterException;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -40,15 +38,23 @@ public class PaymentConfirmedActivity extends AppCompatActivity {
     private Button homeBtn;
     private QRGEncoder qrgEncoder;
     private Bitmap bitmap;
+    private BookingTicket ticket;
+    private Vehicle vehicle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_confirmed);
+
+        Intent myIntent = getIntent();
+        ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
+        vehicle = (Vehicle)myIntent.getSerializableExtra("vehicle");
+
         bindUiItems();
 
         String data = getUniqueID();
-        BookingTicket.currentTicket.setTicketID(data);
+        ticket.setTicketID(data);
+        vehicle.setTicketID(ticket.getTicketID());
 
         WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();

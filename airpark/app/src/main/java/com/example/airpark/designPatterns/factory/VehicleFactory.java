@@ -1,4 +1,8 @@
-package com.example.airpark.models;
+package com.example.airpark.designPatterns.factory;
+
+import com.example.airpark.models.Car;
+import com.example.airpark.models.Motorbike;
+import com.example.airpark.models.Vehicle;
 
 public class VehicleFactory {
 

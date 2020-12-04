@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.airpark.R;
 import com.example.airpark.activities.PaymentConfirmedActivity;
 import com.example.airpark.activities.SelectCarparkActivity;
+import com.example.airpark.models.BookingTicket;
+import com.example.airpark.models.Vehicle;
 
 /**
  * Airpark Application - Group 14
@@ -27,16 +29,20 @@ import com.example.airpark.activities.SelectCarparkActivity;
  *
  * Final payment amount with extra costs or discounts as a pop-up window
  */
-public class PopUpConfirmPayment {
+public class PopUpConfirmPayment extends AppCompatActivity {
 
     private String carparkPrice, discountAmount, carWashPrice, finalPrice, finalPayment;
+    private BookingTicket ticket;
+    private Vehicle vehicle;
 
-    public PopUpConfirmPayment(String carparkPrice, String discountAmount, String carWashPrice, String finalPrice){
+    public PopUpConfirmPayment(String carparkPrice, String discountAmount, String carWashPrice, String finalPrice, BookingTicket ticket, Vehicle vehicle){
         this.carparkPrice = carparkPrice;
         this.discountAmount = discountAmount;
         this.carWashPrice = carWashPrice;
         this.finalPrice = finalPrice;
         finalPayment=null;
+        this.ticket = ticket;
+        this.vehicle = vehicle;
     }
 
     public void showPopUp(final View view){
@@ -69,6 +75,10 @@ public class PopUpConfirmPayment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(view.getContext(), "Open Card Payment View", Toast.LENGTH_SHORT).show();
+//                Intent myIntent = new Intent(this, PaymentActivity.class);
+//                myIntent.putExtra("ticket", ticket);
+//                myIntent.putExtra("vehicle", vehicle);
+//                startActivity(myIntent);
             }
         });
 
@@ -76,7 +86,6 @@ public class PopUpConfirmPayment {
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                //Close the window when clicked
                 popupWindow.dismiss();
                 return true;
             }

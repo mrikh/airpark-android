@@ -29,15 +29,17 @@ public class CarparkSectionAdapter extends RecyclerView.Adapter<CarparkSectionAd
     private List<CarparkListSection> sectionList;
     private Context context;
     private CarparkItemAdapter itemAdapter;
+    private BookingTicket ticket;
 
     /**
      * Constructs carpark sectioned object
      * @param context
      * @param sectionList
      */
-    public CarparkSectionAdapter(Context context, List<CarparkListSection> sectionList){
+    public CarparkSectionAdapter(Context context, List<CarparkListSection> sectionList, BookingTicket ticket){
         this.context = context;
         this.sectionList = sectionList;
+        this.ticket = ticket;
     }
 
     @NonNull
@@ -70,7 +72,7 @@ public class CarparkSectionAdapter extends RecyclerView.Adapter<CarparkSectionAd
             sectionName.setText(section.getSectionTitle());
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
             itemRecyclerView.setLayoutManager(linearLayoutManager);
-            itemAdapter = new CarparkItemAdapter(section.getItemsInSection());
+            itemAdapter = new CarparkItemAdapter(section.getItemsInSection(), ticket);
             itemRecyclerView.setAdapter(itemAdapter);
         }
     }

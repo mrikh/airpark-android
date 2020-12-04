@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Calendar;
@@ -81,7 +83,7 @@ public class LandingSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_info);
 
-        BookingTicket.currentTicket = new BookingTicket();
+        BookingTicket ticket = new BookingTicket();
         validator = new InputValidator();
         bindUiItems();
 
@@ -122,16 +124,17 @@ public class LandingSearchActivity extends AppCompatActivity {
                 String exitT = exitTime.getText().toString();
 
                 //Update booking ticket
-                BookingTicket.currentTicket.setAirport(airportAutoText.getText().toString());
-                BookingTicket.currentTicket.setArrivalDate(entryD);
-                BookingTicket.currentTicket.setExitDate(exitD);
-                BookingTicket.currentTicket.setArrivalTime(entryT);
-                BookingTicket.currentTicket.setExitTime(exitT);
-                if(disabilityCheck.isChecked()){BookingTicket.currentTicket.setSpaceRequired("DISABILITY");}
-                if(motorbikeCheck.isChecked()){BookingTicket.currentTicket.setSpaceRequired("MOTORBIKE");}
+                ticket.setAirport(airportAutoText.getText().toString());
+                ticket.setArrivalDate(entryD);
+                ticket.setExitDate(exitD);
+                ticket.setArrivalTime(entryT);
+                ticket.setExitTime(exitT);
+                if(disabilityCheck.isChecked()){ticket.setSpaceRequired("DISABILITY");}
+                if(motorbikeCheck.isChecked()){ticket.setSpaceRequired("MOTORBIKE");}
 
                 //Move to Next Screen
                 Intent myIntent = new Intent(this, SelectCarparkActivity.class);
+                myIntent.putExtra("ticket", ticket);
                 startActivity(myIntent);
             }
         });
@@ -187,8 +190,6 @@ public class LandingSearchActivity extends AppCompatActivity {
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(myIntent);
                 }else if(item.getItemId() == R.id.login){
-                    //Empty booking ticket
-                    BookingTicket.currentTicket = null;
                     Intent myIntent = new Intent(LandingSearchActivity.this, LoginActivity.class);
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(myIntent);

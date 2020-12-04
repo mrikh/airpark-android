@@ -18,10 +18,9 @@ import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
 import com.example.airpark.models.Discounts;
-import com.example.airpark.activities.PopUpConfirmPayment;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.models.Vehicle;
-import com.example.airpark.models.VehicleFactory;
+import com.example.airpark.designPatterns.factory.VehicleFactory;
 import com.example.airpark.utils.InputValidator;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -37,13 +36,15 @@ public class EnterDetailsActivity extends AppCompatActivity {
     private CalculatePrice price;
     private Discounts discounts;
     private CarPark carpark;
+    private BookingTicket ticket;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_user_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        Intent myIntent = getIntent();
-//        carpark = (CarPark)myIntent.getSerializableExtra("car park");
+        Intent myIntent = getIntent();
+        ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
+        carpark = (CarPark)myIntent.getSerializableExtra("car park");
 
         bindUiItems();
 
@@ -67,37 +68,37 @@ public class EnterDetailsActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(v -> {
             if(validateUserDetails()){
 
+                System.out.println("Space: " + ticket.getSpaceRequired());
+
                 //Factory Pattern
                 VehicleFactory vFactory = new VehicleFactory();
-                Vehicle vehicle = vFactory.getVehicle(BookingTicket.currentTicket.getSpaceRequired());
+                Vehicle vehicle = vFactory.getVehicle(ticket.getSpaceRequired());
                 vehicle.setVehicleReg(carReg.toString());
-                vehicle.setTicketID(BookingTicket.currentTicket.getTicketID()); //This will be empty though because the alpha-numeric code isn't created until the last screen so not sure what to do here
-
 
                 DecimalFormat dFormat = new DecimalFormat("#.00");
 
-                double finalPrice = BookingTicket.currentTicket.getTicketPrice();
+                double finalPrice = ticket.getTicketPrice();
                 String discountText = null, carWashText = null;
 
                 if(elderlyCheck.isChecked() || carWashCheck.isChecked()){
                     if(elderlyCheck.isChecked()){
-                        BookingTicket.currentTicket.setIsElderly(true);
+                        ticket.setIsElderly(true);
 
-                        double discountPrice = price.discountPrice(BookingTicket.currentTicket.getTicketPrice(), discounts.getElderlyDiscount());
+                        double discountPrice = price.discountPrice(ticket.getTicketPrice(), discounts.getElderlyDiscount());
                         discountText = "\nDiscount: " + dFormat.format(discounts.getElderlyDiscount()) + "%";
                         finalPrice = discountPrice;
                     }
                     if(carWashCheck.isChecked()){
-                        BookingTicket.currentTicket.sethasCarWash(true);
+                        ticket.sethasCarWash(true);
                         /** Hardcoded **/
                         double carWashPrice = 10;
                         carWashText = "\nCar Wash: €" + dFormat.format(carWashPrice);
                         finalPrice += carWashPrice;
                     }
                 }
-                String carparkPrice = "\nCar Park: €" + dFormat.format(BookingTicket.currentTicket.getTicketPrice());
+                String carparkPrice = "\nCar Park: €" + dFormat.format(ticket.getTicketPrice());
 
-                PopUpConfirmPayment popUpWindow = new PopUpConfirmPayment(carparkPrice, discountText, carWashText, dFormat.format(finalPrice));
+                PopUpConfirmPayment popUpWindow = new PopUpConfirmPayment(carparkPrice, discountText, carWashText, dFormat.format(finalPrice), ticket, vehicle);
                 popUpWindow.showPopUp(v);
 
             }
@@ -159,6 +160,7 @@ public class EnterDetailsActivity extends AppCompatActivity {
 
     private void navigateToLogin(){
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("ticket", ticket);
         startActivity(intent);
     }
 

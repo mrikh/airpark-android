@@ -1,5 +1,7 @@
 package com.example.airpark.models;
 
+import java.io.Serializable;
+
 /**
  * Airpark Application - Group 14
  *
@@ -9,9 +11,7 @@ package com.example.airpark.models;
  * A car park booking ticket
  */
 
-public class BookingTicket {
-
-    public static BookingTicket currentTicket = null;
+public class BookingTicket implements Serializable {
 
     private String ticketID, airport, arrivalDate, exitDate, arrivalTime, exitTime, spaceRequired;
     private int carparkID;

@@ -1,4 +1,9 @@
-package com.example.airpark.models;
+package com.example.airpark.designPatterns.factory;
+
+import com.example.airpark.models.CarParkSpace;
+import com.example.airpark.models.DisabledSpace;
+import com.example.airpark.models.GeneralSpace;
+import com.example.airpark.models.MotorbikeSpace;
 
 public class CarParkSpaceFactory {
 

@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.airpark.R;
 import com.example.airpark.activities.EnterDetailsActivity;
 import com.example.airpark.activities.LandingSearchActivity;
-import com.example.airpark.activities.PaymentConfirmedActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.ErrorRemoveInterface;
@@ -34,6 +33,7 @@ public class LoginActivity extends AppCompatActivity{
 
     private InputValidator validator;
     private ProgressBar progressBar;
+    private BookingTicket ticket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,8 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
-        if(BookingTicket.currentTicket != null){
+        if(getIntent().getExtras() != null){
+            ticket = (BookingTicket)getIntent().getSerializableExtra("ticket");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             TextView orText = findViewById(R.id.textView4);
             orText.setVisibility(View.GONE);
@@ -126,7 +127,7 @@ public class LoginActivity extends AppCompatActivity{
                                 UserModel.currentUser = current;
                                 Utilities.getInstance().saveJsonObject(object, getApplicationContext());
 
-                                if(BookingTicket.currentTicket != null){
+                                if(ticket != null){
                                     navigateToEnterDetailsScreen();
                                 }else{
                                     navigateToLanding();
@@ -152,6 +153,7 @@ public class LoginActivity extends AppCompatActivity{
 
     private void navigateToEnterDetailsScreen(){
         Intent myIntent = new Intent(LoginActivity.this, EnterDetailsActivity.class);
+        myIntent.putExtra("ticket", ticket);
         startActivity(myIntent);
     }
 
