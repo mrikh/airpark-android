@@ -26,6 +26,26 @@ public class NetworkHandler {
         return shared;
     }
 
+    public void getAvailableCarParks( HashMap<String, String> params, NetworkingClosure completion){
+
+        try {
+            performGetRequest(EndPoints.availabilityList, params, completion);
+        }catch (Exception e){
+            completion.completion(null, e.getMessage());
+            return;
+        }
+    }
+
+    public void airportsListing(NetworkingClosure completion){
+
+        try {
+            performGetRequest(EndPoints.airportsList, new HashMap<>(), completion);
+        }catch (Exception e){
+            completion.completion(null, e.getMessage());
+            return;
+        }
+    }
+
     public void paymentIntent(String customerId, NetworkingClosure completion){
 
         try {

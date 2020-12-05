@@ -7,12 +7,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.airpark.R;
 import com.example.airpark.activities.LandingSearchActivity;
+import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.models.UserModel;
 import com.google.android.material.navigation.NavigationView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -67,7 +70,13 @@ public class BookingActivity extends AppCompatActivity {
                 }else if(item.getItemId() == R.id.bookings){
                     drawerLayout.close();
                 }else{
-                    drawerLayout.close();
+                    UserModel.currentUser = null;
+                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(navigationView.getContext()).edit();
+                    editor.clear();
+                    editor.apply();
+                    Intent myIntent = new Intent(BookingActivity.this, LoginActivity.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(myIntent);
                 }
                 return false;
             }

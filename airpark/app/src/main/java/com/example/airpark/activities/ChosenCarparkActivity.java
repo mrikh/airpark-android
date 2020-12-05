@@ -52,10 +52,10 @@ public class ChosenCarparkActivity extends AppCompatActivity {
 
         bindUiItems();
 
-        airportView.setText(ticket.getAirport());
+        airportView.setText(ticket.getAirport().getAirportName());
         carparkType.setText(carpark.getCarparkName());
-        entryDate.setText(getString(R.string.carpark_entry) + " " + ticket.getArrivalDate() + " - " + ticket.getArrivalTime());
-        exitDate.setText(getString(R.string.carpark_exit) + "     " + ticket.getExitDate()  + " - " + ticket.getExitTime());
+        entryDate.setText(getString(R.string.carpark_entry) + " " + ticket.getFormattedEntryDate());
+        exitDate.setText(getString(R.string.carpark_exit) + "     " + ticket.getFormattedExitDate());
         carparkPrice.setText(getString(R.string.total_price) + dFormat.format(ticket.getTicketPrice()));
 
         ImageView imageView = findViewById(R.id.carpark_image);

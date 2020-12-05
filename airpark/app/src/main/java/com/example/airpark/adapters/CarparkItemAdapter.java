@@ -60,32 +60,32 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
         final CarPark carpark = carparkList.get(position);
         price = new CalculatePrice(carpark.getPrice());
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkType());
 
         try {
-            double fullPrice = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
-            holder.carparkPrice.setText("€" + dFormat.format(fullPrice));
+            double fullPrice = ticket.calculatePrice(carpark.getPrice());
+            holder.carparkPrice.setText("€" + dFormat.format(fullPrice) + " (€" + carpark.getPrice() + "/hr)");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
 
         holder.nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    double fullPrice = price.calculatePrice(ticket.getArrivalTime(), ticket.getExitTime(), ticket.getArrivalDate(), ticket.getExitDate(), carpark.getCarparkType());
+                    double fullPrice = ticket.calculatePrice(carpark.getPrice());
                     ticket.setTicketPrice(fullPrice);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                Intent intent = new Intent(holder.context, ChosenCarparkActivity.class);
+                Intent intent = new Intent(v.getContext(), ChosenCarparkActivity.class);
                 intent.putExtra("car park", carpark);
                 intent.putExtra("ticket", ticket);
-                holder.context.startActivity(intent);
+                v.getContext().startActivity(intent);
             }
         });
 
@@ -99,12 +99,10 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         private TextView carparkName, carparkType, carparkPrice;
         private ImageView carparkImage, nextButton;
         private CardView cardview;
-        private final Context context;
 
         public MyViewHolder(View itemView){
             super(itemView);
             // Bind Ui with id
-            context = itemView.getContext();
             carparkName = itemView.findViewById(R.id.card_carparkName);
             carparkType = itemView.findViewById(R.id.card_carparkType);
             carparkPrice = itemView.findViewById(R.id.card_carparkPrice);

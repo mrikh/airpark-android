@@ -1,5 +1,8 @@
 package com.example.airpark.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -12,50 +15,44 @@ import java.io.Serializable;
  */
 public class CarPark implements Serializable {
 
-    private int carparkID, availableSpaces;
-    private String carparkName, carparkType, carparkImageString;
-    private double distanceFromAirport, price;
+    private int carparkID, disabledCapacity, twoWheelerCapacity, normalCapacity;
+    private String carparkName, carparkImageString;
+    private double price;
+    private long latitude, longitude;
+    private CarParkType carparkType;
+    private Airport airport;
 
-    /**
-     * Constructs Car Park Object
-     *
-     * @param carparkID
-     * @param carparkType
-     * @param carparkName
-     * @param distanceFromAirport
-     * @param price
-     */
-    public CarPark(int carparkID, String carparkType, String carparkName, double distanceFromAirport, double price, int availableSpaces){
-        this.carparkID = carparkID;
-        this.carparkName = carparkName;
-        this.carparkType = carparkType;
-        this.distanceFromAirport = distanceFromAirport;
-        this.price = price;
-        this.availableSpaces = availableSpaces;
-        //hardcoding for now, change later
-        this.carparkImageString = "https://images.unsplash.com/photo-1530268578403-df6e89da0d30?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80";
+    public enum CarParkType{
+        LONG_TERM,
+        SHORT_TERM
+    }
+
+    public CarPark(JSONObject object) throws JSONException {
+        this.carparkID = object.getInt("id");
+        this.airport = new Airport(object);
+        this.carparkImageString = object.getString("image");
+        this.carparkName = object.getString("car_park_name");
+        this.price = object.getDouble("price");
+        this.longitude = object.getLong("longitude");
+        this.latitude = object.getLong("latitude");
+        this.disabledCapacity = object.getInt("dis_capacity");
+        this.twoWheelerCapacity = object.getInt("tw_capacity");
+        this.normalCapacity = object.getInt("normal_capacity");
+        this.carparkType = object.getBoolean("is_long_term") ? CarParkType.LONG_TERM : CarParkType.SHORT_TERM;
     }
 
     public String getCarparkImage(){ return carparkImageString; }
 
-    public int getCarparkID(){ return carparkID; }
+    public String getCarparkName(){ return carparkName; }
 
-    public  String getCarparkName(){ return carparkName; }
-
-    public  String getCarparkType(){ return carparkType; }
-
-    public double getDistanceFromAirport(){ return distanceFromAirport; }
-
-    //Price per hour (short term) or day (long term)
-    public double getPrice(){ return price; }
-
-    public boolean isFull(){
-        if(availableSpaces > 0){
-            return false;
+    public String getCarparkType(){
+        switch (carparkType){
+            case LONG_TERM: return "Long Term";
+            case SHORT_TERM: return "Short Term";
         }
-        return true;
+
+        return null;
     }
 
-    public String toString(){
-        return carparkType + " - " + distanceFromAirport + "m from Airport";}
+    public double getPrice(){ return price; }
 }

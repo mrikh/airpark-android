@@ -1,15 +1,25 @@
 package com.example.airpark.models;
 
-public class Airport {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+
+public class Airport implements Serializable {
     private String airportName;
     private int airportID;
 
-    public Airport(String name, int id){
-        this.airportName = name;
-        this.airportID = id;
+    public Airport(JSONObject object) throws JSONException {
+        this.airportName = object.getString("airport_name");
+        this.airportID = object.getInt("airport_id");
     }
 
     public String getAirportName(){ return airportName; }
 
     public int getAirportID(){ return airportID; }
+
+    @Override
+    public String toString() {
+        return airportName;
+    }
 }

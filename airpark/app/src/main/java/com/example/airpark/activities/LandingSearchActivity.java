@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -14,16 +15,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -31,19 +35,31 @@ import android.widget.Toast;
 import com.example.airpark.R;
 import com.example.airpark.activities.Bookings.BookingActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
+import com.example.airpark.models.Airport;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
+import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import com.example.airpark.utils.InputValidator;
+import com.example.airpark.utils.Networking.NetworkHandler;
+import com.example.airpark.utils.Utilities;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Airpark Application - Group 14
@@ -67,6 +83,8 @@ public class LandingSearchActivity extends AppCompatActivity {
     private AutoCompleteTextView airportAutoText;
     private CheckBox disabilityCheck, motorbikeCheck;
     private ActionBarDrawerToggle drawerToggle;
+    private Airport selectedAirport;
+    private ProgressBar progressBar;
 
     public LandingSearchActivity(){
         dFormat = new DecimalFormat("00");
@@ -87,21 +105,53 @@ public class LandingSearchActivity extends AppCompatActivity {
         validator = new InputValidator();
         bindUiItems();
 
+        Sprite doubleBounce = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
+        progressBar.setVisibility(View.INVISIBLE);
+
         //Get Current Date/Time
         int day = calender.get(Calendar.DAY_OF_MONTH);
         int month = calender.get(Calendar.MONTH);
         int year = calender.get(Calendar.YEAR);
         int hour = calender.get(Calendar.HOUR_OF_DAY);
 
+        ArrayList<Airport> airports = new ArrayList<>();
 
-        /**      ******   UPDATE WHEN DATABASE ADDED  ******      **/
         //Select Airport
-        String[] airports = {"Dublin Airport", "Shannon Airport", "Cork Airport"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, airports);
-        airportAutoText.setThreshold(1);
-        airportAutoText.setAdapter(adapter);
+        NetworkHandler.getInstance().airportsListing(new NetworkingClosure() {
+            @Override
+            public void completion(JSONObject object, String message) {
 
-        airportAutoText.setOnClickListener(v -> {airportAutoText.setError(null); airportContainer.setError(null);});
+                if (object == null){
+                    Toast.makeText(airportAutoText.getContext(), "Unable to fetch airports. Check your internet connection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                try{
+                    JSONArray arr = object.getJSONArray("airports");
+                    for (int i = 0; i < arr.length(); i++){
+                        airports.add(new Airport(arr.getJSONObject(i)));
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+                ArrayAdapter<Airport> adapter = new ArrayAdapter<>(airportAutoText.getContext(), android.R.layout.simple_dropdown_item_1line, airports);
+                airportAutoText.setAdapter(adapter);
+            }
+        });
+
+        airportAutoText.setThreshold(1);
+
+        airportAutoText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedAirport = (Airport) parent.getItemAtPosition(position);
+                airportAutoText.setError(null);
+                airportContainer.setError(null);
+            }
+        });
+
         entryDate.setOnClickListener(v -> {setEntryDate(year, month, day); hideKeyboard(this);});
         exitDate.setOnClickListener(v -> {setExitDate(year,month,day); hideKeyboard(this);});
         entryTime.setOnClickListener(v -> {setEntryTime(hour); hideKeyboard(this);});
@@ -118,24 +168,51 @@ public class LandingSearchActivity extends AppCompatActivity {
         //Select Search Button & Validate Info
         search.setOnClickListener(v -> {
             if(isValidSearch(airports)) {
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
                 String entryD = entryDate.getText().toString();
                 String exitD = exitDate.getText().toString();
                 String entryT = entryTime.getText().toString();
                 String exitT = exitTime.getText().toString();
 
-                //Update booking ticket
-                ticket.setAirport(airportAutoText.getText().toString());
-                ticket.setArrivalDate(entryD);
-                ticket.setExitDate(exitD);
-                ticket.setArrivalTime(entryT);
-                ticket.setExitTime(exitT);
-                if(disabilityCheck.isChecked()){ticket.setSpaceRequired("DISABILITY");}
-                if(motorbikeCheck.isChecked()){ticket.setSpaceRequired("MOTORBIKE");}
+                String finalEntryString = entryD + " " + entryT;
+                String finalExitString = exitD + " " + exitT;
 
-                //Move to Next Screen
-                Intent myIntent = new Intent(this, SelectCarparkActivity.class);
-                myIntent.putExtra("ticket", ticket);
-                startActivity(myIntent);
+                try {
+                    Date finalEntryDate = sdf.parse(finalEntryString);
+                    Date finalExitDate = sdf.parse(finalExitString);
+
+                    ticket.setAirport(selectedAirport);
+                    ticket.setEntryDate(finalEntryDate);
+                    ticket.setExitDate(finalExitDate);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Toast.makeText(v.getContext(), "Something went wrong when setting the date, try again!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                //Update booking ticket
+                if(disabilityCheck.isChecked()){ticket.setSpaceRequired(BookingTicket.SpaceType.DISABLED);}
+                if(motorbikeCheck.isChecked()){ticket.setSpaceRequired(BookingTicket.SpaceType.TWO_WHEELER);}
+
+                HashMap<String, String> params = ticket.getCarparkListingParameters();
+                progressBar.setVisibility(View.VISIBLE);
+                NetworkHandler.getInstance().getAvailableCarParks(params, new NetworkingClosure() {
+                    @Override
+                    public void completion(JSONObject object, String message) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        if (object == null){
+                            Toast.makeText(progressBar.getContext(), message, Toast.LENGTH_LONG);
+                        }else{
+                            //Move to Next Screen
+                            Intent myIntent = new Intent(progressBar.getContext(), SelectCarparkActivity.class);
+                            myIntent.putExtra("ticket", ticket);
+                            myIntent.putExtra("listing", object.toString());
+                            startActivity(myIntent);
+                        }
+                    }
+                });
             }
         });
 
@@ -194,7 +271,13 @@ public class LandingSearchActivity extends AppCompatActivity {
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(myIntent);
                 }else{
-                    drawerLayout.close();
+                    UserModel.currentUser = null;
+                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(navigationView.getContext()).edit();
+                    editor.clear();
+                    editor.apply();
+                    Intent myIntent = new Intent(LandingSearchActivity.this, LoginActivity.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(myIntent);
                 }
                 return false;
             }
@@ -228,6 +311,7 @@ public class LandingSearchActivity extends AppCompatActivity {
      * Bind Ui with id
      */
     private void bindUiItems(){
+        progressBar = (ProgressBar)findViewById(R.id.progress);
         airportAutoText = (AutoCompleteTextView) findViewById(R.id.airport_auto);
         airportContainer = (TextInputLayout) findViewById(R.id.airportContainer);
         entryDate = (TextInputEditText) findViewById(R.id.entryDate);
@@ -285,6 +369,7 @@ public class LandingSearchActivity extends AppCompatActivity {
                 }
             }
         }, year, month, day);
+
         datePickerDialog.getDatePicker().setMinDate(calender.getTimeInMillis());
         datePickerDialog.show();
     }
@@ -426,16 +511,15 @@ public class LandingSearchActivity extends AppCompatActivity {
      * @param airports Array of airports
      * @return true if all info is valid, else false
      */
-    private Boolean isValidSearch(String[] airports) {
+    private Boolean isValidSearch(ArrayList<Airport> airports) {
         String entryD = entryDate.getText().toString();
         String exitD = exitDate.getText().toString();
         String entryT = entryTime.getText().toString();
         String exitT = exitTime.getText().toString();
-        Boolean validAirport = false;
 
-        for (String airport : airports) {
-            if (airportAutoText.getText().toString().equals(airport)) {
-                validAirport = true;
+        for (Airport airport : airports) {
+            if (airportAutoText.getText().toString().equals(airport.getAirportName())) {
+                selectedAirport = airport;
                 airportContainer.setError(null);
 
                 if (!entryD.equals("") && !exitD.equals("") && !entryT.equals("") && !exitT.equals("")) {
@@ -455,10 +539,11 @@ public class LandingSearchActivity extends AppCompatActivity {
             }
         }
 
-        if (!validAirport) {
+        if (selectedAirport == null) {
             airportContainer.setError(getString(R.string.invalid_airport));
             Toast.makeText(this, getText(R.string.invalid_airport), Toast.LENGTH_LONG).show();
         }
+
         return false;
     }
 
