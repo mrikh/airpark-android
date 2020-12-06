@@ -38,7 +38,6 @@ import java.util.List;
 public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.MyViewHolder> {
     private List<CarPark> carparkList;
     private CalculatePrice price;
-    private DecimalFormat dFormat;
     private BookingTicket ticket;
     private Context context;
     
@@ -48,7 +47,6 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
      */
     public CarparkItemAdapter(List<CarPark> carparkList, BookingTicket ticket){
         this.carparkList = carparkList;
-        this.dFormat = new DecimalFormat("#.##");
         this.ticket = ticket;
     }
 
@@ -61,18 +59,21 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        DecimalFormat df = new DecimalFormat("#.00");
 
         final CarPark carpark = carparkList.get(position);
         price = new CalculatePrice(carpark.getPrice());
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkTypeString());
-
-        holder.carparkPrice.setText("€" + carpark.getPrice() + "/hr");
+        if(holder.carparkType.getText().equals("Long Term")){
+            holder.carparkPrice.setText("€" + df.format(carpark.getPrice()) + "/day");
+        }else{
+            holder.carparkPrice.setText("€" + df.format(carpark.getPrice()) + "/hr");
+        }
 
         holder.nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ticket.setSelectedCarPark(carpark);
                 Intent intent = new Intent(context, ChosenCarparkActivity.class);
                 intent.putExtra("ticket", ticket);

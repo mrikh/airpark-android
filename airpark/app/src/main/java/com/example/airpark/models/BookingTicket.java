@@ -113,7 +113,6 @@ public class BookingTicket implements Serializable {
     }
 
     public JSONObject convertForBooking() throws JSONException {
-
         JSONObject params = new JSONObject();
         params.put("car_park_id", getSelectedCarPark().getCarparkID());
         params.put("customer_name", customerName);

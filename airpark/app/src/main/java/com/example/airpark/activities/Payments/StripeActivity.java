@@ -1,11 +1,9 @@
 package com.example.airpark.activities.Payments;
 
-import androidx.activity.ComponentActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,14 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.EnterDetailsActivity;
 import com.example.airpark.activities.PaymentConfirmedActivity;
-import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.models.BookingTicket;
-import com.example.airpark.models.CarPark;
-import com.example.airpark.models.Vehicle;
-import com.example.airpark.utils.HelperInterfaces.StripeCompletionAction;
-import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import com.example.airpark.utils.Networking.NetworkHandler;
 import com.github.ybq.android.spinkit.sprite.Sprite;
@@ -40,15 +32,20 @@ import com.stripe.android.model.PaymentIntent;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Enter card details for payment
+ */
 public class StripeActivity extends AppCompatActivity {
 
     private Stripe stripe;

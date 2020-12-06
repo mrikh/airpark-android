@@ -28,6 +28,7 @@ import com.example.airpark.utils.HelperInterfaces.Callback;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 /**
  * Airpark Application - Group 14
@@ -39,12 +40,13 @@ import java.io.Serializable;
  */
 public class PopUpConfirmPayment extends AppCompatActivity {
 
-    private float finalPayment;
+    private String finalPayment;
     private String[] discounts;
     private Callback callback;
 
     public PopUpConfirmPayment(float finalPayment, String[] discounts, Callback callBack){
-        this.finalPayment = finalPayment;
+        DecimalFormat df = new DecimalFormat("#.00");
+        this.finalPayment = df.format(finalPayment);
         this.discounts = discounts;
         this.callback = callBack;
     }
@@ -73,7 +75,9 @@ public class PopUpConfirmPayment extends AppCompatActivity {
                 chargesString += ", ";
             }
         }
-        extraChargesText.setText("Discounts:\n" + chargesString);
+        if(discounts.length > 0) {
+            extraChargesText.setText("Discounts:\n" + chargesString);
+        }
 
         TextView finalPayment = popupView.findViewById(R.id.popUp_finalAmount);
         finalPayment.setText("Total: €" + this.finalPayment);

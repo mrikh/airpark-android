@@ -1,6 +1,5 @@
 package com.example.airpark.activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -14,7 +13,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -41,7 +39,6 @@ import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import com.example.airpark.utils.InputValidator;
 import com.example.airpark.utils.Networking.NetworkHandler;
-import com.example.airpark.utils.Utilities;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.material.navigation.NavigationView;
@@ -50,9 +47,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -60,6 +55,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Airpark Application - Group 14
@@ -74,7 +70,6 @@ public class LandingSearchActivity extends AppCompatActivity {
     private DecimalFormat dFormat;
     private Calendar calender;
     private InputValidator validator;
-    //UI Datatypes
     private TextInputEditText entryDate, exitDate, entryTime, exitTime;
     private TextInputLayout  airportContainer, entryDateContainer, exitDateContainer, entryTimeContainer, exitTimeContainer;
     private DatePickerDialog datePickerDialog;
@@ -115,13 +110,12 @@ public class LandingSearchActivity extends AppCompatActivity {
         int year = calender.get(Calendar.YEAR);
         int hour = calender.get(Calendar.HOUR_OF_DAY);
 
-        ArrayList<Airport> airports = new ArrayList<>();
+        List<Airport> airports = new ArrayList<>();
 
         //Select Airport
         NetworkHandler.getInstance().airportsListing(new NetworkingClosure() {
             @Override
             public void completion(JSONObject object, String message) {
-
                 if (object == null){
                     Toast.makeText(airportAutoText.getContext(), "Unable to fetch airports. Check your internet connection", Toast.LENGTH_SHORT).show();
                     return;
@@ -135,7 +129,6 @@ public class LandingSearchActivity extends AppCompatActivity {
                 }catch(Exception e){
                     e.printStackTrace();
                 }
-
                 ArrayAdapter<Airport> adapter = new ArrayAdapter<>(airportAutoText.getContext(), android.R.layout.simple_dropdown_item_1line, airports);
                 airportAutoText.setAdapter(adapter);
             }
@@ -511,7 +504,7 @@ public class LandingSearchActivity extends AppCompatActivity {
      * @param airports Array of airports
      * @return true if all info is valid, else false
      */
-    private Boolean isValidSearch(ArrayList<Airport> airports) {
+    private Boolean isValidSearch(List<Airport> airports) {
         String entryD = entryDate.getText().toString();
         String exitD = exitDate.getText().toString();
         String entryT = entryTime.getText().toString();

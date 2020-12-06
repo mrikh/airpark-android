@@ -48,6 +48,8 @@ public class SelectCarparkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_carpark);
 
+        bindUiItems();
+
         Intent myIntent = getIntent();
         ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
 
@@ -71,8 +73,6 @@ public class SelectCarparkActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "Sorry! Something went wrong!", Toast.LENGTH_LONG).show();
         }
-
-        bindUiItems();
 
         airportView.setText(ticket.getAirport().getAirportName());
 

@@ -46,25 +46,30 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
 
+        bindUiItems();
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        //Default Short Term
+        carparkInfo.setText(R.string.short_term_info);
+        carparkPrice.setText("Price: €" + df.format(ticket.getSelectedCarPark().getPrice()) + "/hr");
+
         //Change Screen Title if Long Term Car Park
         if(ticket.getSelectedCarPark().getCarparkType() == CarPark.CarParkType.LONG_TERM){
             setTitle(R.string.carpark_long_term);
+            carparkInfo.setText(R.string.long_term_info);
+            carparkPrice.setText("Price: €" + df.format(ticket.getSelectedCarPark().getPrice()) + "/day");
         }
-
-        bindUiItems();
 
         airportView.setText(ticket.getAirport().getAirportName());
         carparkType.setText(ticket.getSelectedCarPark().getCarparkName());
 
         entryDate.setText(getString(R.string.carpark_entry) + " " + sdf.format(ticket.getEntryDate()));
         exitDate.setText(getString(R.string.carpark_exit) + "     " + sdf.format(ticket.getExitDate()));
-        carparkPrice.setText("Price: €" + ticket.getSelectedCarPark().getPrice() + "/hr");
 
         ImageView imageView = findViewById(R.id.carpark_image);
         Glide.with(this).load(ticket.getSelectedCarPark().getCarparkImage()).into(imageView);
 
-        priceMoreInfo.setText("You may be eligible for discounts. Input details on the next screen to view the final price. Maximum discount of upto 30%.");
-        carparkInfo.setText("Long term parking is valid till the end of the selected day.\n\nFor short term parking, if you take longer than the appointed time. You have until the end of day to clear out and will be charged depending on the hours left until that time.\n\nWe reserve the right to tow your car should you fail to follow the rules.");
+        priceMoreInfo.setText(R.string.discount_info);
 
         selectBtn.setOnClickListener(v -> {
             Intent myIntent2 = new Intent(this, EnterDetailsActivity.class);

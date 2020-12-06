@@ -29,6 +29,14 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONObject;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Login screen
+ */
 public class LoginActivity extends AppCompatActivity{
 
     private InputValidator validator;
@@ -98,7 +106,6 @@ public class LoginActivity extends AppCompatActivity{
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 String email = emailField.getText().toString().trim();
                 if (!validator.isValidEmail(email)){
                     //error

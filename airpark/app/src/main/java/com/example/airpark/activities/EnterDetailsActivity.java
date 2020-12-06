@@ -38,6 +38,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Enter User Details screen -> details applied to booking
+ */
 public class EnterDetailsActivity extends AppCompatActivity {
 
     private LinearLayout loginContainer;
@@ -91,7 +99,9 @@ public class EnterDetailsActivity extends AppCompatActivity {
                 ticket.setCarRegistration(carReg.getText().toString());
                 ticket.setOld(elderlyCheck.isChecked());
                 ticket.setHasCarWash(carWashCheck.isChecked());
-                ticket.setLoggedIn(UserModel.currentUser.getEmail().equalsIgnoreCase(email.getText().toString()));
+                if(UserModel.currentUser != null) {
+                    ticket.setLoggedIn(UserModel.currentUser.getEmail().equalsIgnoreCase(email.getText().toString()));
+                }
 
                 try {
 
@@ -181,6 +191,10 @@ public class EnterDetailsActivity extends AppCompatActivity {
         confirmBtn = (Button)findViewById(R.id.confirm_Btn);
     }
 
+    /**
+     * Method to validate user details
+     * @return
+     */
     private boolean validateUserDetails(){
         if(!validator.isValidName(name.getText().toString())){
             name.setError(getString(R.string.name_error));

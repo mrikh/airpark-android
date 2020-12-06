@@ -52,6 +52,9 @@
     <string name="important_info_title"><u>More Information:</u></string>
     <string name="total_price">Total: €</string>
     <string name="select_carpark">SELECT THIS CAR PARK</string>
+    <string name="discount_info">You may be eligible for discounts. Input details on the next screen to view the final price. Maximum discount of up to 30%.</string>
+    <string name="short_term_info">If you do not leave the car park after your selected exit time, you have until the 23:59 to leave the car park.\n\n Extra charges will be applied per extra hours stayed and will be payable on exit!\n\nWe reserve the right to tow your car if left unattended passed the time stayed.</string>
+    <string name="long_term_info">Long term parking is valid until the 23:59 of the selected exit day. If your flight is delayed please contact the airport help desk! \n\nExtra charges may be applied if you do not leave the car park on the exit date selected. The charge is the car park price per day!\n\nWe reserve the right to tow your car if left unattended passed the time stayed.</string>
 
     <!--  Enter Details  -->
     <string name="login_notice">Login for secure checkout and access to in-app discounts!</string>

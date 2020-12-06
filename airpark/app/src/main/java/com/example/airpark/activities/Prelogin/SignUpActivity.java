@@ -35,6 +35,14 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONObject;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Sign up screen
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     private InputValidator validator;

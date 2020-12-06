@@ -1,7 +1,5 @@
 package com.example.airpark.utils.Networking;
 
-import android.content.Context;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
@@ -10,7 +8,6 @@ import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class NetworkHandler {
 
