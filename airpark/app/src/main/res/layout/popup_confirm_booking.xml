@@ -15,9 +15,9 @@
         app:cardCornerRadius="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/popUp_title"
@@ -26,51 +26,69 @@
                 android:layout_gravity="center"
                 android:padding="5dp"
                 android:text="@string/popup_title"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                tools:text="@tools:sample/lorem"
                 android:id="@+id/popUp_extraCharges"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/popUp_finalAmount"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/popUp_title"
-                app:layout_constraintBottom_toTopOf="@+id/popUp_finalAmount"
-                />
+                tools:text="@tools:sample/lorem" />
 
             <TextView
                 android:id="@+id/popUp_finalAmount"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="10dp"
-                tools:layout_editor_absoluteY="50dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:gravity="center"
-                tools:text="@tools:sample/lorem"
+                app:layout_constraintBottom_toTopOf="@+id/popUp_paymentBtn"
+                app:layout_constraintEnd_toEndOf="@+id/popUp_extraCharges"
+                app:layout_constraintStart_toStartOf="@+id/popUp_extraCharges"
                 app:layout_constraintTop_toBottomOf="@+id/popUp_extraCharges"
-                app:layout_constraintBottom_toTopOf="@+id/popUp_paymentBtn" />
+                tools:text="@tools:sample/lorem" />
 
             <Button
                 android:id="@+id/popUp_paymentBtn"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="@string/make_payment"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/confirm"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/popUp_cancelButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/popUp_finalAmount" />
+
+            <Button
+                android:id="@+id/popUp_cancelButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/cancel"
+                app:layout_constraintBottom_toBottomOf="@+id/popUp_paymentBtn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/popUp_paymentBtn"
+                app:layout_constraintTop_toTopOf="@+id/popUp_paymentBtn" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

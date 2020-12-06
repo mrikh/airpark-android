@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -34,11 +35,13 @@ import java.util.ArrayList;
  * Car Park Options Screen (available car parks to choose from)
  */
 public class SelectCarparkActivity extends AppCompatActivity {
+
     private TextView airportView, entryDate, exitDate, entryTime, exitTime;
     private RecyclerView recyclerView;
     private ArrayList<CarPark> carparkList, recommendedCarpark;
     private ArrayList<CarparkListSection> sections;
     private BookingTicket ticket;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy - hh:mm a");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +76,12 @@ public class SelectCarparkActivity extends AppCompatActivity {
 
         airportView.setText(ticket.getAirport().getAirportName());
 
-        String entry = ticket.getFormattedEntryDate();
+        String entry = sdf.format(ticket.getEntryDate());
         String[] entryDateAndTime = entry.split(" - ");
         entryDate.setText(entryDateAndTime[0]);
         entryTime.setText(entryDateAndTime[1]);
 
-        String exit = ticket.getFormattedExitDate();
+        String exit = sdf.format(ticket.getExitDate());
         String[] exitDateAndTime = exit.split(" - ");
         exitDate.setText(exitDateAndTime[0]);
         exitTime.setText(exitDateAndTime[1]);

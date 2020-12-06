@@ -31,15 +31,13 @@ import androidmads.library.qrgenearator.QRGEncoder;
  */
 public class PaymentConfirmedActivity extends AppCompatActivity {
 
-    private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private String ALPHA_NUMERIC_STRING;
 
     private ImageView qrImage;
     private TextView uniqueID;
     private Button homeBtn;
     private QRGEncoder qrgEncoder;
     private Bitmap bitmap;
-    private BookingTicket ticket;
-    private Vehicle vehicle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +45,11 @@ public class PaymentConfirmedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment_confirmed);
 
         Intent myIntent = getIntent();
-        ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
-        vehicle = (Vehicle)myIntent.getSerializableExtra("vehicle");
+        ALPHA_NUMERIC_STRING = myIntent.getStringExtra("code");
 
         bindUiItems();
 
-        String data = getUniqueID();
-        ticket.setTicketID(data);
-        vehicle.setTicketID(ticket.getTicketID());
+        uniqueID.setText(ALPHA_NUMERIC_STRING);
 
         WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
@@ -64,7 +59,7 @@ public class PaymentConfirmedActivity extends AppCompatActivity {
         int dimensions = Math.min(point.x,point.y);
         dimensions = dimensions * 3 / 4;
 
-        qrgEncoder = new QRGEncoder(data, null, QRGContents.Type.TEXT, dimensions);
+        qrgEncoder = new QRGEncoder(ALPHA_NUMERIC_STRING, null, QRGContents.Type.TEXT, dimensions);
 
         try {
             // Set QR code as Bitmap & display
@@ -74,8 +69,12 @@ public class PaymentConfirmedActivity extends AppCompatActivity {
             Log.v("Generate QR Code", e.toString());
         }
 
-
         homeBtn.setOnClickListener(v -> navigateToLanding());
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     /**
@@ -85,24 +84,6 @@ public class PaymentConfirmedActivity extends AppCompatActivity {
         qrImage = (ImageView) findViewById(R.id.qr_image);
         uniqueID = (TextView) findViewById(R.id.numeric_code);
         homeBtn = (Button)findViewById(R.id.home_Btn);
-    }
-
-    /**
-     * Generates a random ID string using letters and numbers
-     *
-     * @return Unique ID String
-     */
-    private String getUniqueID(){
-        int length = 12;
-        StringBuilder builder = new StringBuilder();
-
-        while(length-- != 0){
-            int value = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
-            builder.append(ALPHA_NUMERIC_STRING.charAt(value));
-        }
-        uniqueID.setText(builder);
-
-        return uniqueID.getText().toString().trim();
     }
 
     private void navigateToLanding(){

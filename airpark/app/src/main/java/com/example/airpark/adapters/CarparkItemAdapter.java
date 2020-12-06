@@ -40,6 +40,7 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
     private CalculatePrice price;
     private DecimalFormat dFormat;
     private BookingTicket ticket;
+    private Context context;
     
     /**
      * Constructs car park item object
@@ -64,28 +65,18 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         final CarPark carpark = carparkList.get(position);
         price = new CalculatePrice(carpark.getPrice());
         holder.carparkName.setText(carpark.getCarparkName());
-        holder.carparkType.setText(carpark.getCarparkType());
+        holder.carparkType.setText(carpark.getCarparkTypeString());
 
-        try {
-            double fullPrice = ticket.calculatePrice(carpark.getPrice());
-            holder.carparkPrice.setText("€" + dFormat.format(fullPrice) + " (€" + carpark.getPrice() + "/hr)");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        holder.carparkPrice.setText("€" + carpark.getPrice() + "/hr");
 
         holder.nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    double fullPrice = ticket.calculatePrice(carpark.getPrice());
-                    ticket.setTicketPrice(fullPrice);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                Intent intent = new Intent(v.getContext(), ChosenCarparkActivity.class);
-                intent.putExtra("car park", carpark);
+
+                ticket.setSelectedCarPark(carpark);
+                Intent intent = new Intent(context, ChosenCarparkActivity.class);
                 intent.putExtra("ticket", ticket);
-                v.getContext().startActivity(intent);
+                context.startActivity(intent);
             }
         });
 
@@ -103,6 +94,7 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         public MyViewHolder(View itemView){
             super(itemView);
             // Bind Ui with id
+            context = itemView.getContext();
             carparkName = itemView.findViewById(R.id.card_carparkName);
             carparkType = itemView.findViewById(R.id.card_carparkType);
             carparkPrice = itemView.findViewById(R.id.card_carparkPrice);

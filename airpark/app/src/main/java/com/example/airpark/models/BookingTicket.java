@@ -2,6 +2,9 @@ package com.example.airpark.models;
 
 import android.widget.Space;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,31 +28,28 @@ public class BookingTicket implements Serializable {
         TWO_WHEELER
     }
 
-    private String ticketID;
+    private String customerName, customerEmail, customerNumber, carRegistration;
     private SpaceType spaceType;
-    private int carparkID;
-    private double ticketPrice;
-    private Boolean isElderly, hasCarWash;
     private Airport airport;
+    private CarPark selectedCarPark;
     private Date entryDate, exitDate;
+    private boolean isOld, hasCarWash, isLoggedIn;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy - hh:mm a");
-
-    /**
-     * Constructs Booking Ticket object
-     *
-     */
     public  BookingTicket(){
         this.airport = null;
-        this.ticketID = null;
         this.airport = null;
         this.entryDate = null;
         this.exitDate = null;
-        this.carparkID = -1;
-        this.ticketPrice = -1;
-        this.hasCarWash = false;
-        this.isElderly = false;
         this.spaceType = SpaceType.GENERAL;
+        this.selectedCarPark = null;
+    }
+
+    public CarPark getSelectedCarPark() {
+        return selectedCarPark;
+    }
+
+    public void setSelectedCarPark(CarPark selectedCarPark) {
+        this.selectedCarPark = selectedCarPark;
     }
 
     public Airport getAirport() {
@@ -59,10 +59,6 @@ public class BookingTicket implements Serializable {
     public void setAirport(Airport airport) {
         this.airport = airport;
     }
-
-    public String getTicketID(){ return ticketID; }
-
-    public void setTicketID(String ticketID){ this.ticketID = ticketID; }
 
     public Date getEntryDate() {
         return entryDate;
@@ -84,33 +80,54 @@ public class BookingTicket implements Serializable {
 
     public void setSpaceRequired(SpaceType space) {this.spaceType = space;}
 
-    public int getCarparkID() { return carparkID; }
-
-    public void setCarparkID(int carparkID) {  this.carparkID = carparkID; }
-
-    public  double getTicketPrice() { return ticketPrice; }
-
-    public void setTicketPrice(double ticketPrice) { this.ticketPrice = ticketPrice; }
-
-    public Boolean isElderly() { return isElderly; }
-
-    public void setIsElderly(boolean isElderly) { this.isElderly = isElderly; }
-
-    public Boolean hasCarWash() { return hasCarWash; }
-
-    public void sethasCarWash(boolean hasCarWash) { this.hasCarWash = hasCarWash; }
-
-    public String getFormattedEntryDate(){
-        return sdf.format(entryDate);
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getFormattedExitDate(){
-        return sdf.format(exitDate);
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
-    public double calculatePrice(Double pricePerHour) throws ParseException {
-        int lengthOfStay = getLengthOfStay();
-        return lengthOfStay * pricePerHour;
+    public void setCustomerNumber(String customerNumber) {
+        this.customerNumber = customerNumber;
+    }
+
+    public void setCarRegistration(String carRegistration) {
+        this.carRegistration = carRegistration;
+    }
+
+    public boolean isOld() {
+        return isOld;
+    }
+
+    public void setOld(boolean old) {
+        isOld = old;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
+    }
+
+    public void setHasCarWash(boolean hasCarWash) {
+        this.hasCarWash = hasCarWash;
+    }
+
+    public JSONObject convertForBooking() throws JSONException {
+
+        JSONObject params = new JSONObject();
+        params.put("car_park_id", getSelectedCarPark().getCarparkID());
+        params.put("customer_name", customerName);
+        params.put("email", customerEmail);
+        params.put("phone", customerNumber);
+        params.put("car_reg", carRegistration);
+        params.put("is_old", isOld);
+        params.put("is_logged_in", isLoggedIn);
+        params.put("car_wash", hasCarWash);
+        params.put("end_date", exitDate.getTime());
+        params.put("start_date", entryDate.getTime());
+        params.put("is_handicap", spaceType == BookingTicket.SpaceType.DISABLED);
+        params.put("is_two_wheeler", spaceType == BookingTicket.SpaceType.TWO_WHEELER);
+        return params;
     }
 
     public HashMap<String, String> getCarparkListingParameters(){
@@ -120,6 +137,8 @@ public class BookingTicket implements Serializable {
         map.put("airport_id", Integer.toString(airport.getAirportID()));
         map.put("start_date", Long.toString(entryDate.getTime()));
         map.put("end_date", Long.toString(exitDate.getTime()));
+
+        System.out.println(entryDate.getTime());
 
         switch (spaceType){
             case DISABLED: {

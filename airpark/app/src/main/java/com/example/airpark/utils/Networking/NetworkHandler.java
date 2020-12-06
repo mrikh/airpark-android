@@ -26,45 +26,30 @@ public class NetworkHandler {
         return shared;
     }
 
+    public void paymentDone(JSONObject object, NetworkingClosure completion){
+
+        performPostRequest(EndPoints.paymentDone, object, completion);
+    }
+
+    public void calculatePrice(JSONObject object, NetworkingClosure completion){
+        performPostRequest(EndPoints.calcPrice, object, completion);
+    }
+
     public void getAvailableCarParks( HashMap<String, String> params, NetworkingClosure completion){
 
-        try {
-            performGetRequest(EndPoints.availabilityList, params, completion);
-        }catch (Exception e){
-            completion.completion(null, e.getMessage());
-            return;
-        }
+        performGetRequest(EndPoints.availabilityList, params, completion);
     }
 
     public void airportsListing(NetworkingClosure completion){
 
-        try {
-            performGetRequest(EndPoints.airportsList, new HashMap<>(), completion);
-        }catch (Exception e){
-            completion.completion(null, e.getMessage());
-            return;
-        }
+        performGetRequest(EndPoints.airportsList, new HashMap<>(), completion);
     }
 
-    public void paymentIntent(String customerId, NetworkingClosure completion){
+    public void paymentIntent(String customerId, JSONObject params, NetworkingClosure completion){
 
         try {
-            JSONObject dataJson = new JSONObject();
-            dataJson.put("customer_id", customerId);
-            performPostRequest(EndPoints.paymentIntent, dataJson, completion);
-        }catch (Exception e){
-            completion.completion(null, e.getMessage());
-            return;
-        }
-    }
-
-    public void ephemeralKey(String email, String version, NetworkingClosure completion){
-
-        try {
-            JSONObject dataJson = new JSONObject();
-            dataJson.put("email", email);
-            dataJson.put("api_version", version);
-            performPostRequest(EndPoints.ephemeralKey, dataJson, completion);
+            params.put("customer_id", customerId);
+            performPostRequest(EndPoints.paymentIntent, params, completion);
         }catch (Exception e){
             completion.completion(null, e.getMessage());
             return;

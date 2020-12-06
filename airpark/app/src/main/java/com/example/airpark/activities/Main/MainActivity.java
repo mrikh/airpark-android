@@ -1,6 +1,7 @@
 package com.example.airpark.activities.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         PaymentConfiguration.init(getApplicationContext(), "pk_test_51HrvFLISFKjjBkEL0Vnxz62UUYtlQpDJcrUHmvSIvqed63wxTel3PfaZhdvhTT0uqKukhLVKfBpv4bkBPZItYJEB00SeuhsWMH");
 

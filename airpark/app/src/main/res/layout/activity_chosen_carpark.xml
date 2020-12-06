@@ -78,8 +78,7 @@
             android:id="@+id/carpark_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
             android:paddingBottom="5dp"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -96,12 +95,13 @@
             android:id="@+id/carpark_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/carpark_price"
-            app:layout_constraintVertical_bias="0.04"
+            app:layout_constraintTop_toBottomOf="@+id/more_price_info"
+            app:layout_constraintVertical_bias="0.0"
             tools:background="@tools:sample/backgrounds/scenic" />
 
         <TextView
@@ -150,5 +150,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/carpark_important_info"
             app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/more_price_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="20dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carpark_price" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

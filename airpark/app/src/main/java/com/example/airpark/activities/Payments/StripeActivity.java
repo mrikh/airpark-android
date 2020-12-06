@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.airpark.R;
+import com.example.airpark.activities.EnterDetailsActivity;
 import com.example.airpark.activities.PaymentConfirmedActivity;
+import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.models.BookingTicket;
+import com.example.airpark.models.CarPark;
 import com.example.airpark.models.Vehicle;
 import com.example.airpark.utils.HelperInterfaces.StripeCompletionAction;
 import com.example.airpark.models.UserModel;
@@ -36,10 +40,13 @@ import com.stripe.android.model.PaymentIntent;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class StripeActivity extends AppCompatActivity {
@@ -47,9 +54,15 @@ public class StripeActivity extends AppCompatActivity {
     private Stripe stripe;
     private PaymentSession paymentSession;
     private ProgressBar progressBar;
-    private String currentCustomerId;
     private BookingTicket ticket;
-    private Vehicle vehicle;
+
+    public DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            dialog.cancel();
+            finish();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +71,6 @@ public class StripeActivity extends AppCompatActivity {
 
         Intent myIntent = getIntent();
         ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
-        vehicle = (Vehicle)myIntent.getSerializableExtra("vehicle");
 
         progressBar = findViewById(R.id.progress);
         Sprite doubleBounce = new DoubleBounce();
@@ -67,17 +79,12 @@ public class StripeActivity extends AppCompatActivity {
 
         stripe = new Stripe(this, Objects.requireNonNull("pk_test_51HrvFLISFKjjBkEL0Vnxz62UUYtlQpDJcrUHmvSIvqed63wxTel3PfaZhdvhTT0uqKukhLVKfBpv4bkBPZItYJEB00SeuhsWMH"));
 
-        CustomerSession.initCustomerSession(this, new EphKeyProvider(UserModel.currentUser.getEmail(), this, new StripeCompletionAction() {
-            @Override
-            public void onComplete(ComponentActivity c) {
-                paymentSession = new PaymentSession(c, new PaymentSessionConfig.Builder()
-                        .setShippingInfoRequired(false)
-                        .setShippingMethodsRequired(false)
-                        .build());
-                setupPaymentSession();
-                paymentSession.presentPaymentMethodSelection(null);
-            }
-        }));
+        paymentSession = new PaymentSession(this, new PaymentSessionConfig.Builder()
+                .setShippingInfoRequired(false)
+                .setShippingMethodsRequired(false)
+                .build());
+        setupPaymentSession();
+        paymentSession.presentPaymentMethodSelection(null);
     }
 
     private void setupPaymentSession() {
@@ -91,32 +98,34 @@ public class StripeActivity extends AppCompatActivity {
                     CustomerSession.getInstance().retrieveCurrentCustomer(new CustomerSession.CustomerRetrievalListener() {
                         @Override
                         public void onCustomerRetrieved(@NotNull Customer customer) {
-                            NetworkHandler.getInstance().paymentIntent(customer.getId(), new NetworkingClosure() {
-                                @Override
-                                public void completion(JSONObject object, String message) {
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                    if (object != null){
-                                        try {
-                                            String client_secret = object.getString("client_secret");
-                                            paymentSucess(client_secret, paymentSessionData.getPaymentMethod().id);
-
-                                            Intent myIntent = new Intent(StripeActivity.this, PaymentConfirmedActivity.class);
-                                            myIntent.putExtra("ticket", ticket);
-                                            myIntent.putExtra("vehicle", (Serializable) vehicle);
-                                            startActivity(myIntent);
-                                        }catch(Exception e){
-                                            displayAlert("Oops", e.getLocalizedMessage());
+                            try {
+                                JSONObject params = ticket.convertForBooking();
+                                NetworkHandler.getInstance().paymentIntent(customer.getId(), params, new NetworkingClosure() {
+                                    @Override
+                                    public void completion(JSONObject object, String message) {
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        if (object != null){
+                                            try {
+                                                String client_secret = object.getString("client_secret");
+                                                paymentSucess(client_secret, paymentSessionData.getPaymentMethod().id);
+                                                progressBar.setVisibility(View.VISIBLE);
+                                            }catch(Exception e){
+                                                displayAlert("Oops", e.getLocalizedMessage(), cancelListener);
+                                            }
+                                        }else{
+                                            displayAlert("Oops", message, cancelListener);
                                         }
-                                    }else{
-                                        displayAlert("Oops", message);
                                     }
-                                }
-                            });
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(progressBar.getContext(), "Something went wrong! Try again.", Toast.LENGTH_LONG);
+                            }
                         }
 
                         @Override
                         public void onError(int i, @NotNull String s, @Nullable StripeError stripeError) {
-                            displayAlert("Oops", stripeError.getMessage());
+                            displayAlert("Oops", stripeError.getMessage(), cancelListener);
                         }
                     });
                 }
@@ -133,7 +142,7 @@ public class StripeActivity extends AppCompatActivity {
 
             @Override public void onError(int errorCode, @Nullable String errorMessage) {
                 // handle error
-                displayAlert("Oops", errorMessage);
+                displayAlert("Oops", errorMessage, cancelListener);
             }
         });
     }
@@ -142,17 +151,37 @@ public class StripeActivity extends AppCompatActivity {
         stripe.confirmPayment(this, ConfirmPaymentIntentParams.createWithPaymentMethodId(clientPaymentId, clientSecret));
     }
 
-    public void displayAlert(String title, String body){
+    public void completePaymentOnServer(){
+        try {
+            JSONObject info = ticket.convertForBooking();
+            progressBar.setVisibility(View.VISIBLE);
+            NetworkHandler.getInstance().paymentDone(info, new NetworkingClosure() {
+                @Override
+                public void completion(JSONObject object, String message) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    try {
+                        Intent myIntent = new Intent(StripeActivity.this, PaymentConfirmedActivity.class);
+                        myIntent.putExtra("code", object.getString("alphanumeric_string"));
+                        startActivity(myIntent);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        displayAlert("Oops", e.getLocalizedMessage(), cancelListener);
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+            displayAlert("Oops", e.getLocalizedMessage(), cancelListener);
+        }
+    }
+
+    public void displayAlert(String title, String body, DialogInterface.OnClickListener onClick){
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage(body);
         builder1.setTitle(title);
 
-        builder1.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
+        builder1.setPositiveButton(R.string.okay, onClick);
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
@@ -177,6 +206,7 @@ public class StripeActivity extends AppCompatActivity {
 
         @Override
         public void onSuccess(@NonNull PaymentIntentResult result) {
+
             final StripeActivity activity = activityRef.get();
             if (activity == null) {
                 return;
@@ -185,21 +215,30 @@ public class StripeActivity extends AppCompatActivity {
             PaymentIntent paymentIntent = result.getIntent();
             PaymentIntent.Status status = paymentIntent.getStatus();
 
+            activity.progressBar.setVisibility(View.INVISIBLE);
             if (status == PaymentIntent.Status.Succeeded) {
-                activity.displayAlert("Payment completed", paymentIntent.getDescription());
+                activity.displayAlert("Payment completed", paymentIntent.getDescription(), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        activity.completePaymentOnServer();
+                    }
+                });
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
-                activity.displayAlert("Payment failed", Objects.requireNonNull(paymentIntent.getLastPaymentError()).getMessage());
+                activity.displayAlert("Payment failed", Objects.requireNonNull(paymentIntent.getLastPaymentError()).getMessage(), activity.cancelListener);
             }
         }
 
         @Override
         public void onError(@NonNull Exception e) {
+
+            activityRef.get().progressBar.setVisibility(View.INVISIBLE);
             final StripeActivity activity = activityRef.get();
             if (activity == null) {
                 return;
             }
             // Payment request failed – allow retrying using the same payment method
-            activity.displayAlert("Error", e.toString());
+            activity.displayAlert("Error", e.toString(), activity.cancelListener);
         }
     }
 }

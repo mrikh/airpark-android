@@ -41,11 +41,19 @@ public class CarPark implements Serializable {
         this.carparkType = object.getBoolean("is_long_term") ? CarParkType.LONG_TERM : CarParkType.SHORT_TERM;
     }
 
+    public int getCarparkID() {
+        return carparkID;
+    }
+
     public String getCarparkImage(){ return carparkImageString; }
 
     public String getCarparkName(){ return carparkName; }
 
-    public String getCarparkType(){
+    public CarParkType getCarparkType() {
+        return carparkType;
+    }
+
+    public String getCarparkTypeString(){
         switch (carparkType){
             case LONG_TERM: return "Long Term";
             case SHORT_TERM: return "Short Term";

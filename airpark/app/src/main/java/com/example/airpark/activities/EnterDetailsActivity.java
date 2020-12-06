@@ -9,33 +9,44 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airpark.R;
+import com.example.airpark.activities.Payments.StripeActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.models.BookingTicket;
-import com.example.airpark.models.CalculatePrice;
-import com.example.airpark.models.CarPark;
-import com.example.airpark.models.Discounts;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.models.Vehicle;
 import com.example.airpark.designPatterns.factory.VehicleFactory;
+import com.example.airpark.utils.HelperInterfaces.Callback;
+import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
+import com.example.airpark.utils.HelperInterfaces.StripeCompletionAction;
 import com.example.airpark.utils.InputValidator;
+import com.example.airpark.utils.Networking.NetworkHandler;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.material.textfield.TextInputEditText;
+import com.stripe.android.CustomerSession;
+import com.stripe.android.EphemeralKeyProvider;
+import com.stripe.android.EphemeralKeyUpdateListener;
 
-import java.text.DecimalFormat;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class EnterDetailsActivity extends AppCompatActivity {
+
     private LinearLayout loginContainer;
     private TextInputEditText email, name, carReg, phoneNumber;
     private Button loginBtn, confirmBtn;
     private CheckBox elderlyCheck, carWashCheck;
     private InputValidator validator;
-    private CalculatePrice price;
-    private Discounts discounts;
-    private CarPark carpark;
     private BookingTicket ticket;
+    private ProgressBar progressBar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +54,6 @@ public class EnterDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent myIntent = getIntent();
         ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
-        carpark = (CarPark)myIntent.getSerializableExtra("car park");
 
         bindUiItems();
 
@@ -53,9 +63,6 @@ public class EnterDetailsActivity extends AppCompatActivity {
             email.setText(UserModel.currentUser.getEmail());
         }
 
-        /** Hardcoded  **/
-        discounts = new Discounts(20);
-        price = new CalculatePrice(0);
         validator = new InputValidator();
 
         loginBtn.setOnClickListener(v -> navigateToLogin());
@@ -64,42 +71,78 @@ public class EnterDetailsActivity extends AppCompatActivity {
         phoneNumber.setOnClickListener(v -> phoneNumber.setError(null));
         carReg.setOnClickListener(v -> carReg.setError(null));
 
-        confirmBtn.setOnClickListener(v -> {
-            if(validateUserDetails()){
+        progressBar = (ProgressBar)findViewById(R.id.progress);
+        Sprite doubleBounce = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
+        progressBar.setVisibility(View.INVISIBLE);
 
-                System.out.println("Space: " + ticket.getSpaceRequired());
+        confirmBtn.setOnClickListener(v -> {
+
+            if(validateUserDetails()){
 
                 //Factory Pattern
                 VehicleFactory vFactory = new VehicleFactory();
                 Vehicle vehicle = vFactory.getVehicle(ticket.getSpaceRequired());
                 vehicle.setVehicleReg(carReg.toString());
 
-                DecimalFormat dFormat = new DecimalFormat("#.00");
+                ticket.setCustomerName(name.getText().toString());
+                ticket.setCustomerEmail(email.getText().toString());
+                ticket.setCustomerNumber(phoneNumber.getText().toString());
+                ticket.setCarRegistration(carReg.getText().toString());
+                ticket.setOld(elderlyCheck.isChecked());
+                ticket.setHasCarWash(carWashCheck.isChecked());
+                ticket.setLoggedIn(UserModel.currentUser.getEmail().equalsIgnoreCase(email.getText().toString()));
 
-                double finalPrice = ticket.getTicketPrice();
-                String discountText = null, carWashText = null;
+                try {
 
-                if(elderlyCheck.isChecked() || carWashCheck.isChecked()){
-                    if(elderlyCheck.isChecked()){
-                        ticket.setIsElderly(true);
+                    JSONObject params = ticket.convertForBooking();
 
-                        double discountPrice = price.discountPrice(ticket.getTicketPrice(), discounts.getElderlyDiscount());
-                        discountText = "\nDiscount: " + dFormat.format(discounts.getElderlyDiscount()) + "%";
-                        finalPrice = discountPrice;
-                    }
-                    if(carWashCheck.isChecked()){
-                        ticket.sethasCarWash(true);
-                        /** Hardcoded **/
-                        double carWashPrice = 10;
-                        carWashText = "\nCar Wash: €" + dFormat.format(carWashPrice);
-                        finalPrice += carWashPrice;
-                    }
+                    progressBar.setVisibility(View.VISIBLE);
+                    CustomerSession.initCustomerSession(this, new EphKeyProvider(new StripeCompletionAction() {
+                        @Override
+                        public void onComplete(String version, EphemeralKeyUpdateListener keyUpdateListener){
+                            progressBar.setVisibility(View.INVISIBLE);
+                            try {
+                                params.put("version", version);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                                Toast.makeText(confirmBtn.getContext(), "Something went wrong! Try again.", Toast.LENGTH_LONG);
+                            }
+                            progressBar.setVisibility(View.VISIBLE);
+                            NetworkHandler.getInstance().calculatePrice(params, new NetworkingClosure() {
+                                @Override
+                                public void completion(JSONObject object, String message){
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    try {
+                                        String key = object.getJSONObject("key").toString();
+                                        keyUpdateListener.onKeyUpdate(key);
+                                        JSONArray jsonArray = object.getJSONArray("discounts");
+                                        int totalLength = jsonArray.length();
+                                        String[] discounts = new String[totalLength];
+                                        for (int i = 0;i<totalLength;i++){
+                                            discounts[i] = jsonArray.getString(i);
+                                        }
+                                        PopUpConfirmPayment popUpWindow = new PopUpConfirmPayment(object.getLong("total"), discounts, new Callback() {
+                                            @Override
+                                            public void onComplete() {
+                                                Intent myIntent = new Intent(EnterDetailsActivity.this, StripeActivity.class);
+                                                myIntent.putExtra("ticket", ticket);
+                                                startActivity(myIntent);
+                                            }
+                                        });
+                                        popUpWindow.showPopUp(v);
+                                    }catch(Exception e){
+                                        e.printStackTrace();
+                                        Toast.makeText(confirmBtn.getContext(), "Something went wrong! Try again.", Toast.LENGTH_LONG);
+                                    }
+                                }
+                            });
+                        }
+                    }));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(confirmBtn.getContext(), "Something went wrong! Try again.", Toast.LENGTH_LONG);
                 }
-                String carparkPrice = "\nCar Park: €" + dFormat.format(ticket.getTicketPrice());
-
-                PopUpConfirmPayment popUpWindow = new PopUpConfirmPayment(carparkPrice, discountText, carWashText, dFormat.format(finalPrice), ticket, vehicle);
-                popUpWindow.showPopUp(v);
-
             }
         });
 
@@ -163,4 +206,17 @@ public class EnterDetailsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private class EphKeyProvider implements EphemeralKeyProvider {
+
+        private StripeCompletionAction completion;
+
+        public EphKeyProvider(StripeCompletionAction completion){
+            this.completion = completion;
+        }
+
+        @Override
+        public void createEphemeralKey(@NotNull String s, @NotNull EphemeralKeyUpdateListener ephemeralKeyUpdateListener) {
+            completion.onComplete(s, ephemeralKeyUpdateListener);
+        }
+    }
 }

@@ -16,7 +16,9 @@ import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Airpark Application - Group 14
@@ -27,45 +29,42 @@ import java.text.DecimalFormat;
  * Selected Car Park Details Screen
  */
 public class ChosenCarparkActivity extends AppCompatActivity {
-    private TextView airportView, carparkType, entryDate, exitDate, carparkPrice, carparkInfo;
+
+    private TextView airportView, carparkType, entryDate, exitDate, carparkPrice, carparkInfo, priceMoreInfo;
     private Button selectBtn;
-    private CarPark carpark;
     private BookingTicket ticket;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy - hh:mm a");
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_chosen_carpark);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        DecimalFormat dFormat = new DecimalFormat("#.##");
 
         Intent myIntent = getIntent();
-        carpark = (CarPark)myIntent.getSerializableExtra("car park");
         ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
 
-
         //Change Screen Title if Long Term Car Park
-        if(carpark.getCarparkType().equals("Long Term")){
+        if(ticket.getSelectedCarPark().getCarparkType() == CarPark.CarParkType.LONG_TERM){
             setTitle(R.string.carpark_long_term);
         }
 
         bindUiItems();
 
         airportView.setText(ticket.getAirport().getAirportName());
-        carparkType.setText(carpark.getCarparkName());
-        entryDate.setText(getString(R.string.carpark_entry) + " " + ticket.getFormattedEntryDate());
-        exitDate.setText(getString(R.string.carpark_exit) + "     " + ticket.getFormattedExitDate());
-        carparkPrice.setText(getString(R.string.total_price) + dFormat.format(ticket.getTicketPrice()));
+        carparkType.setText(ticket.getSelectedCarPark().getCarparkName());
+
+        entryDate.setText(getString(R.string.carpark_entry) + " " + sdf.format(ticket.getEntryDate()));
+        exitDate.setText(getString(R.string.carpark_exit) + "     " + sdf.format(ticket.getExitDate()));
+        carparkPrice.setText("Price: €" + ticket.getSelectedCarPark().getPrice() + "/hr");
 
         ImageView imageView = findViewById(R.id.carpark_image);
-        Glide.with(this).load(carpark.getCarparkImage()).into(imageView);
+        Glide.with(this).load(ticket.getSelectedCarPark().getCarparkImage()).into(imageView);
 
-        /** Harcoded for now **/
-        carparkInfo.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor lectus fermentum nunc malesuada, et tristique tellus lobortis. Vestibulum at finibus ipsum. Etiam laoreet erat sit " +
-                "amet mauris posuere placerat. Integer enim sem, faucibus ac erat sed, euismod viverra dolor. Curabitur sed arcu quis ex suscipit volutpat. In hac habitasse platea dictumst. Praesent dui ante, " +
-                "volutpat a massa sed, euismod ultrices urna. Praesent sit amet gravida sapien. Nunc fermentum, sapien auctor congue placerat, eros risus maximus diam, eget dictum turpis ex quis orci."+
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor lectus fermentum nunc malesuada, et tristique tellus lobortis. Vestibulum at finibus ipsum. Etiam laoreet erat sit ");
+        priceMoreInfo.setText("You may be eligible for discounts. Input details on the next screen to view the final price. Maximum discount of upto 30%.");
+        carparkInfo.setText("Long term parking is valid till the end of the selected day.\n\nFor short term parking, if you take longer than the appointed time. You have until the end of day to clear out and will be charged depending on the hours left until that time.\n\nWe reserve the right to tow your car should you fail to follow the rules.");
 
         selectBtn.setOnClickListener(v -> {
             Intent myIntent2 = new Intent(this, EnterDetailsActivity.class);
@@ -94,5 +93,6 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         carparkPrice = (TextView) findViewById(R.id.carpark_price);
         carparkInfo = (TextView) findViewById(R.id.carpark_important_info);
         selectBtn = (Button)findViewById(R.id.select_carpark_btn);
+        priceMoreInfo = findViewById(R.id.more_price_info);
     }
 }
