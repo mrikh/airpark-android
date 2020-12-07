@@ -8,19 +8,11 @@ public abstract class CarParkSpace {
         this.vehicle = vehicle;
     }
 
-    public void addVehicle(Vehicle vehicle) {
-        if(vehicle == null){
-            this.vehicle = vehicle;
-        }else{
-            System.out.println("Space is Full");
-        }
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
-    public void removeVehicle(Vehicle vehicle) {
-        if(vehicle != null){
-            this.vehicle = null;
-        }else{
-            System.out.println("No Vehicle in Space");
-        }
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 }

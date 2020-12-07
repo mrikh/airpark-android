@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.example.airpark.R;
 import com.example.airpark.activities.Bookings.BookingActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
+import com.example.airpark.designPatterns.factory.CarParkSpaceFactory;
 import com.example.airpark.models.Airport;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
@@ -186,8 +187,15 @@ public class LandingSearchActivity extends AppCompatActivity {
                     return;
                 }
                 //Update booking ticket
-                if(disabilityCheck.isChecked()){ticket.setSpaceRequired(BookingTicket.SpaceType.DISABLED);}
-                if(motorbikeCheck.isChecked()){ticket.setSpaceRequired(BookingTicket.SpaceType.TWO_WHEELER);}
+                CarParkSpaceFactory carpParkSpaceFactory = new CarParkSpaceFactory();
+
+                if(disabilityCheck.isChecked()){
+                    ticket.setSpaceRequired(carpParkSpaceFactory.getSpace(CarParkSpaceFactory.SpaceType.DISABLED));
+                }else if (motorbikeCheck.isChecked()){
+                    ticket.setSpaceRequired(carpParkSpaceFactory.getSpace(CarParkSpaceFactory.SpaceType.TWO_WHEELER));
+                }else{
+                    ticket.setSpaceRequired(carpParkSpaceFactory.getSpace(CarParkSpaceFactory.SpaceType.GENERAL));
+                }
 
                 HashMap<String, String> params = ticket.getCarparkListingParameters();
                 progressBar.setVisibility(View.VISIBLE);

@@ -88,9 +88,7 @@ public class EnterDetailsActivity extends AppCompatActivity {
 
             if(validateUserDetails()){
 
-                //Factory Pattern
-                VehicleFactory vFactory = new VehicleFactory();
-                Vehicle vehicle = vFactory.getVehicle(ticket.getSpaceRequired());
+                Vehicle vehicle = ticket.getSpaceRequired().getVehicle();
                 vehicle.setVehicleReg(carReg.toString());
 
                 ticket.setCustomerName(name.getText().toString());
@@ -104,9 +102,7 @@ public class EnterDetailsActivity extends AppCompatActivity {
                 }
 
                 try {
-
                     JSONObject params = ticket.convertForBooking();
-
                     progressBar.setVisibility(View.VISIBLE);
                     CustomerSession.initCustomerSession(this, new EphKeyProvider(new StripeCompletionAction() {
                         @Override
