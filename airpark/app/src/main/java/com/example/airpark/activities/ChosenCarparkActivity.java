@@ -51,13 +51,13 @@ public class ChosenCarparkActivity extends AppCompatActivity {
 
         //Default Short Term
         carparkInfo.setText(R.string.short_term_info);
-        carparkPrice.setText("Price: €" + df.format(ticket.getSelectedCarPark().getPrice()) + "/hr");
+        carparkPrice.setText(getString(R.string.price) + ": €" + df.format(ticket.getSelectedCarPark().getPrice()) + getString(R.string.price_per_hour));
 
         //Change Screen Title if Long Term Car Park
         if(ticket.getSelectedCarPark().getCarparkType() == CarPark.CarParkType.LONG_TERM){
             setTitle(R.string.carpark_long_term);
             carparkInfo.setText(R.string.long_term_info);
-            carparkPrice.setText("Price: €" + df.format(ticket.getSelectedCarPark().getPrice()) + "/day");
+            carparkPrice.setText(getString(R.string.price) + ": €" + df.format(ticket.getSelectedCarPark().getPrice()) + getString(R.string.price_per_day));
         }
 
         airportView.setText(ticket.getAirport().getAirportName());

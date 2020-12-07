@@ -66,7 +66,7 @@ public class PaymentConfirmedActivity extends AppCompatActivity {
             bitmap = qrgEncoder.encodeAsBitmap();
             qrImage.setImageBitmap(bitmap);
         } catch (WriterException e) {
-            Log.v("Generate QR Code", e.toString());
+            e.printStackTrace();
         }
 
         homeBtn.setOnClickListener(v -> navigateToLanding());

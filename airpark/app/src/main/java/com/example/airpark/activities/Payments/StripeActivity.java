@@ -107,22 +107,23 @@ public class StripeActivity extends AppCompatActivity {
                                                 paymentSucess(client_secret, paymentSessionData.getPaymentMethod().id);
                                                 progressBar.setVisibility(View.VISIBLE);
                                             }catch(Exception e){
-                                                displayAlert("Oops", e.getLocalizedMessage(), cancelListener);
+
+                                                displayAlert(getString(R.string.oops), e.getLocalizedMessage(), cancelListener);
                                             }
                                         }else{
-                                            displayAlert("Oops", message, cancelListener);
+                                            displayAlert(getString(R.string.oops), message, cancelListener);
                                         }
                                     }
                                 });
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(progressBar.getContext(), "Something went wrong! Try again.", Toast.LENGTH_LONG);
+                                Toast.makeText(progressBar.getContext(), getString(R.string.something_wrong), Toast.LENGTH_LONG);
                             }
                         }
 
                         @Override
                         public void onError(int i, @NotNull String s, @Nullable StripeError stripeError) {
-                            displayAlert("Oops", stripeError.getMessage(), cancelListener);
+                            displayAlert(getString(R.string.oops), stripeError.getMessage(), cancelListener);
                         }
                     });
                 }
@@ -139,7 +140,7 @@ public class StripeActivity extends AppCompatActivity {
 
             @Override public void onError(int errorCode, @Nullable String errorMessage) {
                 // handle error
-                displayAlert("Oops", errorMessage, cancelListener);
+                displayAlert(getString(R.string.oops), errorMessage, cancelListener);
             }
         });
     }
@@ -162,13 +163,13 @@ public class StripeActivity extends AppCompatActivity {
                         startActivity(myIntent);
                     }catch(Exception e){
                         e.printStackTrace();
-                        displayAlert("Oops", e.getLocalizedMessage(), cancelListener);
+                        displayAlert(getString(R.string.oops), e.getLocalizedMessage(), cancelListener);
                     }
                 }
             });
         }catch (Exception e){
             e.printStackTrace();
-            displayAlert("Oops", e.getLocalizedMessage(), cancelListener);
+            displayAlert(getString(R.string.oops), e.getLocalizedMessage(), cancelListener);
         }
     }
 
@@ -214,7 +215,7 @@ public class StripeActivity extends AppCompatActivity {
 
             activity.progressBar.setVisibility(View.INVISIBLE);
             if (status == PaymentIntent.Status.Succeeded) {
-                activity.displayAlert("Payment completed", paymentIntent.getDescription(), new DialogInterface.OnClickListener() {
+                activity.displayAlert(activity.getString(R.string.payment_completed), paymentIntent.getDescription(), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -222,7 +223,7 @@ public class StripeActivity extends AppCompatActivity {
                     }
                 });
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
-                activity.displayAlert("Payment failed", Objects.requireNonNull(paymentIntent.getLastPaymentError()).getMessage(), activity.cancelListener);
+                activity.displayAlert(activity.getString(R.string.payment_failed), Objects.requireNonNull(paymentIntent.getLastPaymentError()).getMessage(), activity.cancelListener);
             }
         }
 
@@ -235,7 +236,7 @@ public class StripeActivity extends AppCompatActivity {
                 return;
             }
             // Payment request failed – allow retrying using the same payment method
-            activity.displayAlert("Error", e.toString(), activity.cancelListener);
+            activity.displayAlert(activity.getString(R.string.oops), e.toString(), activity.cancelListener);
         }
     }
 }

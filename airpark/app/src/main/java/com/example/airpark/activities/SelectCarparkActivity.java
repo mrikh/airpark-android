@@ -41,6 +41,7 @@ public class SelectCarparkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_search_carpark);
 
         bindUiItems();
@@ -66,7 +67,7 @@ public class SelectCarparkActivity extends AppCompatActivity {
 
         }catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Sorry! Something went wrong!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.something_wrong), Toast.LENGTH_LONG).show();
         }
 
         airportView.setText(ticket.getAirport().getAirportName());
@@ -82,8 +83,8 @@ public class SelectCarparkActivity extends AppCompatActivity {
         exitTime.setText(exitDateAndTime[1]);
 
         sections = new ArrayList<>();
-        sections.add(new CarparkListSection("Recommended", recommendedCarpark));
-        sections.add(new CarparkListSection("Other Availabilities", carparkList));
+        sections.add(new CarparkListSection(getString(R.string.recommended), recommendedCarpark));
+        sections.add(new CarparkListSection(getString(R.string.other_available), carparkList));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

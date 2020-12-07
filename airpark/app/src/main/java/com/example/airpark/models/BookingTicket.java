@@ -72,7 +72,9 @@ public class BookingTicket implements Serializable {
 
     public CarParkSpace getSpaceRequired() { return spaceType; }
 
-    public void setSpaceRequired(CarParkSpace space) {this.spaceType = space;}
+    public void setSpaceRequired(CarParkSpace space) {
+        this.spaceType = space;
+    }
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;

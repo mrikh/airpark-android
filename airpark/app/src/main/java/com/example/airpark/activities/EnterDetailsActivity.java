@@ -112,7 +112,7 @@ public class EnterDetailsActivity extends AppCompatActivity {
                                 params.put("version", version);
                             }catch (Exception e){
                                 e.printStackTrace();
-                                Toast.makeText(confirmBtn.getContext(), "Something went wrong! Try again.", Toast.LENGTH_LONG);
+                                Toast.makeText(confirmBtn.getContext(), getString(R.string.something_wrong), Toast.LENGTH_LONG);
                             }
                             progressBar.setVisibility(View.VISIBLE);
                             NetworkHandler.getInstance().calculatePrice(params, new NetworkingClosure() {
@@ -139,7 +139,7 @@ public class EnterDetailsActivity extends AppCompatActivity {
                                         popUpWindow.showPopUp(v);
                                     }catch(Exception e){
                                         e.printStackTrace();
-                                        Toast.makeText(confirmBtn.getContext(), "Something went wrong! Try again.", Toast.LENGTH_LONG);
+                                        Toast.makeText(confirmBtn.getContext(), getString(R.string.something_wrong), Toast.LENGTH_LONG);
                                     }
                                 }
                             });
@@ -147,7 +147,7 @@ public class EnterDetailsActivity extends AppCompatActivity {
                     }));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(confirmBtn.getContext(), "Something went wrong! Try again.", Toast.LENGTH_LONG);
+                    Toast.makeText(confirmBtn.getContext(), getString(R.string.something_wrong), Toast.LENGTH_LONG);
                 }
             }
         });

@@ -2,11 +2,9 @@
     <string name="app_name">Airpark</string>
     <string name="airpark_title">Airpark</string>
     <string name="airpark_logo">Airpark Logo</string>
-
-    <!--  Errors  -->
     <string name="invalid_email">Email address is incorrect</string>
     <string name="password_short">Your password needs to be at least 8 characters</string>
-    <string name="something_wrong">Something went wrong</string>
+    <string name="something_wrong">Something went wrong. Try again!</string>
     <string name="name_error">Your name seems incorrect! Eg. John Smith</string>
     <string name="invalid_airport">Airport not recognised</string>
     <string name="invalid_date">Invalid Date</string>
@@ -15,8 +13,7 @@
     <string name="invalid_time">Invalid Time</string>
     <string name="invalid_phone">Phone number is not recognised</string>
     <string name="invalid_reg">Car registration is not recognised</string>
-
-    <!--  Login  -->
+    <string name="oops">Oops</string>
     <string name="login_heading">Login</string>
     <string name="login_button">LOGIN</string>
     <string name="dont_have_account">Dont have an account?</string>
@@ -25,26 +22,18 @@
     <string name="explore"><u>Explore</u></string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-
-    <!--  Sign Up  -->
     <string name="sign_up_button">SIGN UP</string>
     <string name="name">Full Name</string>
     <string name="note">Note:</string>
     <string name="agree_terms">By signing up you agree to our Terms &amp; Conditions</string>
-
-    <!--  Side Menu  -->
     <string name="open">Open</string>
     <string name="close">Close</string>
-
-    <!--  Search/Landing  -->
     <string name="airports">Select Airport</string>
     <string name="entry_date">Entry Date</string>
     <string name="exit_date">Exit Date</string>
     <string name="entry_time">Entry Time</string>
     <string name="exit_time">Exit Time</string>
     <string name="okay">Okay</string>
-
-    <!--  The Selected Car Park  -->
     <string name="carpark_long_term">Long Term Parking</string>
     <string name="carpark_short_term">Short Term Parking</string>
     <string name="carpark_entry">Entry:</string>
@@ -55,8 +44,6 @@
     <string name="discount_info">You may be eligible for discounts. Input details on the next screen to view the final price. Maximum discount of up to 30%.</string>
     <string name="short_term_info">If you do not leave the car park after your selected exit time, you have until the 23:59 to leave the car park.\n\n Extra charges will be applied per extra hours stayed and will be payable on exit!\n\nWe reserve the right to tow your car if left unattended passed the time stayed.</string>
     <string name="long_term_info">Long term parking is valid until the 23:59 of the selected exit day. If your flight is delayed please contact the airport help desk! \n\nExtra charges may be applied if you do not leave the car park on the exit date selected. The charge is the car park price per day!\n\nWe reserve the right to tow your car if left unattended passed the time stayed.</string>
-
-    <!--  Enter Details  -->
     <string name="login_notice">Login for secure checkout and access to in-app discounts!</string>
     <string name="guest">Continue as Guest</string>
     <string name="phone_number">Phone Number</string>
@@ -65,16 +52,19 @@
     <string name="car_wash">Car Wash</string>
     <string name="user_detail_note"><b>Note: </b>Make sure all details are entered correctly. You may be required to show identification on arrival.</string>
     <string name="confirm">CONFIRM</string>
-
-    <!--  Pop up Window  -->
     <string name="popup_title"><b>Final Payment Amount</b></string>
     <string name="cancel">CANCEL</string>
-
-    <!--  Payment Confirmed  -->
     <string name="payment_confirmed">Payment Confirmed</string>
     <string name="qr_info">Scan the QR code below once you arrive and exit your chosen car park!</string>
     <string name="qr_error">QR code not working? Use the following unique code instead!</string>
     <string name="home">HOME</string>
-
-
+    <string name="payment_completed">Payment completed</string>
+    <string name="payment_failed">Payment Failed</string>
+    <string name="price">Price</string>
+    <string name="price_per_hour">/hr</string>
+    <string name="price_per_day">/day</string>
+    <string name="unable_fetch_airports">Unable to fetch airports. Check your internet connection</string>
+    <string name="discounts_applied">Discounts Applied</string>
+    <string name="recommended">Recommended</string>
+    <string name="other_available">Other Availabilities</string>
 </resources>
