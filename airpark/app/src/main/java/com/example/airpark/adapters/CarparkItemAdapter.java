@@ -65,7 +65,7 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         price = new CalculatePrice(carpark.getPrice());
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkTypeString());
-        if(holder.carparkType.getText().equals("Long Term")){
+        if(carpark.getCarparkType() == CarPark.CarParkType.LONG_TERM){
             holder.carparkPrice.setText("€" + df.format(carpark.getPrice()) + "/day");
         }else{
             holder.carparkPrice.setText("€" + df.format(carpark.getPrice()) + "/hr");
@@ -90,7 +90,6 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView carparkName, carparkType, carparkPrice;
         private ImageView carparkImage, nextButton;
-        private CardView cardview;
 
         public MyViewHolder(View itemView){
             super(itemView);
@@ -101,7 +100,6 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
             carparkPrice = itemView.findViewById(R.id.card_carparkPrice);
             carparkImage = itemView.findViewById(R.id.card_carparkImage);
             nextButton = itemView.findViewById(R.id.card_nextButton);
-            cardview = itemView.findViewById(R.id.carpark_cardView);
         }
     }
 }

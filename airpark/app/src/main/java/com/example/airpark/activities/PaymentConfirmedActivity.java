@@ -73,9 +73,7 @@ public class PaymentConfirmedActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-
-    }
+    public void onBackPressed() { }
 
     /**
      * Bind Ui with id
