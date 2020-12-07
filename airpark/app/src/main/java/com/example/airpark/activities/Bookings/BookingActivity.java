@@ -20,8 +20,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class BookingActivity extends AppCompatActivity {
 
+public class BookingActivity extends AppCompatActivity {
+/*
     private ActionBarDrawerToggle drawerToggle;
     private String airport, arrivalDate, arrivalTime, exitDate, exitTime;
     private int carparkID;
@@ -189,5 +190,5 @@ public class BookingActivity extends AppCompatActivity {
 
     // Note: every time the button @+id/card_deleteBooking is clicked, an Intent is broadcasted
     //  and is received by mMessageReceiver in ReceiverActivity.
-
+*/
 }

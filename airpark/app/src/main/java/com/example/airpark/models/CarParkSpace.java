@@ -1,6 +1,7 @@
 package com.example.airpark.models;
+import java.io.Serializable;
 
-public abstract class CarParkSpace {
+public abstract class CarParkSpace implements Serializable {
 
     private Vehicle vehicle;
 
