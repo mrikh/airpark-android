@@ -8,12 +8,8 @@ import android.widget.Toast;
 import com.example.airpark.R;
 import com.example.airpark.adapters.CarparkSectionAdapter;
 import com.example.airpark.models.BookingTicket;
-import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
-import com.example.airpark.models.CarParkSpace;
-import com.example.airpark.designPatterns.factory.CarParkSpaceFactory;
 import com.example.airpark.models.CarparkListSection;
-import com.google.gson.JsonObject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 

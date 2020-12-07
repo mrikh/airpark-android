@@ -1,27 +1,11 @@
 package com.example.airpark.models;
 
 public abstract class CarParkSpace {
-    private int spaceID, availableSpaces;
+
     private Vehicle vehicle;
 
-    CarParkSpace(int spaceID, int availableSpaces, Vehicle vehicle){
-        this.spaceID = spaceID;
-        this.availableSpaces = availableSpaces;
+    CarParkSpace(Vehicle vehicle){
         this.vehicle = vehicle;
-    }
-
-    public int getSpaceID() { return spaceID; }
-
-    public int getNoOfSpaces() {
-        return availableSpaces;
-    }
-
-    public void removeSpace() {
-        availableSpaces = availableSpaces - 1;
-    }
-
-    public void addSpace() {
-        availableSpaces = availableSpaces + 1;
     }
 
     public void addVehicle(Vehicle vehicle) {
@@ -38,12 +22,5 @@ public abstract class CarParkSpace {
         }else{
             System.out.println("No Vehicle in Space");
         }
-    }
-
-    public boolean isFree() {
-        if(vehicle == null){
-            return true;
-        }
-        return false;
     }
 }
