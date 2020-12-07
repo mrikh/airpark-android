@@ -120,11 +120,6 @@
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Arrival Time -->
-
-        <!-- Departure Time -->
-
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/exitTimeContainer"
             android:layout_width="0dp"

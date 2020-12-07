@@ -31,7 +31,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.Bookings.BookingActivity;
+import com.example.airpark.activities.Bookings.MyBookingsActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.models.Airport;
 import com.example.airpark.models.BookingTicket;
@@ -256,7 +256,7 @@ public class LandingSearchActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.home){
                     drawerLayout.close();
                 }else if(item.getItemId() == R.id.bookings) {
-                    Intent myIntent = new Intent(LandingSearchActivity.this, BookingActivity.class);
+                    Intent myIntent = new Intent(LandingSearchActivity.this, MyBookingsActivity.class);
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(myIntent);
                 }else if(item.getItemId() == R.id.login){

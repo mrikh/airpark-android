@@ -17,7 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.Bookings.BookingActivity;
+import com.example.airpark.activities.Bookings.MyBookingsActivity;
 import com.example.airpark.activities.PaymentConfirmedActivity;
 import com.example.airpark.activities.Payments.StripeActivity;
 import com.example.airpark.activities.SelectCarparkActivity;

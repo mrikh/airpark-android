@@ -12,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Airpark">
-        <activity android:name=".activities.Payments.StripeActivity"></activity>
-        <activity android:name=".activities.Bookings.BookingActivity" />
+        <activity android:name=".activities.Payments.StripeActivity"/>
+        <activity
+            android:name=".activities.Bookings.MyBookingsActivity"
+            android:label="My Bookings" />
         <activity
             android:name=".activities.Prelogin.LoginActivity"
             android:label="Login"
