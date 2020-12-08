@@ -67,4 +67,7 @@
     <string name="discounts_applied">Discounts Applied</string>
     <string name="recommended">Recommended</string>
     <string name="other_available">Other Availabilities</string>
+
+    <string name="view_qr_code">VIEW QR CODE</string>
+    
 </resources>
