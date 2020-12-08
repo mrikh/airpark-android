@@ -50,7 +50,8 @@
             android:label="My Bookings" />
         <activity
             android:name=".activities.Bookings.SelectedBookingActivity"
-            android:label="Short Term" />
+            android:label="Short Term"
+            android:parentActivityName=".activities.Bookings.MyBookingsActivity"/>
 
         <activity android:name=".activities.Main.MainActivity">
             <intent-filter>

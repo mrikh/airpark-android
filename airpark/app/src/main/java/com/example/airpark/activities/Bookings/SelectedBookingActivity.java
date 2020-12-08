@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,7 +70,7 @@ public class SelectedBookingActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.carpark_image);
 
         Glide.with(this).load(booking.getCarparkImage()).into(imageView);
-        priceMoreInfo.setText(R.string.discount_info);
+        priceMoreInfo.setVisibility(View.GONE);
 
         // QR code button
         qrBtn.setOnClickListener(v -> {
