@@ -48,10 +48,10 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
         holder.airportName.setText(model.getAirportName());
         holder.carparkName.setText(model.getCarparkName());
 
-        String entry = sdf.format(new Date(model.getStartDateTime()));
+        String entry = sdf.format(model.getStartDateTime());
         String[] entryDateAndTime = entry.split(" - ");
 
-        String exit = sdf.format(new Date(model.getStartDateTime()));
+        String exit = sdf.format(model.getEndDateTime());
         String[] exitDateAndTime = exit.split(" - ");
 
         holder.bookingDate.setText(entryDateAndTime[0] + "-" + exitDateAndTime[0]);
@@ -60,7 +60,7 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SelectedBookingActivity.class);
-                intent.putExtra("ticket", result.get(position));
+                intent.putExtra("booking", result.get(position));
                 context.startActivity(intent);
             }
         });

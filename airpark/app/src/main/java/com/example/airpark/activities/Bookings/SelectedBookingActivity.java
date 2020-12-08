@@ -14,11 +14,13 @@ import com.bumptech.glide.Glide;
 import com.example.airpark.R;
 import com.example.airpark.activities.EnterDetailsActivity;
 import com.example.airpark.activities.QRgeneratorActivity;
+import com.example.airpark.models.BookingModel;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CarPark;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 // Note: Code for QR code button and Delete button still to be fixed!
 
@@ -27,7 +29,7 @@ public class SelectedBookingActivity extends AppCompatActivity {
     private TextView airportView, carparkType, entryDate, exitDate, carparkPrice, carparkInfo, priceMoreInfo;
     private Button qrBtn;
     private ImageView deleteBtn;
-    private BookingTicket ticket;
+    private BookingModel booking;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy - hh:mm a");
     private DecimalFormat df = new DecimalFormat("#.00");
 
@@ -42,44 +44,22 @@ public class SelectedBookingActivity extends AppCompatActivity {
         bindUiItems();
 
         Intent myIntent = getIntent();
-        ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
-
-        /** Harcoded in place of ticket **/
-        ArrayList<String> test = new ArrayList<>(3);
-        test.add("Shannon Airport");
-        test.add("Green Short Car Park");
-        test.add("10 Oct 2020");
-        test.add("15 Oct 2020");
-        test.add("€123");
+        booking = (BookingModel)myIntent.getSerializableExtra("booking");
 
         // Following works for Details Page:
         //Default Short Term
         carparkInfo.setText(R.string.short_term_info);
-//        carparkPrice.setText("Price: " + R.string.euro + df.format(ticket.getPrice()) + R.string.price_per_hour);
+        carparkPrice.setText(getString(R.string.price) + ": " + getString(R.string.euro) + df.format(booking.getFinalPrice()));
 
-        carparkPrice.setText("Price: " + test.get(4)); //Remove when database added
+        airportView.setText(booking.getAirportName());
+        carparkType.setText(booking.getCarparkName());
 
-        //Change Screen Title if Long Term Car Park
-//        if(ticket.getSelectedCarPark().getCarparkType() == CarPark.CarParkType.LONG_TERM){
-//            setTitle(R.string.carpark_long_term);
-//            carparkInfo.setText(R.string.long_term_info);
-//            carparkPrice.setText("Price: " + R.string.euro + df.format(ticket.getPrice()) + R.string.price_per_day);
-//        }
-
-//        airportView.setText(ticket.getAirport().getAirportName());
-        airportView.setText(test.get(0));
-
-//        carparkType.setText(ticket.getSelectedCarPark().getCarparkName());
-        carparkType.setText(test.get(1));
-
-//        entryDate.setText(getString(R.string.carpark_entry) + " " + sdf.format(ticket.getEntryDate()));
-//        exitDate.setText(getString(R.string.carpark_exit) + "     " + sdf.format(ticket.getExitDate()));
-        entryDate.setText(getString(R.string.carpark_entry) + " " + test.get(2));
-        exitDate.setText(getString(R.string.carpark_exit) + "     " + test.get(3));
+        entryDate.setText(getString(R.string.carpark_entry) + " " + sdf.format(booking.getStartDateTime()));
+        exitDate.setText(getString(R.string.carpark_exit) + "     " + sdf.format(booking.getEndDateTime()));
 
         ImageView imageView = findViewById(R.id.carpark_image);
-//        Glide.with(this).load(ticket.getSelectedCarPark().getCarparkImage()).into(imageView);
 
+        Glide.with(this).load(booking.getCarparkImage()).into(imageView);
         priceMoreInfo.setText(R.string.discount_info);
 
         // QR code button -- ADD

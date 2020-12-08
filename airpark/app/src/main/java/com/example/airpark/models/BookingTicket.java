@@ -19,7 +19,6 @@ import java.util.HashMap;
 public class BookingTicket implements Serializable {
 
     private String customerName, customerEmail, customerNumber, carRegistration;
-    private double ticketPrice;
     private Airport airport;
     private CarPark selectedCarPark;
     private Date entryDate, exitDate;
@@ -28,12 +27,19 @@ public class BookingTicket implements Serializable {
 
     public BookingTicket(){
         this.airport = null;
-        this.airport = null;
         this.entryDate = null;
         this.exitDate = null;
         this.spaceType = null;
         this.selectedCarPark = null;
-        this.ticketPrice = -1;
+    }
+
+    public BookingTicket(BookingModel model){
+
+        this.airport = new Airport(model.getAirportName());
+        this.entryDate = model.getStartDateTime();
+        this.exitDate = model.getEndDateTime();
+        this.spaceType = null;
+        this.selectedCarPark = null;
     }
 
     public CarPark getSelectedCarPark() {
@@ -101,10 +107,6 @@ public class BookingTicket implements Serializable {
     public void setHasCarWash(boolean hasCarWash) {
         this.hasCarWash = hasCarWash;
     }
-
-    public double getTicketPrice(){return ticketPrice;}
-
-    public void setTicketPrice(double ticketPrice){ this.ticketPrice = ticketPrice;}
 
     public JSONObject convertForBooking() throws JSONException {
         JSONObject params = new JSONObject();

@@ -14,6 +14,10 @@ public class Airport implements Serializable {
         this.airportID = object.getInt("airport_id");
     }
 
+    public Airport(String name){
+        this.airportName = name;
+    }
+
     public String getAirportName(){ return airportName; }
 
     public int getAirportID(){ return airportID; }

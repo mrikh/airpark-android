@@ -3,6 +3,7 @@ package com.example.airpark.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.Serializable;
+import java.util.Date;
 
 public class BookingModel implements Serializable {
 
@@ -12,8 +13,8 @@ public class BookingModel implements Serializable {
     private String carparkName;
     private String airportName;
     private String carparkImage;
-    private long startDateTime;
-    private long endDateTime;
+    private Date startDateTime;
+    private Date endDateTime;
     private String uniqueCode;
     private double finalPrice;
     private boolean isLongTerm;
@@ -24,8 +25,8 @@ public class BookingModel implements Serializable {
         this.carparkLong = object.getDouble("carpark_long");
         this.carparkName = object.getString("carpark_name");
         this.airportName = object.getString("airport_name");
-        this.startDateTime = object.getLong("start_date");
-        this.endDateTime = object.getLong("end_date");
+        this.startDateTime = new Date(object.getLong("start_date") * 1000);
+        this.endDateTime = new Date(object.getLong("end_date") * 1000);
         this.finalPrice = object.getDouble("total_price");
         this.carparkImage = object.getString("carpark_image");
         this.uniqueCode = object.getString("alphanumeric_string");
@@ -80,19 +81,19 @@ public class BookingModel implements Serializable {
         this.carparkImage = carparkImage;
     }
 
-    public long getStartDateTime() {
+    public Date getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(long startDateTime) {
+    public void setStartDateTime(Date startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public long getEndDateTime() {
+    public Date getEndDateTime() {
         return endDateTime;
     }
 
-    public void setEndDateTime(long endDateTime) {
+    public void setEndDateTime(Date endDateTime) {
         this.endDateTime = endDateTime;
     }
 

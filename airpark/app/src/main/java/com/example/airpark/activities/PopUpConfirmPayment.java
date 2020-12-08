@@ -79,7 +79,6 @@ public class PopUpConfirmPayment extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ticket.setTicketPrice(Double.parseDouble(totalPrice));
                 popupWindow.dismiss();
                 callback.onComplete();
             }
