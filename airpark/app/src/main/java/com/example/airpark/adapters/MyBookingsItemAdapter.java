@@ -36,7 +36,7 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_bookings_list_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_carpark_list_item,parent,false);
         return new MyBookingsItemAdapter.MyViewHolder(view);
     }
 
@@ -81,11 +81,15 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
             super(itemView);
             // Bind Ui with id
             context = itemView.getContext();
-            airportName = (TextView) itemView.findViewById(R.id.myBookings_airportName);
-            bookingDate = (TextView) itemView.findViewById(R.id.myBooking_dates);
-            carparkName = (TextView) itemView.findViewById(R.id.myBooking_carparkName);
-            nextBtn = (ImageView) itemView.findViewById(R.id.myBookings_nextButton);
-            myBookingsImage = itemView.findViewById(R.id.myBookings_image);
+            bookingDate = (TextView) itemView.findViewById(R.id.card_carparkType);
+            carparkName = (TextView) itemView.findViewById(R.id.card_carparkName2);
+
+            airportName = (TextView) itemView.findViewById(R.id.card_carparkName);
+            nextBtn = (ImageView) itemView.findViewById(R.id.card_nextButton);
+            myBookingsImage = itemView.findViewById(R.id.card_carparkImage);
+
+            carparkName.setVisibility(View.VISIBLE);
+            itemView.findViewById(R.id.card_carparkPrice).setVisibility(View.GONE);
         }
     }
 }

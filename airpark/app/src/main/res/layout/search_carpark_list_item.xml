@@ -49,12 +49,28 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            cardView:layout_constraintBottom_toTopOf="@+id/card_carparkType"
+            cardView:layout_constraintBottom_toTopOf="@+id/card_carparkName2"
             cardView:layout_constraintEnd_toStartOf="@+id/card_nextButton"
             cardView:layout_constraintHorizontal_bias="0.0"
             cardView:layout_constraintStart_toStartOf="@+id/card_carparkType"
             cardView:layout_constraintTop_toTopOf="@+id/card_carparkImage"
             cardView:layout_constraintVertical_bias="1.0"
+            tools:ignore="MissingConstraints"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/card_carparkName2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="7dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            cardView:layout_constraintBottom_toTopOf="@+id/card_carparkType"
+            cardView:layout_constraintEnd_toEndOf="@+id/card_carparkName"
+            cardView:layout_constraintStart_toStartOf="@+id/card_carparkName"
             tools:ignore="MissingConstraints"
             tools:text="@tools:sample/lorem" />
 
