@@ -76,11 +76,11 @@ public class PopUpConfirmPayment extends AppCompatActivity {
             }
         }
         if(discounts.length > 0) {
-            extraChargesText.setText("Discounts:\n" + chargesString);
+            extraChargesText.setText(getString(R.string.discounts_applied) + ":\n" + chargesString);
         }
 
         TextView finalPayment = popupView.findViewById(R.id.popUp_finalAmount);
-        finalPayment.setText("Total: €" + this.finalPayment);
+        finalPayment.setText(getString(R.string.total_price) + this.finalPayment);
 
         Button confirm = popupView.findViewById(R.id.popUp_paymentBtn);
         confirm.setOnClickListener(new View.OnClickListener() {

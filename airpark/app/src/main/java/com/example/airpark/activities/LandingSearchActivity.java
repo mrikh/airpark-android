@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.example.airpark.R;
 import com.example.airpark.activities.Bookings.MyBookingsActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
+import com.example.airpark.designPatterns.factory.CarParkSpaceFactory;
 import com.example.airpark.models.Airport;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
@@ -117,7 +118,7 @@ public class LandingSearchActivity extends AppCompatActivity {
             @Override
             public void completion(JSONObject object, String message) {
                 if (object == null){
-                    Toast.makeText(airportAutoText.getContext(), "Unable to fetch airports. Check your internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(airportAutoText.getContext(), getString(R.string.unable_fetch_airports), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -182,13 +183,21 @@ public class LandingSearchActivity extends AppCompatActivity {
 
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    Toast.makeText(v.getContext(), "Something went wrong when setting the date, try again!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), getString(R.string.something_wrong), Toast.LENGTH_LONG).show();
                     return;
                 }
                 //Update booking ticket
-                if(disabilityCheck.isChecked()){ticket.setSpaceRequired(BookingTicket.SpaceType.DISABLED);}
-                if(motorbikeCheck.isChecked()){ticket.setSpaceRequired(BookingTicket.SpaceType.TWO_WHEELER);}
+                CarParkSpaceFactory carpParkSpaceFactory = new CarParkSpaceFactory();
 
+                if(disabilityCheck.isChecked()){
+                    ticket.setSpaceRequired(carpParkSpaceFactory.getSpace(CarParkSpaceFactory.SpaceType.DISABLED));
+                }else if (motorbikeCheck.isChecked()){
+                    ticket.setSpaceRequired(carpParkSpaceFactory.getSpace(CarParkSpaceFactory.SpaceType.TWO_WHEELER));
+                }else{
+                    ticket.setSpaceRequired(carpParkSpaceFactory.getSpace(CarParkSpaceFactory.SpaceType.GENERAL));
+                }
+
+                System.out.println(ticket.getSpaceRequired());
                 HashMap<String, String> params = ticket.getCarparkListingParameters();
                 progressBar.setVisibility(View.VISIBLE);
                 NetworkHandler.getInstance().getAvailableCarParks(params, new NetworkingClosure() {

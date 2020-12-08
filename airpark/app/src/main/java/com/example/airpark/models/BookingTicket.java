@@ -22,25 +22,19 @@ import java.util.HashMap;
 
 public class BookingTicket implements Serializable {
 
-    public enum SpaceType{
-        GENERAL,
-        DISABLED,
-        TWO_WHEELER
-    }
-
     private String customerName, customerEmail, customerNumber, carRegistration;
-    private SpaceType spaceType;
     private Airport airport;
     private CarPark selectedCarPark;
     private Date entryDate, exitDate;
+    private CarParkSpace spaceType;
     private boolean isOld, hasCarWash, isLoggedIn;
 
-    public  BookingTicket(){
+    public BookingTicket(){
         this.airport = null;
         this.airport = null;
         this.entryDate = null;
         this.exitDate = null;
-        this.spaceType = SpaceType.GENERAL;
+        this.spaceType = null;
         this.selectedCarPark = null;
     }
 
@@ -76,9 +70,11 @@ public class BookingTicket implements Serializable {
         this.exitDate = exitDate;
     }
 
-    public SpaceType getSpaceRequired() { return spaceType; }
+    public CarParkSpace getSpaceRequired() { return spaceType; }
 
-    public void setSpaceRequired(SpaceType space) {this.spaceType = space;}
+    public void setSpaceRequired(CarParkSpace space) {
+        this.spaceType = space;
+    }
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
@@ -94,10 +90,6 @@ public class BookingTicket implements Serializable {
 
     public void setCarRegistration(String carRegistration) {
         this.carRegistration = carRegistration;
-    }
-
-    public boolean isOld() {
-        return isOld;
     }
 
     public void setOld(boolean old) {
@@ -124,8 +116,8 @@ public class BookingTicket implements Serializable {
         params.put("car_wash", hasCarWash);
         params.put("end_date", exitDate.getTime());
         params.put("start_date", entryDate.getTime());
-        params.put("is_handicap", spaceType == BookingTicket.SpaceType.DISABLED);
-        params.put("is_two_wheeler", spaceType == BookingTicket.SpaceType.TWO_WHEELER);
+        params.put("is_handicap", (spaceType instanceof DisabledSpace));
+        params.put("is_two_wheeler", (spaceType instanceof MotorbikeSpace));
         return params;
     }
 
@@ -136,26 +128,13 @@ public class BookingTicket implements Serializable {
         map.put("airport_id", Integer.toString(airport.getAirportID()));
         map.put("start_date", Long.toString(entryDate.getTime()));
         map.put("end_date", Long.toString(exitDate.getTime()));
-
-        System.out.println(entryDate.getTime());
-
-        switch (spaceType){
-            case DISABLED: {
-                map.put("is_handicap", "1");
-                break;
-            }
-            case TWO_WHEELER: {
-                map.put("is_two_wheeler", "1");
-            }
-            default: break;
+        if (spaceType instanceof DisabledSpace){
+            map.put("is_handicap", "1");
+        }
+        if (spaceType instanceof MotorbikeSpace){
+            map.put("is_two_wheeler", "1");
         }
 
         return map;
-    }
-
-    private int getLengthOfStay(){
-        long noOfHours = 0;
-        noOfHours = ((exitDate.getTime()-entryDate.getTime())/(1000*60*60));
-        return (int)noOfHours;
     }
 }
