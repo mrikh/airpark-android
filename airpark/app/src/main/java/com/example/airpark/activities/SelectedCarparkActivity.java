@@ -26,36 +26,37 @@ import java.text.SimpleDateFormat;
  *
  * Selected Car Park Details Screen
  */
-public class ChosenCarparkActivity extends AppCompatActivity {
+public class SelectedCarparkActivity extends AppCompatActivity {
 
     private TextView airportView, carparkType, entryDate, exitDate, carparkPrice, carparkInfo, priceMoreInfo;
     private Button selectBtn;
+    private ImageView mapBtn;
     private BookingTicket ticket;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy - hh:mm a");
+    private DecimalFormat df = new DecimalFormat("#.00");
+
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_chosen_carpark);
+        setContentView(R.layout.activity_selected_carpark);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        bindUiItems();
 
         Intent myIntent = getIntent();
         ticket = (BookingTicket)myIntent.getSerializableExtra("ticket");
 
-        bindUiItems();
-        DecimalFormat df = new DecimalFormat("#.00");
-
         //Default Short Term
         carparkInfo.setText(R.string.short_term_info);
-        carparkPrice.setText(getString(R.string.price) + ": €" + df.format(ticket.getSelectedCarPark().getPrice()) + getString(R.string.price_per_hour));
+        carparkPrice.setText(getString(R.string.price) + ": " + R.string.euro + df.format(ticket.getSelectedCarPark().getPrice()) + getString(R.string.price_per_hour));
 
         //Change Screen Title if Long Term Car Park
         if(ticket.getSelectedCarPark().getCarparkType() == CarPark.CarParkType.LONG_TERM){
             setTitle(R.string.carpark_long_term);
             carparkInfo.setText(R.string.long_term_info);
-            carparkPrice.setText(getString(R.string.price) + ": €" + df.format(ticket.getSelectedCarPark().getPrice()) + getString(R.string.price_per_day));
+            carparkPrice.setText(getString(R.string.price) + ": " + R.string.euro + df.format(ticket.getSelectedCarPark().getPrice()) + getString(R.string.price_per_day));
         }
 
         airportView.setText(ticket.getAirport().getAirportName());
@@ -97,5 +98,6 @@ public class ChosenCarparkActivity extends AppCompatActivity {
         carparkInfo = (TextView) findViewById(R.id.carpark_important_info);
         selectBtn = (Button)findViewById(R.id.select_carpark_btn);
         priceMoreInfo = findViewById(R.id.more_price_info);
+        mapBtn = (ImageView)findViewById(R.id.map_icon);
     }
 }

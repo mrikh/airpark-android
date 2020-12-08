@@ -95,7 +95,7 @@ public class LandingSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_info);
+        setContentView(R.layout.activity_landing_search);
 
         BookingTicket ticket = new BookingTicket();
         validator = new InputValidator();
@@ -208,7 +208,7 @@ public class LandingSearchActivity extends AppCompatActivity {
                             Toast.makeText(progressBar.getContext(), message, Toast.LENGTH_LONG);
                         }else{
                             //Move to Next Screen
-                            Intent myIntent = new Intent(progressBar.getContext(), SelectCarparkActivity.class);
+                            Intent myIntent = new Intent(progressBar.getContext(), CarparkListActivity.class);
                             myIntent.putExtra("ticket", ticket);
                             myIntent.putExtra("listing", object.toString());
                             startActivity(myIntent);

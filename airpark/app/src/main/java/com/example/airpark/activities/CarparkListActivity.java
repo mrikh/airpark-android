@@ -29,7 +29,7 @@ import java.util.ArrayList;
  *
  * Car Park Options Screen (available car parks to choose from)
  */
-public class SelectCarparkActivity extends AppCompatActivity {
+public class CarparkListActivity extends AppCompatActivity {
 
     private TextView airportView, entryDate, exitDate, entryTime, exitTime;
     private RecyclerView recyclerView;
@@ -42,7 +42,7 @@ public class SelectCarparkActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_search_carpark);
+        setContentView(R.layout.activity_carpark_list);
 
         bindUiItems();
 

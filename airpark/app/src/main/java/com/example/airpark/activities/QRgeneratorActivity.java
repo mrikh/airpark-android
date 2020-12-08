@@ -1,12 +1,14 @@
-package com.example.airpark.activities.Bookings;
+package com.example.airpark.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,25 +20,35 @@ import com.google.zxing.WriterException;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
-// Edit whole class for Booking QR Activity.
-public class BookingQRActivity extends AppCompatActivity {
+public class QRgeneratorActivity extends AppCompatActivity {
 
     private String ALPHA_NUMERIC_STRING;
 
     private ImageView qrImage;
-    private TextView uniqueID;
+    private TextView uniqueID, title;
+    private Button homeBtn;
     private QRGEncoder qrgEncoder;
     private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selected_booking);
+        setContentView(R.layout.activity_qr_code);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        bindUiItems();
+
+        homeBtn.setOnClickListener(v -> navigateToLanding());
 
         Intent myIntent = getIntent();
         ALPHA_NUMERIC_STRING = myIntent.getStringExtra("code");
 
-        bindUiItems();
+        //If viewing booking from my bookings
+        if(getIntent().getStringExtra("screen name").equals("my booking")){
+            title.setVisibility(View.GONE);
+            homeBtn.setVisibility(View.GONE);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         uniqueID.setText(ALPHA_NUMERIC_STRING);
 
@@ -48,27 +60,43 @@ public class BookingQRActivity extends AppCompatActivity {
         int dimensions = Math.min(point.x,point.y);
         dimensions = dimensions * 3 / 4;
 
-        qrgEncoder = new QRGEncoder(ALPHA_NUMERIC_STRING, null, QRGContents.Type.TEXT, dimensions);
+        qrgEncoder = new QRGEncoder(ALPHA_NUMERIC_STRING, null,QRGContents.Type.TEXT, dimensions);
 
         try {
             // Set QR code as Bitmap & display
             bitmap = qrgEncoder.encodeAsBitmap();
             qrImage.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            Log.v("Generate QR Code", e.toString());
+        } catch (
+            WriterException e) {
+            e.printStackTrace();
         }
-
     }
 
     @Override
     public void onBackPressed() { }
 
     /**
-     * Binding UI with IDs
+     * Bind Ui with id
      */
     private void bindUiItems(){
+        title = (TextView) findViewById(R.id.payment_confirmed_title);
         qrImage = (ImageView) findViewById(R.id.qr_image);
         uniqueID = (TextView) findViewById(R.id.numeric_code);
+        homeBtn = (Button)findViewById(R.id.home_Btn);
     }
 
+    private void navigateToLanding(){
+        Intent myIntent = new Intent(this, LandingSearchActivity.class);
+        startActivity(myIntent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
+

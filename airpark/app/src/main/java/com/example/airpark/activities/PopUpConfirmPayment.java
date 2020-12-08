@@ -1,8 +1,6 @@
 package com.example.airpark.activities;
 
 import android.content.Context;
-import android.content.Intent;
-import android.telecom.Call;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,22 +10,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.Bookings.MyBookingsActivity;
-import com.example.airpark.activities.PaymentConfirmedActivity;
-import com.example.airpark.activities.Payments.StripeActivity;
-import com.example.airpark.activities.SelectCarparkActivity;
 import com.example.airpark.models.BookingTicket;
-import com.example.airpark.models.Vehicle;
 import com.example.airpark.utils.HelperInterfaces.Callback;
 
-import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.text.DecimalFormat;
 
 /**

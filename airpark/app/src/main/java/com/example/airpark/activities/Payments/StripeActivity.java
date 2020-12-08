@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.PaymentConfirmedActivity;
+import com.example.airpark.activities.QRgeneratorActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import com.example.airpark.utils.Networking.NetworkHandler;
@@ -158,7 +158,7 @@ public class StripeActivity extends AppCompatActivity {
                 public void completion(JSONObject object, String message) {
                     progressBar.setVisibility(View.INVISIBLE);
                     try {
-                        Intent myIntent = new Intent(StripeActivity.this, PaymentConfirmedActivity.class);
+                        Intent myIntent = new Intent(StripeActivity.this, QRgeneratorActivity.class);
                         myIntent.putExtra("code", object.getString("alphanumeric_string"));
                         startActivity(myIntent);
                     }catch(Exception e){

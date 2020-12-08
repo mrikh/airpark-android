@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.ChosenCarparkActivity;
+import com.example.airpark.activities.Bookings.SelectedBookingActivity;
 import com.example.airpark.models.BookingTicket;
 
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
     public MyBookingsItemAdapter(List<BookingTicket> bookingsList){
         this.bookingsList = bookingsList;
     }
+    //Remove once database is added
     public MyBookingsItemAdapter(ArrayList<String> test){
         this.test = test;
     }
@@ -39,10 +40,6 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
 
     @Override
     public void onBindViewHolder(@NonNull MyBookingsItemAdapter.MyViewHolder holder, int position) {
-//        final BookingTicket ticket = bookingsList.get(position);
-//        holder.carparkName.setText(ticket.getCarparkName());
-//        holder.carparkType.setText(carpark.getCarparkTypeString());
-        //holder.bookingDate.setText();
 
         /**Hardcoded**/
         holder.airportName.setText(test.get(0));
@@ -52,7 +49,7 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
         holder.nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ChosenCarparkActivity.class);
+                Intent intent = new Intent(context, SelectedBookingActivity.class);
 //                intent.putExtra("ticket", ticket);
                 context.startActivity(intent);
             }
@@ -69,7 +66,7 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView airportName, bookingDate, carparkName;
-        private ImageView nextBtn, deleteBtn;
+        private ImageView nextBtn;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -79,7 +76,6 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
             bookingDate = (TextView) itemView.findViewById(R.id.myBooking_dates);
             carparkName = (TextView) itemView.findViewById(R.id.myBooking_carparkName);
             nextBtn = (ImageView) itemView.findViewById(R.id.myBookings_nextButton);
-//            deleteBtn = (ImageView) itemView.findViewById(R.id.myBookings_delete);
         }
     }
 }

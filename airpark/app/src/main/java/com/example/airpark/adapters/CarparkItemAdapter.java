@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.airpark.R;
-import com.example.airpark.activities.ChosenCarparkActivity;
+import com.example.airpark.activities.SelectedCarparkActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CarPark;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * CS4125 -> System Analysis & Design
  * CS5721 -> Software Design
  *
- * Creates each car park item that's displayed on SelectCarparkActivity.java
+ * Creates each car park item that's displayed on CarparkListActivity.java
  */
 public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.MyViewHolder> {
     private List<CarPark> carparkList;
@@ -66,7 +66,7 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
             @Override
             public void onClick(View v) {
                 ticket.setSelectedCarPark(carpark);
-                Intent intent = new Intent(context, ChosenCarparkActivity.class);
+                Intent intent = new Intent(context, SelectedCarparkActivity.class);
                 intent.putExtra("ticket", ticket);
                 context.startActivity(intent);
             }

@@ -13,9 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Airpark">
         <activity android:name=".activities.Payments.StripeActivity"/>
+
+        <activity
+            android:name=".activities.QRgeneratorActivity"
+            android:label="QR Code"/>
+
         <activity
             android:name=".activities.Bookings.MyBookingsActivity"
             android:label="My Bookings" />
+        <activity
+            android:name=".activities.Bookings.SelectedBookingActivity"
+            android:label="Short Term" />
+
         <activity
             android:name=".activities.Prelogin.LoginActivity"
             android:label="Login"
@@ -28,21 +37,17 @@
             android:name=".activities.LandingSearchActivity"
             android:label="AirPark"/>
         <activity
-            android:name=".activities.SelectCarparkActivity"
+            android:name=".activities.CarparkListActivity"
             android:label="Select Car Park"
             android:parentActivityName=".activities.LandingSearchActivity"/>
         <activity
-            android:name=".activities.ChosenCarparkActivity"
-            android:label="@string/carpark_short_term"
-            android:parentActivityName=".activities.SelectCarparkActivity"/>
+            android:name=".activities.SelectedCarparkActivity"
+            android:label="@string/carpark_short_term" />
         <activity
             android:name=".activities.EnterDetailsActivity"
             android:label="Enter Details"
-            android:parentActivityName=".activities.ChosenCarparkActivity"/>
+            android:parentActivityName=".activities.SelectedCarparkActivity"/>
 
-        <activity
-            android:name=".activities.PaymentConfirmedActivity"
-            android:label=""/>
 
         <activity android:name=".activities.Main.MainActivity">
             <intent-filter>
