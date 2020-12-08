@@ -76,5 +76,7 @@
     <string name="qr_error">QR code not working? Use the following unique code instead!</string>
     <string name="home">HOME</string>
 
+    <!--  Bookings  -->
+    <string name="view_qr_code">VIEW QR CODE</string>
 
 </resources>
