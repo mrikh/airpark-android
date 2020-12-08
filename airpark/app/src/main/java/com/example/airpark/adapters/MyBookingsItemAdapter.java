@@ -11,14 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.airpark.R;
 import com.example.airpark.activities.ChosenCarparkActivity;
 import com.example.airpark.models.BookingTicket;
-import com.example.airpark.models.CalculatePrice;
-import com.example.airpark.models.CarPark;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 

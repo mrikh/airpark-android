@@ -43,12 +43,14 @@ public class PopUpConfirmPayment extends AppCompatActivity {
     private String finalPayment;
     private String[] discounts;
     private Callback callback;
+    private BookingTicket ticket;
 
-    public PopUpConfirmPayment(float finalPayment, String[] discounts, Callback callBack){
+    public PopUpConfirmPayment(BookingTicket ticket, float finalPayment, String[] discounts, Callback callBack){
         DecimalFormat df = new DecimalFormat("#.00");
         this.finalPayment = df.format(finalPayment);
         this.discounts = discounts;
         this.callback = callBack;
+        this.ticket = ticket;
     }
 
     public void showPopUp(final View view){
@@ -86,6 +88,7 @@ public class PopUpConfirmPayment extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ticket.setTicketPrice(Double.parseDouble(String.valueOf(finalPayment)));
                 popupWindow.dismiss();
                 callback.onComplete();
             }

@@ -13,10 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.airpark.R;
 import com.example.airpark.models.BookingTicket;
-import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 

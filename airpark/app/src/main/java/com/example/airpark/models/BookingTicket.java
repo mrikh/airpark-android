@@ -1,13 +1,9 @@
 package com.example.airpark.models;
 
-import android.widget.Space;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -23,6 +19,7 @@ import java.util.HashMap;
 public class BookingTicket implements Serializable {
 
     private String customerName, customerEmail, customerNumber, carRegistration;
+    private double ticketPrice;
     private Airport airport;
     private CarPark selectedCarPark;
     private Date entryDate, exitDate;
@@ -36,6 +33,7 @@ public class BookingTicket implements Serializable {
         this.exitDate = null;
         this.spaceType = null;
         this.selectedCarPark = null;
+        this.ticketPrice = -1;
     }
 
     public CarPark getSelectedCarPark() {
@@ -103,6 +101,10 @@ public class BookingTicket implements Serializable {
     public void setHasCarWash(boolean hasCarWash) {
         this.hasCarWash = hasCarWash;
     }
+
+    public double getTicketPrice(){return ticketPrice;}
+
+    public void setTicketPrice(double ticketPrice){ this.ticketPrice = ticketPrice;}
 
     public JSONObject convertForBooking() throws JSONException {
         JSONObject params = new JSONObject();
