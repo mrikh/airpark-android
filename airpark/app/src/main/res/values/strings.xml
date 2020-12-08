@@ -61,10 +61,13 @@
     <string name="payment_completed">Payment completed</string>
     <string name="payment_failed">Payment Failed</string>
     <string name="price">Price</string>
+    <string name="euro">€</string>
     <string name="price_per_hour">/hr</string>
     <string name="price_per_day">/day</string>
     <string name="unable_fetch_airports">Unable to fetch airports. Check your internet connection</string>
     <string name="discounts_applied">Discounts Applied</string>
     <string name="recommended">Recommended</string>
     <string name="other_available">Other Availabilities</string>
+    <string name="upcoming_tab">Upcoming</string>
+    <string name="past_tab">Past</string>
 </resources>

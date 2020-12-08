@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.airpark.R;
@@ -28,8 +26,6 @@ import android.view.View;
 
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 public class MyBookingsActivity extends AppCompatActivity{
 
     private ActionBarDrawerToggle drawerToggle;
@@ -39,13 +35,12 @@ public class MyBookingsActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_my_bookings);
         setContentView(R.layout.activity_my_bookings);
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
-        tabLayout.addTab(tabLayout.newTab().setText("Upcoming"));
-        tabLayout.addTab(tabLayout.newTab().setText("Past"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.upcoming_tab));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.past_tab));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final MyBookingsAdapter bookingsAdapter = new MyBookingsAdapter(this,getSupportFragmentManager(), tabLayout.getTabCount());

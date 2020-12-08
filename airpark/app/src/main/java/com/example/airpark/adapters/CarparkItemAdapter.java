@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.example.airpark.R;
 import com.example.airpark.activities.ChosenCarparkActivity;
 import com.example.airpark.models.BookingTicket;
-import com.example.airpark.models.CalculatePrice;
 import com.example.airpark.models.CarPark;
 
 import java.text.DecimalFormat;
@@ -31,7 +30,6 @@ import java.util.List;
  */
 public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.MyViewHolder> {
     private List<CarPark> carparkList;
-    private CalculatePrice price;
     private BookingTicket ticket;
     private Context context;
     
@@ -56,13 +54,12 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         DecimalFormat df = new DecimalFormat("#.00");
 
         final CarPark carpark = carparkList.get(position);
-        price = new CalculatePrice(carpark.getPrice());
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkTypeString());
         if(carpark.getCarparkType() == CarPark.CarParkType.LONG_TERM){
-            holder.carparkPrice.setText("€" + df.format(carpark.getPrice()) + "/day");
+            holder.carparkPrice.setText(R.string.euro + df.format(carpark.getPrice()) + R.string.price_per_day);
         }else{
-            holder.carparkPrice.setText("€" + df.format(carpark.getPrice()) + "/hr");
+            holder.carparkPrice.setText(R.string.euro + df.format(carpark.getPrice()) + R.string.price_per_hour);
         }
 
         holder.nextButton.setOnClickListener(new View.OnClickListener() {

@@ -128,7 +128,7 @@ public class EnterDetailsActivity extends AppCompatActivity {
                                         for (int i = 0;i<totalLength;i++){
                                             discounts[i] = jsonArray.getString(i);
                                         }
-                                        PopUpConfirmPayment popUpWindow = new PopUpConfirmPayment(object.getLong("total"), discounts, new Callback() {
+                                        PopUpConfirmPayment popUpWindow = new PopUpConfirmPayment(ticket, object.getLong("total"), discounts, new Callback() {
                                             @Override
                                             public void onComplete() {
                                                 Intent myIntent = new Intent(EnterDetailsActivity.this, StripeActivity.class);
