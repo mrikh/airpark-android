@@ -64,7 +64,7 @@ import java.util.List;
  * CS4125 -> System Analysis & Design
  * CS5721 -> Software Design
  *
- * Creates Search/Landing Screen & sets user input booking info
+ * Creates Landing Search Screen & Sets User Input Booking Info
  */
 public class LandingSearchActivity extends AppCompatActivity {
 

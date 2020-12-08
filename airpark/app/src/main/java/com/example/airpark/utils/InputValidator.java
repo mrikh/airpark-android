@@ -1,6 +1,5 @@
 package com.example.airpark.utils;
 
-import android.content.res.Resources;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -8,6 +7,14 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Methods that validate user inputs
+ */
 public class InputValidator {
 
     public boolean isValidEmail(String s){

@@ -10,6 +10,13 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ */
 public class NetworkHandler {
 
     private static NetworkHandler shared = null;

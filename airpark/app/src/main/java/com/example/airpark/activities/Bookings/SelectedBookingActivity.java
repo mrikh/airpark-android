@@ -23,7 +23,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 // Note: Code for Delete button still to be fixed!
-
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * The Selected Upcoming/Past Booking Screen
+ */
 public class SelectedBookingActivity extends AppCompatActivity {
 
     private TextView airportView, carparkType, entryDate, exitDate, carparkPrice, carparkInfo, priceMoreInfo;
@@ -37,9 +44,7 @@ public class SelectedBookingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_selected_booking);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bindUiItems();
 

@@ -23,6 +23,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Fragment for Upcoming Bookings tab
+ */
 public class UpcomingBookingsFragment extends Fragment {
 
     private RecyclerView recyclerView;

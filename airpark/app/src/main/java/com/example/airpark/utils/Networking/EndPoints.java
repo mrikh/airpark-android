@@ -1,5 +1,12 @@
 package com.example.airpark.utils.Networking;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ */
 public class EndPoints{
 
     static String login = "login-user";
