@@ -18,6 +18,12 @@
         <item name="tabBackground">@drawable/tab_background</item>
         <item name="tabTextColor">@color/light_blue</item>
         <item name="tabSelectedTextColor">@color/white</item>
-        <item name="tabIndicatorHeight">5dp</item>
+    </style>
+
+    <!-- Stripe Style -->
+    <style name="StripeDefaultTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorAccent">@color/primary_blue</item>
+        <item name="titleTextColor">@color/white</item>
     </style>
 </resources>

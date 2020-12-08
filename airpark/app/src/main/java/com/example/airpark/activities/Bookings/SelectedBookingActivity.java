@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-// Note: Code for QR code button and Delete button still to be fixed!
+// Note: Code for Delete button still to be fixed!
 
 public class SelectedBookingActivity extends AppCompatActivity {
 
@@ -66,7 +66,7 @@ public class SelectedBookingActivity extends AppCompatActivity {
         Glide.with(this).load(booking.getCarparkImage()).into(imageView);
         priceMoreInfo.setText(R.string.discount_info);
 
-        // QR code button -- ADD
+        // QR code button
         qrBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, QRgeneratorActivity.class);
             intent.putExtra("screen name", "my booking");

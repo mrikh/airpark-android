@@ -17,6 +17,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/my_bookings_list_item" />
+        tools:listitem="@layout/search_carpark_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

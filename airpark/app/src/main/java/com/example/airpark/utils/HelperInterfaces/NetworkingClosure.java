@@ -1,6 +1,5 @@
 package com.example.airpark.utils.HelperInterfaces;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public interface NetworkingClosure {
