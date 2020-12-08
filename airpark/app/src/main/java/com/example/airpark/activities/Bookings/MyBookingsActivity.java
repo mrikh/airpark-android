@@ -48,8 +48,6 @@ public class MyBookingsActivity extends AppCompatActivity{
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         //Tab Color Change
-        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

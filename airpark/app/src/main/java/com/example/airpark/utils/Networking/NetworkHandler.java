@@ -3,6 +3,7 @@ package com.example.airpark.utils.Networking;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 
 import org.json.JSONObject;
@@ -21,6 +22,20 @@ public class NetworkHandler {
         }
 
         return shared;
+    }
+
+    public void pastBookings(NetworkingClosure completion){
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("user_id", Integer.toString(UserModel.currentUser.getId()));
+        performGetRequest(EndPoints.historyBookings, map, completion);
+    }
+
+    public void upcomingBookings(NetworkingClosure completion){
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("user_id", Integer.toString(UserModel.currentUser.getId()));
+        performGetRequest(EndPoints.upcomingBookings, map, completion);
     }
 
     public void paymentDone(JSONObject object, NetworkingClosure completion){

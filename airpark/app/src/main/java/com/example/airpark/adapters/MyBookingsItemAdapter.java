@@ -11,24 +11,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.airpark.R;
 import com.example.airpark.activities.Bookings.SelectedBookingActivity;
+import com.example.airpark.models.BookingModel;
 import com.example.airpark.models.BookingTicket;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAdapter.MyViewHolder> {
-    private List<BookingTicket> bookingsList;
-    private Context context;
-    private ArrayList<String> test;
 
-    public MyBookingsItemAdapter(List<BookingTicket> bookingsList){
-        this.bookingsList = bookingsList;
-    }
+    private Context context;
+    private ArrayList<BookingModel> result;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy - hh:mm a");
+
     //Remove once database is added
-    public MyBookingsItemAdapter(ArrayList<String> test){
-        this.test = test;
+    public MyBookingsItemAdapter(ArrayList<BookingModel> result){
+        this.result = result;
     }
 
     @NonNull
@@ -41,32 +43,39 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
     @Override
     public void onBindViewHolder(@NonNull MyBookingsItemAdapter.MyViewHolder holder, int position) {
 
-        /**Hardcoded**/
-        holder.airportName.setText(test.get(0));
-        holder.bookingDate.setText(test.get(2));
-        holder.carparkName.setText(test.get(1));
+        BookingModel model = result.get(position);
+
+        holder.airportName.setText(model.getAirportName());
+        holder.carparkName.setText(model.getCarparkName());
+
+        String entry = sdf.format(new Date(model.getStartDateTime()));
+        String[] entryDateAndTime = entry.split(" - ");
+
+        String exit = sdf.format(new Date(model.getStartDateTime()));
+        String[] exitDateAndTime = exit.split(" - ");
+
+        holder.bookingDate.setText(entryDateAndTime[0] + "-" + exitDateAndTime[0]);
 
         holder.nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SelectedBookingActivity.class);
-//                intent.putExtra("ticket", ticket);
+                intent.putExtra("ticket", result.get(position));
                 context.startActivity(intent);
             }
         });
 
-//        Glide.with(holder.carparkImage.getContext()).load(carpark.getCarparkImage()).into(holder.carparkImage);
+        Glide.with(holder.myBookingsImage.getContext()).load(model.getCarparkImage()).into(holder.myBookingsImage);
     }
 
     @Override
     public int getItemCount() {
-//        return bookingsList.size();
-        return test.size();
+        return result.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView airportName, bookingDate, carparkName;
-        private ImageView nextBtn;
+        private ImageView nextBtn, myBookingsImage;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -76,6 +85,7 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
             bookingDate = (TextView) itemView.findViewById(R.id.myBooking_dates);
             carparkName = (TextView) itemView.findViewById(R.id.myBooking_carparkName);
             nextBtn = (ImageView) itemView.findViewById(R.id.myBookings_nextButton);
+            myBookingsImage = itemView.findViewById(R.id.myBookings_image);
         }
     }
 }
