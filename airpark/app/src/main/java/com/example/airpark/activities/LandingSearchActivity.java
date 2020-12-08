@@ -205,7 +205,7 @@ public class LandingSearchActivity extends AppCompatActivity {
                     public void completion(JSONObject object, String message) {
                         progressBar.setVisibility(View.INVISIBLE);
                         if (object == null){
-                            Toast.makeText(progressBar.getContext(), message, Toast.LENGTH_LONG);
+                            Toast.makeText(progressBar.getContext(), message, Toast.LENGTH_LONG).show();
                         }else{
                             //Move to Next Screen
                             Intent myIntent = new Intent(progressBar.getContext(), CarparkListActivity.class);

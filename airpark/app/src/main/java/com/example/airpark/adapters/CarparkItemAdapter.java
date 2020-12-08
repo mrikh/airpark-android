@@ -56,10 +56,12 @@ public class CarparkItemAdapter extends RecyclerView.Adapter<CarparkItemAdapter.
         final CarPark carpark = carparkList.get(position);
         holder.carparkName.setText(carpark.getCarparkName());
         holder.carparkType.setText(carpark.getCarparkTypeString());
+
         if(carpark.getCarparkType() == CarPark.CarParkType.LONG_TERM){
-            holder.carparkPrice.setText(R.string.euro + df.format(carpark.getPrice()) + R.string.price_per_day);
+            String value = context.getString(R.string.euro) + df.format(carpark.getPrice()) + context.getString(R.string.price_per_day);
+            holder.carparkPrice.setText(value);
         }else{
-            holder.carparkPrice.setText(R.string.euro + df.format(carpark.getPrice()) + R.string.price_per_hour);
+            holder.carparkPrice.setText(context.getString(R.string.euro) + df.format(carpark.getPrice()) + context.getString(R.string.price_per_hour));
         }
 
         holder.nextButton.setOnClickListener(new View.OnClickListener() {

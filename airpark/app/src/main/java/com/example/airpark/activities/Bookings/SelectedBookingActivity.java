@@ -91,7 +91,6 @@ public class SelectedBookingActivity extends AppCompatActivity {
 
         // change method for delete button -- ADD
         deleteBtn.setOnClickListener(v -> {});
-
     }
 
     @Override

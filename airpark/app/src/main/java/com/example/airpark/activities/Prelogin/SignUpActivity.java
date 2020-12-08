@@ -145,7 +145,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(myIntent);
                             }catch (Exception e){
-                                Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+                                Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     }

@@ -44,7 +44,9 @@ public class QRgeneratorActivity extends AppCompatActivity {
         ALPHA_NUMERIC_STRING = myIntent.getStringExtra("code");
 
         //If viewing booking from my bookings
-        if(getIntent().getStringExtra("screen name").equals("my booking")){
+        String comingFrom = getIntent().getStringExtra("screen name");
+
+        if(comingFrom != null && comingFrom.equalsIgnoreCase("my booking")){
             title.setVisibility(View.GONE);
             homeBtn.setVisibility(View.GONE);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -117,7 +117,7 @@ public class StripeActivity extends AppCompatActivity {
                                 });
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(progressBar.getContext(), getString(R.string.something_wrong), Toast.LENGTH_LONG);
+                                Toast.makeText(progressBar.getContext(), getString(R.string.something_wrong), Toast.LENGTH_LONG).show();
                             }
                         }
 

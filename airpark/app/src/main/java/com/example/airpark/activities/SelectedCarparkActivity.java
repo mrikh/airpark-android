@@ -35,7 +35,6 @@ public class SelectedCarparkActivity extends AppCompatActivity {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy - hh:mm a");
     private DecimalFormat df = new DecimalFormat("#.00");
 
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +49,15 @@ public class SelectedCarparkActivity extends AppCompatActivity {
 
         //Default Short Term
         carparkInfo.setText(R.string.short_term_info);
-        carparkPrice.setText(getString(R.string.price) + ": " + R.string.euro + df.format(ticket.getSelectedCarPark().getPrice()) + getString(R.string.price_per_hour));
+        String finalString = getString(R.string.price) + ": " + getString(R.string.euro) + df.format(ticket.getSelectedCarPark().getPrice()) + getString(R.string.price_per_hour);
+        carparkPrice.setText(finalString);
 
         //Change Screen Title if Long Term Car Park
         if(ticket.getSelectedCarPark().getCarparkType() == CarPark.CarParkType.LONG_TERM){
             setTitle(R.string.carpark_long_term);
             carparkInfo.setText(R.string.long_term_info);
-            carparkPrice.setText(getString(R.string.price) + ": " + R.string.euro + df.format(ticket.getSelectedCarPark().getPrice()) + getString(R.string.price_per_day));
+            finalString = getString(R.string.price) + ": " + getString(R.string.euro) + df.format(ticket.getSelectedCarPark().getPrice()) + getString(R.string.price_per_day);
+            carparkPrice.setText(finalString);
         }
 
         airportView.setText(ticket.getAirport().getAirportName());
