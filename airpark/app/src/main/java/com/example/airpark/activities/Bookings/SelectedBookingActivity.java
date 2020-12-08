@@ -46,6 +46,10 @@ public class SelectedBookingActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         booking = (BookingModel)myIntent.getSerializableExtra("booking");
 
+        if(booking.isLongTerm()) {
+            setTitle(R.string.carpark_long_term);
+        }
+
         // Following works for Details Page:
         //Default Short Term
         carparkInfo.setText(R.string.short_term_info);
@@ -66,6 +70,7 @@ public class SelectedBookingActivity extends AppCompatActivity {
         qrBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, QRgeneratorActivity.class);
             intent.putExtra("screen name", "my booking");
+            intent.putExtra("code", booking.getUniqueCode());
             startActivity(intent);
         });
 
