@@ -38,8 +38,7 @@
             android:parentActivityName=".activities.SelectedCarparkActivity"/>
 
         <activity
-            android:name=".activities.Payments.StripeActivity"
-            android:parentActivityName=".activities.EnterDetailsActivity"/>
+            android:name=".activities.Payments.StripeActivity"/>
 
         <activity
             android:name=".activities.QRgeneratorActivity"

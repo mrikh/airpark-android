@@ -173,6 +173,7 @@ public class LandingSearchActivity extends AppCompatActivity {
                 String finalEntryString = entryD + " " + entryT;
                 String finalExitString = exitD + " " + exitT;
 
+                //Update booking ticket
                 try {
                     Date finalEntryDate = sdf.parse(finalEntryString);
                     Date finalExitDate = sdf.parse(finalExitString);
@@ -186,7 +187,7 @@ public class LandingSearchActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(), getString(R.string.something_wrong), Toast.LENGTH_LONG).show();
                     return;
                 }
-                //Update booking ticket
+
                 CarParkSpaceFactory carpParkSpaceFactory = new CarParkSpaceFactory();
 
                 if(disabilityCheck.isChecked()){

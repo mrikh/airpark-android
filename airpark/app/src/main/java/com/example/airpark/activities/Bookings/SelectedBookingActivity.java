@@ -1,15 +1,16 @@
 package com.example.airpark.activities.Bookings;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -19,8 +20,6 @@ import com.example.airpark.activities.QRgeneratorActivity;
 import com.example.airpark.models.BookingModel;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Airpark Application - Group 14
@@ -50,12 +49,11 @@ public class SelectedBookingActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         booking = (BookingModel)myIntent.getSerializableExtra("booking");
 
+        //Default Short Term
         if(booking.isLongTerm()) {
             setTitle(R.string.carpark_long_term);
         }
 
-        // Following works for Details Page:
-        //Default Short Term
         carparkInfo.setText(R.string.short_term_info);
         carparkPrice.setText(getString(R.string.price) + ": " + getString(R.string.euro) + df.format(booking.getFinalPrice()));
 
@@ -78,11 +76,24 @@ public class SelectedBookingActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //     Observer Pattern - - Delete Button (Publisher)
+        // Observer Pattern - - Delete Button (Publisher)
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage();
+                AlertDialog.Builder builder = new AlertDialog.Builder(SelectedBookingActivity.this);
+                builder.setTitle("Confirm Cancel Booking");
+                builder.setMessage("Are you sure you want to cancel this booking?");
+                builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener(){
+                    public  void onClick(DialogInterface dialog, int id){
+                        sendMessage();
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+
+                    }
+                });
+                builder.show();
             }
         });
     }
@@ -113,7 +124,6 @@ public class SelectedBookingActivity extends AppCompatActivity {
 
     private void sendMessage() {
         Intent intent = new Intent(MyBookingsActivity.kDeleteBooking);
-        // You can also include some extra data.
         intent.putExtra("booking", booking);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         finish();

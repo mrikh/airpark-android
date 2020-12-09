@@ -5,35 +5,26 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.airpark.R;
 import com.example.airpark.activities.LandingSearchActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.adapters.MyBookingsAdapter;
-import com.example.airpark.models.BookingModel;
-import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.TextView;
 
-import java.util.AbstractSequentialList;
-import java.util.List;
 /**
  * Airpark Application - Group 14
  *
@@ -64,7 +55,6 @@ public class MyBookingsActivity extends AppCompatActivity{
         viewPager.setAdapter(bookingsAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        //Tab Color Change
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -98,7 +88,7 @@ public class MyBookingsActivity extends AppCompatActivity{
         TextView emailTextView = headerView.findViewById(R.id.emailTextView);
         emailTextView.setText(UserModel.currentUser.getEmail());
 
-        //Hide Login View
+        //Hide Login View from menu
         Menu menu = navigationView.getMenu();
         menu.findItem(R.id.login).setVisible(false);
 

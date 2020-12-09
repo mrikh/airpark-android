@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 import com.androidnetworking.AndroidNetworking;
 import com.example.airpark.R;
-import com.example.airpark.activities.Payments.StripeActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.activities.LandingSearchActivity;
 import com.example.airpark.models.UserModel;
