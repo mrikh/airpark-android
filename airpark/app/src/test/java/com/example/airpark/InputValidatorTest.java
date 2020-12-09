@@ -34,4 +34,6 @@ public class InputValidatorTest {
     public void emailValidationTest(String email, boolean result) {
         assertEquals(result, validator.isValidEmail(email));
     }
+
+
 }
