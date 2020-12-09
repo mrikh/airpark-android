@@ -4,6 +4,14 @@ import com.example.airpark.models.DisabledSpace;
 import com.example.airpark.models.GeneralSpace;
 import com.example.airpark.models.MotorbikeSpace;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Car Park  Space Factory -> Returns the car park space type depending on the vehicle
+ */
 public class CarParkSpaceFactory {
 
     public enum SpaceType{

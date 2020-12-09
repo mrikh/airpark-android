@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * CS4125 -> System Analysis & Design
  * CS5721 -> Software Design
  *
- * Car Park Options Screen (available car parks to choose from)
+ * Car Park List Options Screen (available car parks to choose from)
  */
 public class CarparkListActivity extends AppCompatActivity {
 

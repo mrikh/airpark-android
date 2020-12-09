@@ -23,6 +23,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Creates each item in My Bookings upcoming or past bookings
+ */
 public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAdapter.MyViewHolder> {
 
     private Context context;

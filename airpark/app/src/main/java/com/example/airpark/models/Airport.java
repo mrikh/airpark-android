@@ -5,6 +5,14 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * An airport (in Ireland)
+ */
 public class Airport implements Serializable {
     private String airportName;
     private int airportID;

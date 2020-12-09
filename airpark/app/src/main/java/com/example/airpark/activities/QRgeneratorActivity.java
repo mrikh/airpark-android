@@ -20,6 +20,14 @@ import com.google.zxing.WriterException;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * Screen generating and displaying booking ticket QR code
+ */
 public class QRgeneratorActivity extends AppCompatActivity {
 
     private String ALPHA_NUMERIC_STRING;
@@ -43,7 +51,7 @@ public class QRgeneratorActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         ALPHA_NUMERIC_STRING = myIntent.getStringExtra("code");
 
-        //If viewing booking from my bookings
+        //If viewing booking QR from My Bookings section
         String comingFrom = getIntent().getStringExtra("screen name");
 
         if(comingFrom != null && comingFrom.equalsIgnoreCase("my booking")){

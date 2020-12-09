@@ -24,6 +24,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * The Selected Upcoming/Past Booking Screen
+ */
 public class SelectedBookingActivity extends AppCompatActivity {
 
     private TextView airportView, carparkType, entryDate, exitDate, carparkPrice, carparkInfo, priceMoreInfo;
@@ -37,9 +45,7 @@ public class SelectedBookingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_selected_booking);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bindUiItems();
 
@@ -64,9 +70,9 @@ public class SelectedBookingActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.carpark_image);
 
         Glide.with(this).load(booking.getCarparkImage()).into(imageView);
-        priceMoreInfo.setText(R.string.discount_info);
+        priceMoreInfo.setVisibility(View.GONE);
 
-        // QR code button -- ADD
+        // QR code button
         qrBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, QRgeneratorActivity.class);
             intent.putExtra("screen name", "my booking");

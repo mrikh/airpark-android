@@ -1,5 +1,13 @@
 package com.example.airpark.models;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * A user of the app that has signed-up/logged in
+ */
 public class UserModel {
 
     public static UserModel currentUser;

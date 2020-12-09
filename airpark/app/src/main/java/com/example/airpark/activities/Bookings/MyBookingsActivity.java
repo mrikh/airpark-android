@@ -27,7 +27,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.TextView;
-
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * User's My Booking Screen -> Only available to app members
+ */
 public class MyBookingsActivity extends AppCompatActivity{
 
     private ActionBarDrawerToggle drawerToggle;
