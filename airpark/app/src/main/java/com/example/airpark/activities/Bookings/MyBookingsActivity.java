@@ -10,6 +10,8 @@ import com.example.airpark.R;
 import com.example.airpark.activities.LandingSearchActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.adapters.MyBookingsAdapter;
+import com.example.airpark.models.BookingModel;
+import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -31,6 +33,7 @@ public class MyBookingsActivity extends AppCompatActivity{
     private ActionBarDrawerToggle drawerToggle;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    public static String kDeleteBooking = "delete_booking";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,25 +65,6 @@ public class MyBookingsActivity extends AppCompatActivity{
         });
 
         setupDrawer();
-
-        // Observer Pattern - deletion of listing from Bookings Page.
-
-        // Observer Activity Code (Receiver/Subscriber) - - Listing in app
-
-        // Register to receive messages?
-        // We are registering an observer (mMessageReceiver) to receive Intents
-        // with actions named "delete_booking".
-//        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-//                new IntentFilter("delete_booking"));
-//
-//        // Publisher Activity Code (Sender) - - Details (where delete button is)
-//        // Every time the delete button is clicked, we want to broadcast a notification.
-//        findViewById(R.id.myBookings_delete).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sendMessage();
-//            }
-//        });
     }
 
     private void setupDrawer(){
@@ -157,69 +141,4 @@ public class MyBookingsActivity extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
-
-//     Observer Pattern - deletion of listing from Bookings Page.
-//
-//     Observer Activity Code (Receiver/Subscriber) - - Listing in app
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        ...
-//
-//        // Register to receive messages?
-//        // We are registering an observer (mMessageReceiver) to receive Intents
-//        // with actions named "delete_booking".
-//        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-//                new IntentFilter("delete_booking"));
-//    }
-
-
-    // Our handler for received Intents. This will be called whenever an Intent
-    // with an action named "delete_booking" is broadcasted.
-//    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            // Get extra data included in the Intent
-//            String message = intent.getStringExtra("message");
-//            Log.d("receiver", "Got message: " + message);
-//        }
-//    };
-
-//    @Override
-//    protected void onDestroy(List<BookingTicket> bookingsList) {
-//        // Unregister since the activity is about to be closed.
-//        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-//        int indexOfDeleted = bookingsList.indexOf(bookingsList);
-//        bookingsList.remove(indexOfDeleted);
-//        super.onDestroy();
-//    }
-
-
-    // Publisher Activity Code (Sender) - - Details (where delete button is)
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        ...
-//
-//
-//        // Every time the delete button is clicked, we want to broadcast a notification.
-//        findViewById(@+id/card_deleteBooking).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sendMessage();
-//            }
-//        });
-//    }
-
-    // Send an Intent with an action named "delete_booking". The Intent sent should
-    // be received by the ReceiverActivity.
-//    private void sendMessage() {
-//        Log.d("sender", "Broadcasting message");
-//        Intent intent = new Intent("delete_booking");
-//        // You can also include some extra data.
-//        intent.putExtra("message", "This booking has now been deleted.");
-//        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-//    }
-
-    // Note: every time the button @+id/card_deleteBooking is clicked, an Intent is broadcasted
-    //  and is received by mMessageReceiver in ReceiverActivity.
-
 }

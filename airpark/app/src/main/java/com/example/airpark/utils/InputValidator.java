@@ -1,6 +1,5 @@
 package com.example.airpark.utils;
 
-import android.content.res.Resources;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

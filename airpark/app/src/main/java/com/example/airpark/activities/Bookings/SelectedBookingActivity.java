@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.bumptech.glide.Glide;
 import com.example.airpark.R;
@@ -21,8 +23,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-// Note: Code for QR code button and Delete button still to be fixed!
 
 public class SelectedBookingActivity extends AppCompatActivity {
 
@@ -74,8 +74,13 @@ public class SelectedBookingActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // change method for delete button -- ADD
-        deleteBtn.setOnClickListener(v -> {});
+        //     Observer Pattern - - Delete Button (Publisher)
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessage();
+            }
+        });
     }
 
     @Override
@@ -102,4 +107,11 @@ public class SelectedBookingActivity extends AppCompatActivity {
         priceMoreInfo = findViewById(R.id.more_price_info);
     }
 
+    private void sendMessage() {
+        Intent intent = new Intent(MyBookingsActivity.kDeleteBooking);
+        // You can also include some extra data.
+        intent.putExtra("booking", booking);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        finish();
+    }
 }

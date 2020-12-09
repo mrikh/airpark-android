@@ -169,11 +169,13 @@
         <!--Delete button for Observer Pattern -->
         <ImageView
             android:id="@+id/deleteButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/button_delete"
+            android:onClick="onClick"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.952"
             app:layout_constraintStart_toStartOf="parent"

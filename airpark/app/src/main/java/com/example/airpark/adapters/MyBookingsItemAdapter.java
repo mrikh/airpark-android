@@ -16,6 +16,7 @@ import com.example.airpark.R;
 import com.example.airpark.activities.Bookings.SelectedBookingActivity;
 import com.example.airpark.models.BookingModel;
 import com.example.airpark.models.BookingTicket;
+import com.example.airpark.utils.Networking.NetworkHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,6 +67,26 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
         });
 
         Glide.with(holder.myBookingsImage.getContext()).load(model.getCarparkImage()).into(holder.myBookingsImage);
+    }
+
+    public void deleteBooking(BookingModel model){
+
+        //different instance of object so we need to manually search in the list
+        int position = -1;
+        for (int i = 0; i < result.size(); i++){
+            BookingModel current = result.get(i);
+            if (current.getBookingId() == model.getBookingId()){
+                position = i;
+                break; //found
+            }
+        }
+
+        if (position == -1) {return;} // do nothing
+
+        result.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, result.size());
+        NetworkHandler.getInstance().cancelBooking(model.getBookingId());
     }
 
     @Override

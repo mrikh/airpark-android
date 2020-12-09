@@ -24,6 +24,20 @@ public class NetworkHandler {
         return shared;
     }
 
+    public void cancelBooking(int bookingId){
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("booking_id", Integer.toString(bookingId));
+
+        AndroidNetworking.put(httpUrl + EndPoints.cancelBooking).addQueryParameter(map).build().getAsJSONObject(new JSONObjectRequestListener() {
+            @Override
+            public void onResponse(JSONObject response) { /* do nothing */ }
+
+            @Override
+            public void onError(ANError anError) { /* do nothing */}
+        });
+    }
+
     public void pastBookings(NetworkingClosure completion){
 
         HashMap<String, String> map = new HashMap<>();

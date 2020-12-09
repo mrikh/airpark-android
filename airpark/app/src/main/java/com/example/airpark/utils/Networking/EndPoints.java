@@ -11,4 +11,5 @@ public class EndPoints{
     static String paymentDone = "payment-done";
     static String upcomingBookings = "get-upcoming-bookings";
     static String historyBookings = "get-past-bookings";
+    static String cancelBooking = "cancel-booking";
 }
