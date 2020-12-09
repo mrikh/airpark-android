@@ -11,6 +11,7 @@ import com.example.airpark.R;
 import com.example.airpark.activities.LandingSearchActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.adapters.MyBookingsAdapter;
+import com.example.airpark.models.BookingModel;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
 import com.google.android.material.navigation.NavigationView;
@@ -33,13 +34,20 @@ import android.widget.TextView;
 
 import java.util.AbstractSequentialList;
 import java.util.List;
-
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * User's My Booking Screen -> Only available to app members
+ */
 public class MyBookingsActivity extends AppCompatActivity{
 
     private ActionBarDrawerToggle drawerToggle;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-//    public int indexOfDeleted;
+    public static String kDeleteBooking = "delete_booking";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +79,6 @@ public class MyBookingsActivity extends AppCompatActivity{
         });
 
         setupDrawer();
-
-        // Observer Pattern - deletion of listing from Bookings Page.
-        // Observer Activity Code (Receiver/Subscriber) - - Listing in app
-        // We are registering an observer (mMessageReceiver) to receive Intents
-        // with actions named "delete_booking".
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("delete_booking"));
-
     }
 
     private void setupDrawer(){
@@ -154,29 +155,4 @@ public class MyBookingsActivity extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    // Observer Pattern - - Our handler for received Intents. This will be called whenever an Intent
-    // with an action named "delete_booking" is broadcasted.
-    BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
-            String message = intent.getStringExtra("message");
-            Log.d("receiver", "Got message: " + message);
-        }
-
-    };
-
-    // Observer Pattern - -
-    @Override
-    protected void onDestroy() {
-        // GET BOOKING TICKET
-//   List<BookingTicket> bookingsList = null;    Need to initialise this but what set/get will I create/use?
-        // Unregister since the activity is about to be closed.
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-        bookingsList.remove(bookingsList);
-        super.onDestroy();
-    }
-
 }

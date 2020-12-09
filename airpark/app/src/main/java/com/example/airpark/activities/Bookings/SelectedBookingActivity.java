@@ -19,7 +19,17 @@ import com.example.airpark.activities.QRgeneratorActivity;
 import com.example.airpark.models.BookingModel;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * The Selected Upcoming/Past Booking Screen
+ */
 public class SelectedBookingActivity extends AppCompatActivity {
 
     private TextView airportView, carparkType, entryDate, exitDate, carparkPrice, carparkInfo, priceMoreInfo;
@@ -33,9 +43,7 @@ public class SelectedBookingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_selected_booking);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bindUiItems();
 
@@ -60,7 +68,7 @@ public class SelectedBookingActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.carpark_image);
 
         Glide.with(this).load(booking.getCarparkImage()).into(imageView);
-        priceMoreInfo.setText(R.string.discount_info);
+        priceMoreInfo.setVisibility(View.GONE);
 
         // QR code button
         qrBtn.setOnClickListener(v -> {
@@ -71,12 +79,11 @@ public class SelectedBookingActivity extends AppCompatActivity {
         });
 
         //     Observer Pattern - - Delete Button (Publisher)
-        // Every time the delete button is clicked, we want to broadcast a notification.
-        deleteBtn.setOnClickListener(v -> {findViewById(R.id.deleteButton).setOnClickListener(new View.OnClickListener() {
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendMessage();
-            }});
+            }
         });
     }
 
@@ -104,23 +111,11 @@ public class SelectedBookingActivity extends AppCompatActivity {
         priceMoreInfo = findViewById(R.id.more_price_info);
     }
 
-
-    //     Observer Pattern - deletion of listing from Bookings Page
-
-    // Publisher Activity Code (Sender) - - Details (where delete button is)
-
-    // Send an Intent with an action named "delete_booking". The Intent sent should
-    // be received by the ReceiverActivity in MyBookingsActivity.
     private void sendMessage() {
-        Log.d("sender", "Broadcasting message");
-        Intent intent = new Intent("delete_booking");
+        Intent intent = new Intent(MyBookingsActivity.kDeleteBooking);
         // You can also include some extra data.
-        intent.putExtra("message", "This booking has now been deleted.");
+        intent.putExtra("booking", booking);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        finish();
     }
-
-    // Note: every time the button @+id/deleteButton is clicked, an Intent is broadcasted
-    //  and is received by mMessageReceiver in ReceiverActivity (in MyBookingsActivity).
-
-
 }

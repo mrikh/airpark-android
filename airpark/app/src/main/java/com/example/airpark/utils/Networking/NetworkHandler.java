@@ -10,6 +10,13 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ */
 public class NetworkHandler {
 
     private static NetworkHandler shared = null;
@@ -22,6 +29,20 @@ public class NetworkHandler {
         }
 
         return shared;
+    }
+
+    public void cancelBooking(int bookingId){
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("booking_id", Integer.toString(bookingId));
+
+        AndroidNetworking.put(httpUrl + EndPoints.cancelBooking).addQueryParameter(map).build().getAsJSONObject(new JSONObjectRequestListener() {
+            @Override
+            public void onResponse(JSONObject response) { /* do nothing */ }
+
+            @Override
+            public void onError(ANError anError) { /* do nothing */}
+        });
     }
 
     public void pastBookings(NetworkingClosure completion){

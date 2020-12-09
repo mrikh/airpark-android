@@ -12,18 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Airpark">
-        <activity android:name=".activities.Payments.StripeActivity"/>
 
-        <activity
-            android:name=".activities.QRgeneratorActivity"
-            android:label="QR Code"/>
-
-        <activity
-            android:name=".activities.Bookings.MyBookingsActivity"
-            android:label="My Bookings" />
-        <activity
-            android:name=".activities.Bookings.SelectedBookingActivity"
-            android:label="Short Term" />
 
         <activity
             android:name=".activities.Prelogin.LoginActivity"
@@ -48,6 +37,21 @@
             android:label="Enter Details"
             android:parentActivityName=".activities.SelectedCarparkActivity"/>
 
+        <activity
+            android:name=".activities.Payments.StripeActivity"
+            android:parentActivityName=".activities.EnterDetailsActivity"/>
+
+        <activity
+            android:name=".activities.QRgeneratorActivity"
+            android:label="QR Code"/>
+
+        <activity
+            android:name=".activities.Bookings.MyBookingsActivity"
+            android:label="My Bookings" />
+        <activity
+            android:name=".activities.Bookings.SelectedBookingActivity"
+            android:label="Short Term"
+            android:parentActivityName=".activities.Bookings.MyBookingsActivity"/>
 
         <activity android:name=".activities.Main.MainActivity">
             <intent-filter>

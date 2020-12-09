@@ -239,4 +239,5 @@ public class StripeActivity extends AppCompatActivity {
             activity.displayAlert(activity.getString(R.string.oops), e.toString(), activity.cancelListener);
         }
     }
+
 }

@@ -17,6 +17,14 @@ import com.stripe.android.PaymentConfiguration;
 
 import org.json.JSONObject;
 
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * The initial app activity -> Checks if user is logged in or not
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

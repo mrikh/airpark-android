@@ -10,7 +10,14 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.airpark.fragments.PastBookingsFragment;
 import com.example.airpark.fragments.UpcomingBookingsFragment;
 
-
+/**
+ * Airpark Application - Group 14
+ *
+ * CS4125 -> System Analysis & Design
+ * CS5721 -> Software Design
+ *
+ * My Bookings fragment adapter -> chooses screen info to display
+ */
 public class MyBookingsAdapter extends FragmentPagerAdapter {
 
     Context context;

@@ -44,7 +44,7 @@ import org.json.JSONObject;
  * CS4125 -> System Analysis & Design
  * CS5721 -> Software Design
  *
- * Enter User Details screen -> details applied to booking
+ * Enter User Details screen -> details applied to booking ticket
  */
 public class EnterDetailsActivity extends AppCompatActivity {
 
