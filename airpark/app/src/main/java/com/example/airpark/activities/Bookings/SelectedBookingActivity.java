@@ -81,17 +81,15 @@ public class SelectedBookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SelectedBookingActivity.this);
-                builder.setTitle("Confirm Cancel Booking");
-                builder.setMessage("Are you sure you want to cancel this booking?");
+                builder.setTitle("Confirm Delete Booking");
+                builder.setMessage("Are you sure you want to delete this booking?");
                 builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener(){
                     public  void onClick(DialogInterface dialog, int id){
                         sendMessage();
                     }
                 });
                 builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int id){
-
-                    }
+                    public void onClick(DialogInterface dialog, int id){}
                 });
                 builder.show();
             }
