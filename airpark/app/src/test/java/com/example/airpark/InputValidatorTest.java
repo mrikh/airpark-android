@@ -2,11 +2,14 @@ package com.example.airpark;
 
 import com.example.airpark.utils.InputValidator;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.text.ParseException;
 
 import static org.junit.Assert.*;
 
@@ -35,5 +38,14 @@ public class InputValidatorTest {
         assertEquals(result, validator.isValidEmail(email));
     }
 
-
+    @ParameterizedTest
+    @CsvSource({"'', false", "' ', false", "sd, false", "mayank rikh, true", "Michael O' Mahony, true", "Sinéad Cahill, true"})
+    public void checkValidName(String name, Boolean result){
+        try {
+            assertEquals(result, validator.isValidName(name));
+        }catch(Exception e){
+            //we don't want exception generated
+            Assert.fail();
+        }
+    }
 }
