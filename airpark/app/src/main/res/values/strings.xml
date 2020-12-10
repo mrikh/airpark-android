@@ -72,4 +72,5 @@
     <string name="view_qr_code">VIEW QR CODE</string>
     <string name="upcoming_tab">Upcoming</string>
     <string name="past_tab">Past</string>
+    <string name="booking_deleted">Booking Deleted</string>
 </resources>

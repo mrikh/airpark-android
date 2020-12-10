@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +38,6 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
     private ArrayList<BookingModel> result;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy - hh:mm a");
 
-    //Remove once database is added
     public MyBookingsItemAdapter(ArrayList<BookingModel> result){
         this.result = result;
     }
@@ -95,6 +95,7 @@ public class MyBookingsItemAdapter extends RecyclerView.Adapter<MyBookingsItemAd
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, result.size());
         NetworkHandler.getInstance().cancelBooking(model.getBookingId());
+        Toast.makeText(context.getApplicationContext(), R.string.booking_deleted, Toast.LENGTH_LONG).show();
     }
 
     @Override
