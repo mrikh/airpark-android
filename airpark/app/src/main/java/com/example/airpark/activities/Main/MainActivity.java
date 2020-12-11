@@ -3,18 +3,25 @@ package com.example.airpark.activities.Main;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import com.androidnetworking.AndroidNetworking;
 import com.example.airpark.R;
 import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.activities.LandingSearchActivity;
+import com.example.airpark.designPatterns.state.Connected;
+import com.example.airpark.designPatterns.state.Disconnected;
 import com.example.airpark.models.UserModel;
+import com.example.airpark.utils.Networking.NetworkHandler;
 import com.example.airpark.utils.Utilities;
 import com.stripe.android.PaymentConfiguration;
 
 import org.json.JSONObject;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 /**
  * Airpark Application - Group 14
@@ -36,6 +43,16 @@ public class MainActivity extends AppCompatActivity {
         PaymentConfiguration.init(getApplicationContext(), "pk_test_51HrvFLISFKjjBkEL0Vnxz62UUYtlQpDJcrUHmvSIvqed63wxTel3PfaZhdvhTT0uqKukhLVKfBpv4bkBPZItYJEB00SeuhsWMH");
 
         AndroidNetworking.initialize(getApplicationContext());
+
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()){
+            Connected conn = new Connected();
+            conn.doAction(NetworkHandler.getInstance().connectionStatus);
+        }else{
+            Disconnected disconn = new Disconnected();
+            disconn.doAction(NetworkHandler.getInstance().connectionStatus);
+        }
+
         Intent myIntent;
         try{
             JSONObject object = Utilities.getInstance().fetchJsonObject(getApplicationContext(), "user");

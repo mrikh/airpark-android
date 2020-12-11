@@ -3,6 +3,7 @@ package com.example.airpark.utils.Networking;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.airpark.designPatterns.state.NetworkConnection;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 
@@ -21,6 +22,11 @@ public class NetworkHandler {
 
     private static NetworkHandler shared = null;
     private static String httpUrl = "https://airpark-django.herokuapp.com/api/";
+    public NetworkConnection connectionStatus;
+
+    private NetworkHandler(){
+        this.connectionStatus = new NetworkConnection();
+    }
 
     public static NetworkHandler getInstance(){
 
@@ -118,6 +124,10 @@ public class NetworkHandler {
 
     private void performPostRequest(String endpoint, JSONObject params, NetworkingClosure completion){
 
+        if (!connectionStatus.getState().isConnected()){
+            completion.completion(null, connectionStatus.getState().toString());
+        }
+
         AndroidNetworking.post(httpUrl + endpoint).addJSONObjectBody(params).build().getAsJSONObject(new JSONObjectRequestListener() {
             @Override
             public void onResponse(JSONObject response) {
@@ -149,6 +159,10 @@ public class NetworkHandler {
     }
 
     private void performGetRequest(String endpoint, HashMap<String, String> params, NetworkingClosure completion){
+
+        if (!connectionStatus.getState().isConnected()){
+            completion.completion(null, connectionStatus.getState().toString());
+        }
 
         AndroidNetworking.get(httpUrl + endpoint).addQueryParameter(params).build().getAsJSONObject(new JSONObjectRequestListener() {
             @Override
