@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.EnterDetailsActivity;
-import com.example.airpark.activities.LandingSearchActivity;
+import com.example.airpark.activities.Create.EnterDetailsActivity;
+import com.example.airpark.activities.Create.LandingSearchActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.ErrorRemoveInterface;

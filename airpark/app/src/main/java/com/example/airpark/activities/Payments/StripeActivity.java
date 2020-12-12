@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.QRgeneratorActivity;
+import com.example.airpark.activities.Create.QRgeneratorActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import com.example.airpark.utils.Networking.NetworkHandler;

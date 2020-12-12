@@ -7,7 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.airpark.R;
-import com.example.airpark.activities.LandingSearchActivity;
+import com.example.airpark.activities.Create.LandingSearchActivity;
 import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.adapters.MyBookingsAdapter;
 import com.example.airpark.models.UserModel;

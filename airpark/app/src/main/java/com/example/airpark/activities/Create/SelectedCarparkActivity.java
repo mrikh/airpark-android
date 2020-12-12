@@ -1,4 +1,4 @@
-package com.example.airpark.activities;
+package com.example.airpark.activities.Create;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

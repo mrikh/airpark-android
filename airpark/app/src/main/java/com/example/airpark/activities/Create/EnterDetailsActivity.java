@@ -1,4 +1,4 @@
-package com.example.airpark.activities;
+package com.example.airpark.activities.Create;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,6 @@ import com.example.airpark.activities.Prelogin.LoginActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.models.Vehicle;
-import com.example.airpark.designPatterns.factory.VehicleFactory;
 import com.example.airpark.utils.HelperInterfaces.Callback;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
 import com.example.airpark.utils.HelperInterfaces.StripeCompletionAction;

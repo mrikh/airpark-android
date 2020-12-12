@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.airpark.R;
-import com.example.airpark.activities.SelectedCarparkActivity;
+import com.example.airpark.activities.Create.SelectedCarparkActivity;
 import com.example.airpark.models.BookingTicket;
 import com.example.airpark.models.CarPark;
 

@@ -3,7 +3,7 @@ package com.example.airpark.activities.Prelogin;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.airpark.activities.LandingSearchActivity;
+import com.example.airpark.activities.Create.LandingSearchActivity;
 import com.example.airpark.models.UserModel;
 import com.example.airpark.utils.HelperInterfaces.ErrorRemoveInterface;
 import com.example.airpark.utils.HelperInterfaces.NetworkingClosure;
@@ -12,16 +12,11 @@ import com.example.airpark.utils.Networking.NetworkHandler;
 import com.example.airpark.utils.Utilities;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
-import android.text.style.UnderlineSpan;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;

@@ -16,7 +16,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.bumptech.glide.Glide;
 import com.example.airpark.R;
-import com.example.airpark.activities.QRgeneratorActivity;
+import com.example.airpark.activities.Create.QRgeneratorActivity;
 import com.example.airpark.models.BookingModel;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

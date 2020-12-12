@@ -11,7 +11,7 @@ import android.os.Bundle;
 import com.androidnetworking.AndroidNetworking;
 import com.example.airpark.R;
 import com.example.airpark.activities.Prelogin.LoginActivity;
-import com.example.airpark.activities.LandingSearchActivity;
+import com.example.airpark.activities.Create.LandingSearchActivity;
 import com.example.airpark.designPatterns.state.Connected;
 import com.example.airpark.designPatterns.state.Disconnected;
 import com.example.airpark.models.UserModel;
@@ -20,8 +20,6 @@ import com.example.airpark.utils.Utilities;
 import com.stripe.android.PaymentConfiguration;
 
 import org.json.JSONObject;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 /**
  * Airpark Application - Group 14

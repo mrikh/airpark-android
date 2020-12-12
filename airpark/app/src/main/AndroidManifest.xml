@@ -18,31 +18,31 @@
         <activity
             android:name=".activities.Prelogin.LoginActivity"
             android:label="Login"
-            android:parentActivityName=".activities.EnterDetailsActivity"/>
+            android:parentActivityName=".activities.Create.EnterDetailsActivity"/>
         <activity
             android:name=".activities.Prelogin.SignUpActivity"
             android:label="Sign Up"
             android:parentActivityName=".activities.Prelogin.LoginActivity" />
         <activity
-            android:name=".activities.LandingSearchActivity"
+            android:name=".activities.Create.LandingSearchActivity"
             android:label="AirPark"/>
         <activity
-            android:name=".activities.CarparkListActivity"
+            android:name=".activities.Create.CarparkListActivity"
             android:label="Select Car Park"
-            android:parentActivityName=".activities.LandingSearchActivity"/>
+            android:parentActivityName=".activities.Create.LandingSearchActivity"/>
         <activity
-            android:name=".activities.SelectedCarparkActivity"
+            android:name=".activities.Create.SelectedCarparkActivity"
             android:label="@string/carpark_short_term" />
         <activity
-            android:name=".activities.EnterDetailsActivity"
+            android:name=".activities.Create.EnterDetailsActivity"
             android:label="Enter Details"
-            android:parentActivityName=".activities.SelectedCarparkActivity"/>
+            android:parentActivityName=".activities.Create.SelectedCarparkActivity"/>
 
         <activity
             android:name=".activities.Payments.StripeActivity"/>
 
         <activity
-            android:name=".activities.QRgeneratorActivity"
+            android:name=".activities.Create.QRgeneratorActivity"
             android:label="QR Code"/>
 
         <activity
