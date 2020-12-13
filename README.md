@@ -1,4 +1,4 @@
-# airpark-android
+# Airpark - Android Application
 Android app code for the airpark app
 
 ## Setup
